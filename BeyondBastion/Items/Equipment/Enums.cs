@@ -18,7 +18,7 @@ namespace BeyondBastion.Items.Equipment
 
     public enum Tier
     {
-        Common = 0,
+        Standard = 0,
         Blessed = 1,
         Hallowed = 2,
     }

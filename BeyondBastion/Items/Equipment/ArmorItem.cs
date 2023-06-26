@@ -13,7 +13,7 @@ namespace BeyondBastion.Items.Equipment
             double weight, 
             double value, 
             EquipmentSlot slot) : base(name, description, weight, value, slot) { }
-        public double DamageReduction { get; }
-        public double InjuryProtection { get; }
+        public double Mitigation { get; }
+        //public double InjuryProtection { get; }
     }
 }

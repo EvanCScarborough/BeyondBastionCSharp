@@ -39,6 +39,7 @@ namespace BeyondBastion
         {
             InitializeComponent();
             currentWorld = world;
+            currentWorld.log.LogUpdated += UpdateLog;
 
             PartyBoxes = new List<GroupBox>
             {
@@ -135,13 +136,16 @@ namespace BeyondBastion
             }
         }
 
+        private void UpdateLog(object sender, string newLine)
+        {
+            LogTextBox.AppendText(newLine + "\n");
+        }
+
         private void OuchieButton_Click(object sender, EventArgs e)
         {
-            foreach (Character c in currentWorld.PlayerParty)
+            foreach (Character c in currentWorld.PlayerParty.ToList())
             {
-                c.Health -= 10;
-                c.Energy -= 10;
-                c.Sanity -= 10;
+                c.TakeDamage(10, c.BodyParts[0], DamageSource.Absolute);
             }
 
             UpdatePartyView();

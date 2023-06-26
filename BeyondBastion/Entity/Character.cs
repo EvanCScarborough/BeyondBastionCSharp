@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
+using BeyondBastion.Events;
 
 namespace BeyondBastion.Entity
 {
@@ -15,39 +17,19 @@ namespace BeyondBastion.Entity
         Left, Right
     }
 
-    public class Character : IEntity
+    public class Character : Entity
     {
-        private static Random random = new Random();
-        private static int GetRandomStatValue()
+        public Character(string name, World currentWorld) : base(name, currentWorld, new List<BodyPart>
         {
-            return (int)Math.Round(((random.NextDouble() * 50) + (random.NextDouble() * 50)) / 2);
-        }
-
-        public Character(string name)
+                new BodyPart(BodyPartType.Head),
+                new BodyPart(BodyPartType.LeftArm),
+                new BodyPart(BodyPartType.RightArm),
+                new BodyPart(BodyPartType.Torso),
+                new BodyPart(BodyPartType.LeftLeg),
+                new BodyPart(BodyPartType.RightLeg),
+        })
         {
-            Name = name;
-            Vitality = GetRandomStatValue();
-            Focus = GetRandomStatValue();
-            Endurance = GetRandomStatValue();
-            Strength = GetRandomStatValue();
-            Knowledge = GetRandomStatValue();
-            Charisma = GetRandomStatValue();
-
-            BodyParts = new List<BodyPart>
-            {
-                new BodyPart(this, BodyPartType.Head),
-                new BodyPart(this, BodyPartType.LeftArm),
-                new BodyPart(this, BodyPartType.RightArm),
-                new BodyPart(this, BodyPartType.Torso),
-                new BodyPart(this, BodyPartType.LeftLeg),
-                new BodyPart(this, BodyPartType.RightLeg),
-            };
-
-            Handedness = (random.NextDouble() >= 0.12) ? Handedness.Right : Handedness.Left;
-
-            Health = GetMaxHealth();
-            Energy = GetMaxEnergy();
-            Sanity = GetMaxSanity();
+            Handedness = (random.NextDouble() < 0.12) ? Handedness.Left : Handedness.Right;
 
             Equipment[EquipmentSlot.Head] = null;
             Equipment[EquipmentSlot.Torso] = null;
@@ -57,78 +39,11 @@ namespace BeyondBastion.Entity
             Equipment[EquipmentSlot.OffHand] = null;
         }
 
-        public List<BodyPart> BodyParts { get; }
-
-        public string Name { get; }
-
-        public int Vitality { get; }
-        public int Focus { get; }
-        public int Endurance { get; }
-        public int Strength { get; }
-        public int Knowledge { get; }
-        public int Charisma { get; }
-
         public Handedness Handedness { get; }
-
-        public double Health { get; set; }
-        public double Energy { get; set; }
-        public double Sanity { get; set; }
 
         public Dictionary<EquipmentSlot, EquipmentItem> Equipment { get; set; } = new Dictionary<EquipmentSlot, EquipmentItem> { };
 
-        public int GetBaseHealth()
-        {
-            return 50 + Vitality * 2;
-        }
-        public int GetMaxHealth()
-        {
-            int maxMax = GetBaseHealth();
-            int actualMax = maxMax;
-            foreach (BodyPart part in BodyParts)
-            {
-                foreach (Injury inj in part.Injuries)
-                {
-                    actualMax -= (int)Math.Ceiling(maxMax * part.GetPenaltyFromInjuries());
-                }
-            }
-
-            if (Health > actualMax) { Health = actualMax; }
-            return actualMax;
-        }
-
-        public int GetBaseEnergy()
-        {
-            return 50 + Endurance * 2;
-        }
-        public int GetMaxEnergy()
-        {
-            int maxMax = GetBaseEnergy();
-            int actualMax = maxMax;
-
-            if (Energy > actualMax) { Energy = actualMax; }
-            return actualMax;
-        }
-
-        public int GetBaseSanity()
-        {
-            return 50 + Focus * 2;
-        }
-        public int GetMaxSanity()
-        {
-            int maxMax = GetBaseSanity();
-            int actualMax = maxMax;
-
-            if (Sanity > actualMax) { Sanity = actualMax; }
-            return actualMax;
-        }
-        public void UpdateStats()
-        {
-            GetMaxHealth();
-            GetMaxEnergy();
-            GetMaxSanity();
-        }
-
-        public double GetAttackDamage() // returns total attack damage from weapon and stats
+        public override double GetAttackDamage() // returns total attack damage from weapon and stats
         {
             if (Equipment[EquipmentSlot.MainHand] == null)
             {
@@ -140,45 +55,45 @@ namespace BeyondBastion.Entity
                 return weapon.BaseDamage + GetAttackDamageMod();
             }
         }
-        public double GetAttackDamageMod() // returns attack damage modifier from stats
+        public override double GetAttackDamageMod() // returns attack damage modifier from stats
         {
             if (Equipment[EquipmentSlot.MainHand] == null)
             {
-                return Strength * 0.15;
+                return Math.Round(Strength * 0.15, 1);
             }
             else
             {
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
                 if (weapon.Type == WeaponType.Power)
                 {
-                    return Strength * weapon.DamageScaling;
+                    return Math.Round(Strength * weapon.DamageScaling, 1);
                 }
                 else /*if (weapon.Type == WeaponType.Technique)*/
                 {
-                    return (Focus + Knowledge) / 2 * weapon.DamageScaling;
+                    return Math.Round((Focus + Knowledge) / 2 * weapon.DamageScaling, 1);
                 }
             }
         }
 
 
-        public double GetAttackSpeed() // returns total attack speed from weapon and current Energy
+        public override double GetAttackSpeed() // returns total attack speed from weapon and current Energy
         {
             if (Equipment[EquipmentSlot.MainHand] == null)
             {
-                return 2 + GetAttackSpeedMod(2);
+                return Math.Round(2 + GetAttackSpeedMod(2), 1);
             }
             else
             {
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
-                return weapon.AttackSpeed + GetAttackSpeedMod(weapon.AttackSpeed);
+                return Math.Round(weapon.AttackSpeed + GetAttackSpeedMod(weapon.AttackSpeed), 1);
             }
         }
-        public double GetAttackSpeedMod(double baseSpeed) // returns attack speed modifier from current Energy
+        public override double GetAttackSpeedMod(double baseSpeed) // returns attack speed modifier from current Energy
         {
-            return (baseSpeed * 0.5) + (baseSpeed * 0.5 * (Energy / 100)) - baseSpeed;
+            return Math.Round((baseSpeed * 0.5) + (baseSpeed * 0.5 * (Energy / 100)) - baseSpeed, 1);
         }
 
-        public double GetBlockChance()
+        public override double GetBlockChance()
         {
             double blockChance = 0;
             if (Equipment[EquipmentSlot.MainHand] != null)
@@ -191,10 +106,10 @@ namespace BeyondBastion.Entity
                 ShieldItem shield = (ShieldItem)Equipment[EquipmentSlot.OffHand];
                 blockChance += shield.BlockChance;
             }
-            return blockChance;
+            return Math.Round(blockChance, 2);
         }
 
-        public double GetWoundChance() // returns total wound chance from weapon and stats
+        public override double GetWoundChance() // returns total wound chance from weapon and stats
         {
             double woundChance = 0;
             if (Equipment[EquipmentSlot.MainHand] != null)
@@ -202,9 +117,9 @@ namespace BeyondBastion.Entity
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
                 woundChance = weapon.WoundChance + GetWoundChanceMod();
             }
-            return woundChance;
+            return Math.Round(woundChance, 2);
         }
-        public double GetWoundChanceMod() // returns wound chance modifier from stats
+        public override double GetWoundChanceMod() // returns wound chance modifier from stats
         {
             double woundChanceMod = 0;
             if (Equipment[EquipmentSlot.MainHand] != null)
@@ -219,10 +134,10 @@ namespace BeyondBastion.Entity
                     woundChanceMod = (Focus + Knowledge) / 2 * weapon.DamageScaling * 0.6 / 100;
                 }
             }
-            return woundChanceMod;
+            return Math.Round(woundChanceMod, 2);
         }
 
-        public double GetFractureChance()
+        public override double GetFractureChance()
         {
             double fractureChance = 0;
             if (Equipment[EquipmentSlot.MainHand] != null)
@@ -230,9 +145,9 @@ namespace BeyondBastion.Entity
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
                 fractureChance = weapon.FractureChance + GetFractureChanceMod();
             }
-            return fractureChance;
+            return Math.Round(fractureChance, 2);
         }
-        public double GetFractureChanceMod()
+        public override double GetFractureChanceMod()
         {
             double fractureChanceMod = 0;
             if (Equipment[EquipmentSlot.MainHand] != null)
@@ -247,10 +162,10 @@ namespace BeyondBastion.Entity
                     fractureChanceMod = (Focus + Knowledge) / 2 * weapon.DamageScaling * 0.6 / 100;
                 }
             }
-            return fractureChanceMod;
+            return Math.Round(fractureChanceMod, 2);
         }
 
-        public double GetDismemberChance()
+        public override double GetDismemberChance()
         {
             double dismemberChance = 0;
             if (Equipment[EquipmentSlot.MainHand] != null)
@@ -258,9 +173,9 @@ namespace BeyondBastion.Entity
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
                 dismemberChance = weapon.DismemberChance + GetDismemberChanceMod();
             }
-            return dismemberChance;
+            return Math.Round(dismemberChance, 2);
         }
-        public double GetDismemberChanceMod()
+        public override double GetDismemberChanceMod()
         {
             double dismemberChanceMod = 0;
             if (Equipment[EquipmentSlot.MainHand] != null)
@@ -275,10 +190,10 @@ namespace BeyondBastion.Entity
                     dismemberChanceMod = (Focus + Knowledge) / 2 * weapon.DamageScaling * 0.6 / 100;
                 }
             }
-            return dismemberChanceMod;
+            return Math.Round(dismemberChanceMod, 2);
         }
 
-        public double GetKnockdownChance()
+        public override double GetKnockdownChance()
         {
             double knockdownChance = 0.02;
             if (Equipment[EquipmentSlot.MainHand] != null)
@@ -286,9 +201,9 @@ namespace BeyondBastion.Entity
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
                 knockdownChance += weapon.KnockdownChance;
             }
-            return knockdownChance + GetKnockdownChanceMod();
+            return Math.Round(knockdownChance + GetKnockdownChanceMod(), 2);
         }
-        public double GetKnockdownChanceMod()
+        public override double GetKnockdownChanceMod()
         {
             double knockdownChanceMod;
             if (Equipment[EquipmentSlot.MainHand] != null)
@@ -300,15 +215,73 @@ namespace BeyondBastion.Entity
                 }
                 else /*if (weapon.Type == WeaponType.Technique)*/
                 {
-                    knockdownChanceMod = Math.Round((Focus + Knowledge) / 2 * weapon.DamageScaling * 0.2 / 100, 3);
+                    knockdownChanceMod = (Focus + Knowledge) / 2 * weapon.DamageScaling * 0.2 / 100;
                 }
             }
-            else return Math.Round(Strength * 0.2 / 100, 3);
-            return knockdownChanceMod;
+            else return Math.Round(Strength * 0.2 / 100, 2);
+            return Math.Round(knockdownChanceMod, 2);
         }
 
-        public void TakeDamage(double amount, BodyPart target)
+        public override double GetBodyPartMitigation(BodyPart bodyPart) // returns the mitigation of the armor that protects the given body part
         {
+            switch (bodyPart.Type)
+            {
+                case BodyPartType.Head:
+                    return ((ArmorItem)Equipment[EquipmentSlot.Head]).Mitigation;
+
+                case BodyPartType.LeftArm:
+                    return ((ArmorItem)Equipment[EquipmentSlot.Arms]).Mitigation;
+
+                case BodyPartType.RightArm:
+                    return ((ArmorItem)Equipment[EquipmentSlot.Arms]).Mitigation;
+
+                case BodyPartType.Torso:
+                    return ((ArmorItem)Equipment[EquipmentSlot.Torso]).Mitigation;
+
+                case BodyPartType.LeftLeg:
+                    return ((ArmorItem)Equipment[EquipmentSlot.Legs]).Mitigation;
+
+                case BodyPartType.RightLeg:
+                    return ((ArmorItem)Equipment[EquipmentSlot.Legs]).Mitigation;
+
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
+
+        public override double TakeDamage(double amount, BodyPart target, DamageSource source)
+        {
+            double damageDealt = amount;
+            if (source == DamageSource.MeleeAttack || source == DamageSource.RangedAttack) // attacks are mitigated and affected by body part damage multipliers
+            {
+                damageDealt -= damageDealt * GetBodyPartMitigation(target);
+                damageDealt *= target.DamageMultiplier;
+            }
+
+            Health -= damageDealt;
+
+            if (Health <= 0) { Die(); }
+            return damageDealt;
+        }
+        public override double TakeSanityDamage(double amount, SanityDamageSource source)
+        {
+            double damageDealt = amount;
+            Sanity -= damageDealt;
+
+            if (Sanity <= 0) { Die(); }
+            return damageDealt;
+        }
+        public override double TakeEnergyDamage(double amount, EnergyDamageSource source)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WitnessEntityDeath(EntityDeathEvent e)
+        {
+            if (CurrentWorld.PlayerParty.Contains(this) && CurrentWorld.PlayerParty.Contains(e.EntityKilled))
+            {
+                TakeSanityDamage(16, SanityDamageSource.WitnessDeath);
+            }
 
         }
     }

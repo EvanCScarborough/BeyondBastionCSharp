@@ -18,10 +18,9 @@ namespace BeyondBastion.Entity.BodyParts
 
     public class BodyPart
     {
-        public BodyPart(IEntity owner, BodyPartType type, List<Injury> injuries = null) 
+        public BodyPart(BodyPartType type, List<Injury> injuries = null) 
         {
             Type = type;
-            Owner = owner;
             switch (Type)
             {
                 case BodyPartType.Head:
@@ -54,14 +53,13 @@ namespace BeyondBastion.Entity.BodyParts
         }
 
         public BodyPartType Type { get; }
-        public IEntity Owner { get; }
         public double DamageMultiplier { get; }
         public string Name { get; }
-        public List<Injury> Injuries { get; private set; }
+        private List<Injury> Injuries { get; set; }
 
         public List<Injury> AddInjury(InjuryType type)
         {
-            Injury injury = new Injury(this, type);
+            Injury injury = new Injury(type);
             if (injury.Type == InjuryType.Dismemberment)
             {
                 Injuries = new List<Injury>
@@ -82,7 +80,11 @@ namespace BeyondBastion.Entity.BodyParts
                     AddInjury(InjuryType.Dismemberment);
                 }
             }
-            Owner.GetMaxHealth();
+            return Injuries;
+        }
+
+        public List<Injury> GetInjuries()
+        {
             return Injuries;
         }
 
@@ -91,7 +93,7 @@ namespace BeyondBastion.Entity.BodyParts
             double penalty = 0;
             foreach (Injury inj in Injuries)
             {
-                penalty += inj.GetPenalty() * DamageMultiplier;
+                penalty += inj.GetPenalty();
             }
             return penalty;
         }

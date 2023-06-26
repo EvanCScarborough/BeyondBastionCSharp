@@ -69,9 +69,9 @@ namespace BeyondBastion
             {
                 AttackDamageLabel.Text = CreateStatLabel(DisplayedCharacter.GetAttackDamage(), 1, DisplayedCharacter.GetAttackDamageMod());
                 AttackSpeedLabel.Text = $"{DisplayedCharacter.GetAttackSpeed():0.0} (2 {(DisplayedCharacter.GetAttackSpeedMod(2) >= 0 ? "+" : "-")} {(DisplayedCharacter.GetAttackSpeedMod(2) >= 0 ? DisplayedCharacter.GetAttackSpeedMod(2) : DisplayedCharacter.GetAttackSpeedMod(2) * -1):0.0})";
-                WoundChanceLabel.Text = "0.0%";
-                FractureChanceLabel.Text = "0.0%";
-                DismemberChanceLabel.Text = "0.0%";
+                WoundChanceLabel.Text = "0%";
+                FractureChanceLabel.Text = "0%";
+                DismemberChanceLabel.Text = "0%";
                 KnockdownChanceLabel.Text = CreateStatLabel(DisplayedCharacter.GetKnockdownChance(), 0.02, DisplayedCharacter.GetKnockdownChanceMod(), true);
             }
             else
@@ -80,22 +80,22 @@ namespace BeyondBastion
                 AttackDamageLabel.Text = CreateStatLabel(DisplayedCharacter.GetAttackDamage(), weapon.BaseDamage, DisplayedCharacter.GetAttackDamageMod());
                 AttackSpeedLabel.Text = CreateStatLabel(DisplayedCharacter.GetAttackSpeed(), weapon.AttackSpeed, DisplayedCharacter.GetAttackSpeedMod(DisplayedCharacter.GetAttackSpeed()));
                 WoundChanceLabel.Text = CreateStatLabel(DisplayedCharacter.GetWoundChance(), weapon.WoundChance, DisplayedCharacter.GetWoundChanceMod(), true);
-
-
+                FractureChanceLabel.Text = CreateStatLabel(DisplayedCharacter.GetFractureChance(), weapon.FractureChance, DisplayedCharacter.GetFractureChanceMod(), true);
+                DismemberChanceLabel.Text = CreateStatLabel(DisplayedCharacter.GetDismemberChance(), weapon.DismemberChance, DisplayedCharacter.GetDismemberChanceMod(), true);
                 KnockdownChanceLabel.Text = CreateStatLabel(DisplayedCharacter.GetKnockdownChance(), 0.02 + weapon.KnockdownChance, DisplayedCharacter.GetKnockdownChanceMod(), true);
             }
-            BlockChanceLabel.Text = $"{DisplayedCharacter.GetBlockChance() * 100:0.0}%";
+            BlockChanceLabel.Text = $"{DisplayedCharacter.GetBlockChance() * 100}%";
 
             // Initialize the Injuries tree
             InjuriesTree.Nodes.Clear();
             foreach (BodyPart part in DisplayedCharacter.BodyParts)
             {
-                if (part.Injuries.Count > 0)
+                if (part.GetInjuries().Count > 0)
                 {
                     TreeNode newParentNode = new TreeNode(part.Name);
                     int nodeIndex = InjuriesTree.Nodes.Add(newParentNode);
 
-                    foreach (Injury inj in part.Injuries)
+                    foreach (Injury inj in part.GetInjuries())
                     {
                         TreeNode newNode = new TreeNode(inj.Name);
                         InjuriesTree.Nodes[nodeIndex].Nodes.Add(newNode);
@@ -147,9 +147,9 @@ namespace BeyondBastion
         {
             if (formatAsPercent)
             {
-                return $"{total * 100:0.0}% ({baseStat * 100:0.0}% {(modifier < 0 ? $"- {modifier * -100:0.0}" : $"+ {modifier * 100:0.0}")}%)";
+                return $"{total * 100}% ({baseStat * 100} {(modifier < 0 ? $"- {modifier * -100}" : $"+ {modifier * 100}")})";
             }
-            return $"{total:0.0} ({baseStat:0.0} {(modifier < 0 ? $"- {modifier * -1:0.0}" : $"+ {modifier:0.0}")})";
+            return $"{total} ({baseStat} {(modifier < 0 ? $"- {modifier * -1}" : $"+ {modifier}")})";
         }
         private void CloseButton_Click(object sender, EventArgs e)
         {

@@ -83,8 +83,20 @@ namespace BeyondBastion
                 {
                     WeaponItem weaponItem = (WeaponItem)SelectedStack.Item;
 
-                    ItemDescriptionLabel.Text = weaponItem.Description;
                     ItemNameLabel.Text = weaponItem.Name;
+                    switch (weaponItem.Tier)
+                    {
+                        case Tier.Standard:
+                            ItemNameLabel.ForeColor = Color.White;
+                            break;
+                        case Tier.Blessed:
+                            ItemNameLabel.ForeColor = Color.Turquoise;
+                            break;
+                        case Tier.Hallowed:
+                            ItemNameLabel.ForeColor = Color.Magenta;
+                            break;
+                    }
+                    ItemDescriptionLabel.Text = weaponItem.Description;
 
                     Label1.Text = "Damage:";
                     Value1.Text = weaponItem.BaseDamage.ToString();

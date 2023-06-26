@@ -17,9 +17,8 @@ namespace BeyondBastion.Entity.BodyParts
     }
     public class Injury
     {
-        public Injury(BodyPart owner, InjuryType type)
+        public Injury(InjuryType type)
         {
-            Owner = owner;
             Type = type;
             switch (Type)
             {
@@ -41,7 +40,6 @@ namespace BeyondBastion.Entity.BodyParts
                     break;
             }
         }
-        public BodyPart Owner { get; private set; }
         public InjuryType Type { get; }
         public string Name { get; } = string.Empty;
         public string Description { get; } = string.Empty;

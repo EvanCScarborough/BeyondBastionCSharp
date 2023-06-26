@@ -50,7 +50,10 @@
     <Compile Include="Entity\BodyParts\BodyPart.cs" />
     <Compile Include="Entity\BodyParts\Injury.cs" />
     <Compile Include="Entity\Character.cs" />
+    <Compile Include="Entity\Entity.cs" />
+    <Compile Include="Entity\DamageSource.cs" />
     <Compile Include="Entity\IEntity.cs" />
+    <Compile Include="Events\EntityDeathEvent.cs" />
     <Compile Include="Items\Equipment\Weapons\ShieldItem.cs" />
     <Compile Include="UI\InspectWindow.cs">
       <SubType>Form</SubType>
@@ -93,6 +96,7 @@
       <DependentUpon>SelectFromListDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\StatBar.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="World.cs" />
     <Compile Include="UI\YesNoDialog.cs">
       <SubType>Form</SubType>

@@ -23,7 +23,7 @@ namespace BeyondBastion.Items.Equipment
             }
             else
             {
-                Tier = Tier.Common;
+                Tier = Tier.Standard;
             }
         }
         private static Random random = new Random();
@@ -32,7 +32,7 @@ namespace BeyondBastion.Items.Equipment
 
         public static double GenerateStat(double min, double max, bool isPercent=true)
         {
-            return isPercent ? Math.Round(min + random.NextDouble() * (max - min), 3) : Math.Round(min + random.NextDouble() * (max - min), 1);
+            return isPercent ? Math.Round(min + random.NextDouble() * (max - min), 2) : Math.Round(min + random.NextDouble() * (max - min), 1);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace BeyondBastion.Items.Equipment.Weapons
                 GenerateStat(1.4, 1.6, false),      // attack speed
                 GenerateStat(0.08, 0.16),           // block chance
                 GenerateStat(0.18, 0.26),           // wound chance
-                GenerateStat(0.08, 0.12),           // fracture chance
+                GenerateStat(0.06, 0.08),           // fracture chance
                 GenerateStat(0.02, 0.06),           // dismember chance
                 GenerateStat(0.06, 0.10),           // knockdown chance
                 0.2                                 // damage scaling
