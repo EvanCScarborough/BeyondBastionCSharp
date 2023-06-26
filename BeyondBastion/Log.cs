@@ -11,11 +11,6 @@ namespace BeyondBastion
         {
             CurrentWorld = currentWorld;
             Lines = new List<string>();
-
-            foreach (Character playerChar in currentWorld.PlayerParty)
-            {
-                playerChar.Death += PlayerParty_Death;
-            }
         }
         public List<string> Lines { get; }
         public World CurrentWorld { get; }
@@ -27,7 +22,7 @@ namespace BeyondBastion
             return Lines;
         }
 
-        private void PlayerParty_Death(object sender, EntityDeathEvent e)
+        public void PlayerParty_Death(object sender, EntityDeathEvent e)
         {
             string newLine = $"{e.EntityKilled.Name} ";
             if (e.Killer != null)

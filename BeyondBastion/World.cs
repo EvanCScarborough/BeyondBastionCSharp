@@ -35,6 +35,7 @@ namespace BeyondBastion
             Character character = new Character(name, this);
             EntitiesList.Add(character);
             character.Death += BroadcastEntityDeath;
+            character.Death += log.PlayerParty_Death;
             return character;
         }
 
