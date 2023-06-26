@@ -54,6 +54,8 @@
     <Compile Include="Entity\DamageSource.cs" />
     <Compile Include="Entity\IEntity.cs" />
     <Compile Include="Events\EntityDeathEvent.cs" />
+    <Compile Include="Items\Consumables\Bread.cs" />
+    <Compile Include="Items\Consumables\FoodItem.cs" />
     <Compile Include="Items\Equipment\Weapons\ShieldItem.cs" />
     <Compile Include="UI\InspectWindow.cs">
       <SubType>Form</SubType>

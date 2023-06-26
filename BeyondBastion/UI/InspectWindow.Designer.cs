@@ -64,6 +64,8 @@
             this.BaseStatsTable = new System.Windows.Forms.TableLayoutPanel();
             this.CombatBox = new System.Windows.Forms.GroupBox();
             this.CombatTable = new System.Windows.Forms.TableLayoutPanel();
+            this.KnockdownChanceLabel = new System.Windows.Forms.Label();
+            this.DismemberChanceLabel = new System.Windows.Forms.Label();
             this.FractureChanceLabel = new System.Windows.Forms.Label();
             this.WoundChanceLabel = new System.Windows.Forms.Label();
             this.StaticFractureChanceLabel = new System.Windows.Forms.Label();
@@ -82,8 +84,6 @@
             this.EnduranceLabel = new System.Windows.Forms.Label();
             this.StrengthLabel = new System.Windows.Forms.Label();
             this.VitalityLabel = new System.Windows.Forms.Label();
-            this.DismemberChanceLabel = new System.Windows.Forms.Label();
-            this.KnockdownChanceLabel = new System.Windows.Forms.Label();
             this.MainTable.SuspendLayout();
             this.CloseButtonTable.SuspendLayout();
             this.CharacterNameBox.SuspendLayout();
@@ -537,6 +537,30 @@
             this.CombatTable.Size = new System.Drawing.Size(311, 252);
             this.CombatTable.TabIndex = 1;
             // 
+            // KnockdownChanceLabel
+            // 
+            this.KnockdownChanceLabel.AutoSize = true;
+            this.KnockdownChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.KnockdownChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.KnockdownChanceLabel.Location = new System.Drawing.Point(158, 150);
+            this.KnockdownChanceLabel.Name = "KnockdownChanceLabel";
+            this.KnockdownChanceLabel.Size = new System.Drawing.Size(150, 25);
+            this.KnockdownChanceLabel.TabIndex = 13;
+            this.KnockdownChanceLabel.Text = "10%";
+            this.KnockdownChanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // DismemberChanceLabel
+            // 
+            this.DismemberChanceLabel.AutoSize = true;
+            this.DismemberChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DismemberChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DismemberChanceLabel.Location = new System.Drawing.Point(158, 125);
+            this.DismemberChanceLabel.Name = "DismemberChanceLabel";
+            this.DismemberChanceLabel.Size = new System.Drawing.Size(150, 25);
+            this.DismemberChanceLabel.TabIndex = 12;
+            this.DismemberChanceLabel.Text = "10%";
+            this.DismemberChanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // FractureChanceLabel
             // 
             this.FractureChanceLabel.AutoSize = true;
@@ -753,30 +777,6 @@
             this.VitalityLabel.Text = "Vitality: 25";
             this.VitalityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // DismemberChanceLabel
-            // 
-            this.DismemberChanceLabel.AutoSize = true;
-            this.DismemberChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DismemberChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DismemberChanceLabel.Location = new System.Drawing.Point(158, 125);
-            this.DismemberChanceLabel.Name = "DismemberChanceLabel";
-            this.DismemberChanceLabel.Size = new System.Drawing.Size(150, 25);
-            this.DismemberChanceLabel.TabIndex = 12;
-            this.DismemberChanceLabel.Text = "10%";
-            this.DismemberChanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // KnockdownChanceLabel
-            // 
-            this.KnockdownChanceLabel.AutoSize = true;
-            this.KnockdownChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.KnockdownChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KnockdownChanceLabel.Location = new System.Drawing.Point(158, 150);
-            this.KnockdownChanceLabel.Name = "KnockdownChanceLabel";
-            this.KnockdownChanceLabel.Size = new System.Drawing.Size(150, 25);
-            this.KnockdownChanceLabel.TabIndex = 13;
-            this.KnockdownChanceLabel.Text = "10%";
-            this.KnockdownChanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // InspectWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -792,6 +792,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.InspectWindow_FormClosed);
             this.Load += new System.EventHandler(this.InspectWindow_Load);
             this.MainTable.ResumeLayout(false);
             this.CloseButtonTable.ResumeLayout(false);

@@ -40,6 +40,7 @@ namespace BeyondBastion.Entity
         }
 
         public Handedness Handedness { get; }
+        public int Fullness { get; set; } = 10;
 
         public Dictionary<EquipmentSlot, EquipmentItem> Equipment { get; set; } = new Dictionary<EquipmentSlot, EquipmentItem> { };
 
@@ -249,8 +250,10 @@ namespace BeyondBastion.Entity
             }
         }
 
-        public override double TakeDamage(double amount, BodyPart target, DamageSource source)
+        public override double TakeDamage(double amount, BodyPart target, DamageSource source, IEntity entitySource=null)
         {
+            if (IsDead) return 0;
+
             double damageDealt = amount;
             if (source == DamageSource.MeleeAttack || source == DamageSource.RangedAttack) // attacks are mitigated and affected by body part damage multipliers
             {
@@ -260,27 +263,51 @@ namespace BeyondBastion.Entity
 
             Health -= damageDealt;
 
-            if (Health <= 0) { Die(); }
+            if (Health <= 0) { Die(new EntityDeathEvent(this, source, wasPartyMember: CurrentWorld.PlayerParty.Contains(this), killer: entitySource)); }
             return damageDealt;
         }
-        public override double TakeSanityDamage(double amount, SanityDamageSource source)
+        public override double TakeSanityDamage(double amount, DamageSource source, IEntity entitySource=null)
         {
+            if (IsDead) return 0;
+
             double damageDealt = amount;
             Sanity -= damageDealt;
 
-            if (Sanity <= 0) { Die(); }
+            if (Sanity <= 0) { Die(new EntityDeathEvent(this, source, wasPartyMember: CurrentWorld.PlayerParty.Contains(this), killer: entitySource)); }
             return damageDealt;
         }
-        public override double TakeEnergyDamage(double amount, EnergyDamageSource source)
+        public override double TakeEnergyDamage(double amount, DamageSource source, IEntity entitySource=null)
         {
-            throw new NotImplementedException();
+            if (IsDead) return 0;
+
+            double damageDealt = amount;
+            Energy -= damageDealt;
+
+            if (Energy <= 0) { Die(new EntityDeathEvent(this, source, wasPartyMember: CurrentWorld.PlayerParty.Contains(this), killer: entitySource)); }
+            return damageDealt;
+        }
+
+        public void PassHour()
+        {
+            if (Fullness <= 0) TakeEnergyDamage(0.5, DamageSource.Hunger);
+            else
+            {
+                Fullness -= 1;
+                HealEnergy(1);
+            }
         }
 
         public void WitnessEntityDeath(EntityDeathEvent e)
         {
-            if (CurrentWorld.PlayerParty.Contains(this) && CurrentWorld.PlayerParty.Contains(e.EntityKilled))
+            if (IsDead) return;
+
+            if (e.WasPartyMember && CurrentWorld.PlayerParty.Contains(this))
             {
-                TakeSanityDamage(16, SanityDamageSource.WitnessDeath);
+                TakeSanityDamage(25, DamageSource.WitnessDeath, e.EntityKilled);
+            }
+            else
+            {
+                TakeSanityDamage(8, DamageSource.WitnessDeath);
             }
 
         }

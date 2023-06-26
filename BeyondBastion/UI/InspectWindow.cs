@@ -214,5 +214,10 @@ namespace BeyondBastion
         {
             InjuriesTree.SelectedNode = null;
         }
+
+        private void InspectWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Dispose();
+        }
     }
 }

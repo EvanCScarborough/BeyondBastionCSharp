@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BeyondBastion.Items.Consumables
+{
+    public enum FoodType
+    {
+        Protein,
+        Starch,
+        Comfort,
+    }
+    public abstract class FoodItem : Item
+    {
+        public FoodItem(string name, string description, double weight, double value, FoodType type, double bonusAmnt, double stomachAmnt) : base(name, description, weight, value, consumable: true)
+        {
+            Type = type;
+            BonusAmnt = bonusAmnt;
+            StomachAmnt = stomachAmnt;
+        }
+
+        public FoodType Type { get; }
+        public double BonusStat { get; }
+        public double BonusAmnt { get; }
+        public double StomachAmnt { get; }
+    }
+}

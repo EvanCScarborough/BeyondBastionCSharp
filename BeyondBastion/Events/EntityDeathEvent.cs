@@ -10,14 +10,18 @@ namespace BeyondBastion.Events
 {
     public class EntityDeathEvent
     {
-        public EntityDeathEvent(IEntity entityKilled, IEntity killer=null, WeaponItem weapon=null)
+        public EntityDeathEvent(IEntity entityKilled, DamageSource source, bool wasPartyMember=false, IEntity killer=null, WeaponItem weapon=null)
         {
             EntityKilled = entityKilled;
+            DamageSource = source;
+            WasPartyMember = wasPartyMember;
             Killer = killer;
             Weapon = weapon;
         }
 
         public IEntity EntityKilled { get; }
+        public DamageSource DamageSource { get; }
+        public bool WasPartyMember { get; }
         public IEntity Killer { get; }
         public WeaponItem Weapon { get; }
     }

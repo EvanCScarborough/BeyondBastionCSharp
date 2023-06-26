@@ -51,6 +51,8 @@ namespace BeyondBastion.Entity
         public int Knowledge { get; }
         public int Charisma { get; }
 
+        public bool IsDead { get; set; } = false;
+
         public event EventHandler<EntityDeathEvent> Death;
 
         public int GetBaseHealth()
@@ -127,9 +129,47 @@ namespace BeyondBastion.Entity
 
         public abstract double GetBodyPartMitigation(BodyPart bodyPart);
 
-        public abstract double TakeDamage(double amount, BodyPart target, DamageSource source);
-        public abstract double TakeSanityDamage(double amount, SanityDamageSource source);
-        public abstract double TakeEnergyDamage(double amount, EnergyDamageSource source);
+        public abstract double TakeDamage(double amount, BodyPart target, DamageSource source, IEntity attacker = null);
+        public double Heal(double amount)
+        {
+            if (IsDead) return 0;
+
+            if (Health + amount > GetMaxHealth())
+            {
+                amount -= Health + amount - GetMaxHealth();
+            }
+            Health += amount;
+
+            return amount;
+        }
+
+        public abstract double TakeSanityDamage(double amount, DamageSource source, IEntity attacker = null);
+        public double HealSanity(double amount)
+        {
+            if (IsDead) return 0;
+
+            if (Sanity + amount > GetMaxSanity())
+            {
+                amount -= Sanity + amount - GetMaxSanity();
+            }
+            Sanity += amount;
+
+            return amount;
+        }
+
+        public abstract double TakeEnergyDamage(double amount, DamageSource source, IEntity attacker = null);
+        public double HealEnergy(double amount)
+        {
+            if (IsDead) return 0;
+
+            if (Energy + amount > GetMaxEnergy())
+            {
+                amount -= Energy + amount - GetMaxEnergy();
+            }
+            Energy += amount;
+
+            return amount;
+        }
 
         public void Injure(BodyPart bodyPart, InjuryType type)
         {
@@ -137,9 +177,10 @@ namespace BeyondBastion.Entity
             GetMaxHealth();
         }
 
-        public void Die()
+        public void Die(EntityDeathEvent e)
         {
-            Death?.Invoke(this, new EntityDeathEvent(this));
+            IsDead = true;
+            Death?.Invoke(this, e);
         }
     }
 }

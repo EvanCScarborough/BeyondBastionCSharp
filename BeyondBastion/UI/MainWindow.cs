@@ -37,21 +37,26 @@ namespace BeyondBastion
 
         public MainWindow(World world)
         {
-            InitializeComponent();
             currentWorld = world;
             currentWorld.log.LogUpdated += UpdateLog;
+
+            InitializeComponent();
+
+            UpdateDisplay();
+        }
+
+        public void UpdateDisplay()
+        {
+            StatBars = new List<List<StatBar>>();
 
             PartyBoxes = new List<GroupBox>
             {
                 PartyMember1Box, PartyMember2Box, PartyMember3Box, PartyMember4Box
             };
 
-            UpdatePartyView();
-        }
+            DateTimeLabel.Text = GetTimeString();
+            GirnLabel.Text = $"Girn : {currentWorld.Girn}";
 
-        public void UpdatePartyView()
-        {
-            StatBars = new List<List<StatBar>>();
             for (int i = 0; i < 4; i++)
             {
                 if (i < currentWorld.PlayerParty.Count)
@@ -141,6 +146,15 @@ namespace BeyondBastion
             LogTextBox.AppendText(newLine + "\n");
         }
 
+        private string GetTimeString()
+        {
+            string timeString = $"Day {currentWorld.Day}, {currentWorld.Hour}";
+            if (currentWorld.Hour == 1 || currentWorld.Hour == 21) return timeString + "st hour";
+            else if (currentWorld.Hour == 2 || currentWorld.Hour == 22) return timeString + "nd hour";
+            else if (currentWorld.Hour == 3 || currentWorld.Hour == 23) return timeString + "rd hour";
+            else return timeString + "th hour";
+        }
+
         private void OuchieButton_Click(object sender, EventArgs e)
         {
             foreach (Character c in currentWorld.PlayerParty.ToList())
@@ -148,12 +162,12 @@ namespace BeyondBastion
                 c.TakeDamage(10, c.BodyParts[0], DamageSource.Absolute);
             }
 
-            UpdatePartyView();
+            UpdateDisplay();
         }
 
         private void PartyBox_SizeChanged(object sender, EventArgs e)
         {
-            UpdatePartyView();
+            UpdateDisplay();
         }
 
         private void OpenInspectWindow(Character character)
@@ -186,6 +200,12 @@ namespace BeyondBastion
         {
             InventoryWindow inventoryWindow = new InventoryWindow(currentWorld);
             inventoryWindow.ShowDialog();
+        }
+
+        private void PassTimeButton_Click(object sender, EventArgs e)
+        {
+            currentWorld.PassTime(12);
+            UpdateDisplay();
         }
     }
 }

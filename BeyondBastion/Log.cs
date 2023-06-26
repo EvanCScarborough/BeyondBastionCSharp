@@ -17,32 +17,39 @@ namespace BeyondBastion
         public EventHandler<string> LogUpdated;
         public List<string> AddLine(string line)
         {
+            line = line.Trim();
+            line = $"({CurrentWorld.Day}, {CurrentWorld.Hour}): {line}";
             Lines.Add(line);
             LogUpdated?.Invoke(this, line);
             return Lines;
         }
 
-        public void PlayerParty_Death(object sender, EntityDeathEvent e)
+        public void OnDeathEvent(object sender, EntityDeathEvent e)
         {
             string newLine = $"{e.EntityKilled.Name} ";
-            if (e.Killer != null)
+            switch (e.DamageSource)
             {
-                if (e.EntityKilled.Health <= 0)
-                {
-                    newLine += "was slain by " + e.Killer.Name;
-                }
-                else if (e.EntityKilled.Energy <= 0)
-                {
-                    newLine += "was driven to exhaustion by " + e.Killer.Name;
-                }
-                else if (e.EntityKilled.Sanity <= 0)
-                {
-                    newLine += "was driven insane by " + e.Killer.Name;
-                }
-            }
-            else
-            {
-                newLine += "has died.";
+                case DamageSource.Absolute:
+                    newLine += "is struck down by the gods.";
+                    break;
+
+                case DamageSource.MeleeAttack:
+                    newLine += $"is slain{(e.Killer == null ? "." : $" by {e.Killer.Name}.")}";
+                    break;
+                case DamageSource.RangedAttack:
+                    newLine += $"is slain{(e.Killer == null ? "." : $" by {e.Killer.Name}.")}";
+                    break;
+
+                case DamageSource.WitnessDeath:
+                    newLine += $"is driven insane{(e.Killer == null ? "." : $" by the death of {e.Killer.Name}.")}";
+                    break;
+                case DamageSource.CommitMurder:
+                    newLine += $"succumbs to madness{(e.Killer == null ? "." : $" while killing {e.Killer.Name}.")}";
+                    break;
+
+                case DamageSource.Hunger:
+                    newLine += $"starves to death.";
+                    break;
             }
             AddLine(newLine);
         }
