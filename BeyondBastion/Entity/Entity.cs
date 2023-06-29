@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using BeyondBastion.Entity.BodyParts;
 using BeyondBastion.Events;
+using BeyondBastion.Items.Consumables;
+using BeyondBastion.Items.Equipment;
 
 namespace BeyondBastion.Entity
 {
@@ -34,6 +36,7 @@ namespace BeyondBastion.Entity
             Energy = GetMaxEnergy();
             Sanity = GetMaxSanity();
         }
+        public Dictionary<EquipmentSlot, EquipmentItem> Equipment { get; set; } = new Dictionary<EquipmentSlot, EquipmentItem> { };
 
         public string Name { get; }
         public World CurrentWorld { get; }
@@ -51,6 +54,7 @@ namespace BeyondBastion.Entity
         public int Knowledge { get; }
         public int Charisma { get; }
 
+        public int CooldownTicks { get; set; }
         public bool IsDead { get; set; } = false;
 
         public event EventHandler<EntityDeathEvent> Death;

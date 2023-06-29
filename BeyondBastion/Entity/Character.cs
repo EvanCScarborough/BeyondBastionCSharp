@@ -9,6 +9,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using BeyondBastion.Events;
+using BeyondBastion.Items.Consumables;
 
 namespace BeyondBastion.Entity
 {
@@ -40,9 +41,9 @@ namespace BeyondBastion.Entity
         }
 
         public Handedness Handedness { get; }
-        public int Fullness { get; set; } = 10;
+        public double Fullness { get; set; } = 10;
 
-        public Dictionary<EquipmentSlot, EquipmentItem> Equipment { get; set; } = new Dictionary<EquipmentSlot, EquipmentItem> { };
+        public event EventHandler<CharacterConsumeEvent> Eat;
 
         public override double GetAttackDamage() // returns total attack damage from weapon and stats
         {
@@ -289,11 +290,49 @@ namespace BeyondBastion.Entity
 
         public void PassHour()
         {
-            if (Fullness <= 0) TakeEnergyDamage(0.5, DamageSource.Hunger);
+            if (Fullness <= 0) TakeEnergyDamage(1, DamageSource.Hunger);
             else
             {
                 Fullness -= 1;
                 HealEnergy(1);
+            }
+        }
+
+        public void Consume(FoodItem item, int amount)
+        {
+            if (Fullness >= 30)
+            {
+                Eat?.Invoke(this, new CharacterConsumeEvent(item, 0, true));
+            }
+            else
+            {
+                for (int i = 0; i < amount; i++)
+                {
+                    if (Fullness >= 30)
+                    {
+                        Eat?.Invoke(this, new CharacterConsumeEvent(item, i, true));
+                        Fullness = 30;
+                        return;
+                    }
+                    else
+                    {
+                        CurrentWorld.Inventory.Remove(item);
+                        switch (item.Type)
+                        {
+                            case FoodType.Protein:
+                                Heal(item.BonusAmnt);
+                                break;
+                            case FoodType.Starch:
+                                HealEnergy(item.BonusAmnt);
+                                break;
+                            case FoodType.Comfort:
+                                HealSanity(item.BonusAmnt);
+                                break;
+                        }
+                        Fullness += item.FullnessAmnt;
+                    }
+                }
+                Eat?.Invoke(this, new CharacterConsumeEvent(item, amount, false));
             }
         }
 
@@ -303,7 +342,7 @@ namespace BeyondBastion.Entity
 
             if (e.WasPartyMember && CurrentWorld.PlayerParty.Contains(this))
             {
-                TakeSanityDamage(25, DamageSource.WitnessDeath, e.EntityKilled);
+                TakeSanityDamage(18, DamageSource.WitnessDeath, e.EntityKilled);
             }
             else
             {

@@ -9,6 +9,7 @@ using BeyondBastion.Items;
 using BeyondBastion.Items.Equipment.Weapons;
 using BeyondBastion.UI;
 using BeyondBastion.Items.Consumables;
+using System;
 
 namespace BeyondBastion
 {
@@ -17,34 +18,82 @@ namespace BeyondBastion
         public World()
         {
             Inventory.Add(new Shortsword());
-            Inventory.Add(new Bread());
+            Inventory.Add(new ItemStack(new Bread(), 12));
 
             log = new Log(this);
-            EntitiesList = new List<IEntity>();
+            NearbyEntities = new List<IEntity>();
+            Enemies = new List<IEntity>();
 
             PlayerParty.Add((Character)CreateEntity("Aspartame"));
             PlayerParty.Add((Character)CreateEntity("Horngus"));
             PlayerParty.Add((Character)CreateEntity("Trapezoid"));
             PlayerParty.Add((Character)CreateEntity("Fleep"));
 
+            Enemies.Add(CreateEntity("Gertie"));
+            Enemies.Add(CreateEntity("Sergio"));
+            Enemies.Add(CreateEntity("Squaf"));
+
+            CreateEntity("Flarp");
+
             Hour = 12;
             Day = 1;
         }
+
         public List<Character> PlayerParty { get; } = new List<Character>();
-        public List<IEntity> EntitiesList { get; }
+        public List<IEntity> NearbyEntities { get; }
+        public List<IEntity> Enemies { get; }
+
         public Log log;
+
         public Inventory Inventory { get; } = new Inventory();
         public int Girn { get; set; } = 0;
         public int Hour { get; set; }
         public int Day { get; set; }
 
+        public CombatHandler Combat { get; set; } = new CombatHandler();
+        public bool InCombat { get; set; } = false;
+        public event EventHandler<CombatStartEvent> CombatStart;
+        public event EventHandler<CombatEndEvent> CombatEnd;
+
         public IEntity CreateEntity(string name)
         {
             Character character = new Character(name, this);
-            EntitiesList.Add(character);
+            NearbyEntities.Add(character);
             character.Death += log.OnDeathEvent;
+            character.Eat += log.OnCharacterConsumeEvent;
             character.Death += OnEntityDeath;
             return character;
+        }
+
+        public List<IEntity> GetNPCs()
+        {
+            List<IEntity> npcs = new List<IEntity>();
+            foreach (IEntity entity in NearbyEntities)
+            {
+                if (PlayerParty.Contains(entity)) { continue; }
+                npcs.Add(entity);
+            }
+            return npcs;
+        }
+
+        public void BeginCombat(List<IEntity> enemies) // begins combat with the given list of enemies
+        {
+            InCombat = true;
+            foreach (IEntity entity in enemies)
+            {
+                if (!Enemies.Contains(entity)) Enemies.Add(entity);
+            }
+            Combat.Commence(this);
+            CombatStart?.Invoke(this, new CombatStartEvent());
+        }
+
+        public void EndCombat()
+        {
+            foreach (IEntity enemy in Combat.EnemiesKilled)
+            {
+                // TODO: allow looting of dead enemies
+            }
+            Combat.EnemiesKilled.Clear();
         }
 
         public void PassTime(int hours)
@@ -61,6 +110,8 @@ namespace BeyondBastion
                     }
                 }
 
+                BeginCombat(Enemies);
+
                 // LAST: update time
                 Hour++;
                 if (Hour > 24)
@@ -74,9 +125,9 @@ namespace BeyondBastion
 
         private void OnEntityDeath(object sender, EntityDeathEvent e)
         {
-            foreach (var entity in EntitiesList)
+            foreach (var entity in NearbyEntities)
             {
-                if (entity != e.EntityKilled) ((Character)entity).WitnessEntityDeath(e);
+                if (entity != e.EntityKilled && entity is Character character) character.WitnessEntityDeath(e);
             }
 
             if (e.Killer != null)
@@ -85,6 +136,9 @@ namespace BeyondBastion
             }
 
             if (PlayerParty.Contains(e.EntityKilled)) PlayerParty.Remove((Character)e.EntityKilled);
+            NearbyEntities.Remove(e.EntityKilled);
+            if (Enemies.Contains(e.EntityKilled)) Enemies.Remove(e.EntityKilled);
+
             if (PlayerParty.Count == 0)
             {
                 MessageDialog msg = new MessageDialog("Your party has been destroyed.\n\nNot all souls are destined for salvation.");

@@ -8,15 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BeyondBastion.Entity;
+using BeyondBastion.Events;
 using BeyondBastion.UI;
 
 namespace BeyondBastion
 {
-    public partial class MainWindow : Form
+    public partial class MainWindow : Form, IBeyondBastionUi
     {
         private World currentWorld;
         private List<GroupBox> PartyBoxes;
-        private List<List<StatBar>> StatBars;
+        private List<List<StatBar>> PartyStatBars;
+        private List<StatBar> TargetStatBars;
+        private IEntity Target = null;
 
         // TODO: merge into 1 tooltip instance with fancy font
         private ToolTip PartyMember1HealthTooltip = new ToolTip();
@@ -38,7 +41,8 @@ namespace BeyondBastion
         public MainWindow(World world)
         {
             currentWorld = world;
-            currentWorld.log.LogUpdated += UpdateLog;
+            currentWorld.log.LogUpdated += Log_Update;
+            currentWorld.CombatStart += CombatStart;
 
             InitializeComponent();
 
@@ -47,7 +51,8 @@ namespace BeyondBastion
 
         public void UpdateDisplay()
         {
-            StatBars = new List<List<StatBar>>();
+            PartyStatBars = new List<List<StatBar>>();
+            TargetStatBars = new List<StatBar> { };
 
             PartyBoxes = new List<GroupBox>
             {
@@ -57,6 +62,28 @@ namespace BeyondBastion
             DateTimeLabel.Text = GetTimeString();
             GirnLabel.Text = $"Girn : {currentWorld.Girn}";
 
+            // Populate the Nearby Entities list
+            NearbyEntitiesList.Items.Clear();
+            if (currentWorld.InCombat)
+            {
+                NearbyBox.Text = "Enemies";
+                foreach (IEntity entity in currentWorld.Enemies)
+                {
+                    NearbyEntitiesList.Items.Add(entity.Name);
+                }
+            }
+            else
+            {
+                NearbyBox.Text = "Nearby";
+                foreach (IEntity entity in currentWorld.GetNPCs())
+                {
+                    NearbyEntitiesList.Items.Add(entity.Name);
+                }
+            }
+
+            NearbyEntitiesList_Update();
+
+            // Initialize the Party boxes
             for (int i = 0; i < 4; i++)
             {
                 if (i < currentWorld.PlayerParty.Count)
@@ -69,7 +96,7 @@ namespace BeyondBastion
                         PartyMember1EnergyTooltip.SetToolTip(PartyMember1EnergyLabel, $"{currentWorld.PlayerParty[i].Energy:0.0}/{currentWorld.PlayerParty[i].GetMaxEnergy():0.0}");
                         PartyMember1SanityTooltip.SetToolTip(PartyMember1SanityLabel, $"{currentWorld.PlayerParty[i].Sanity:0.0}/{currentWorld.PlayerParty[i].GetMaxSanity():0.0}");
 
-                        StatBars.Add(new List<StatBar>
+                        PartyStatBars.Add(new List<StatBar>
                         {
                             new StatBar("PartyMember1Health", PartyMember1HealthBackground, PartyMember1HealthBar, currentWorld.PlayerParty[i], PartyMember1Table, StatBar.Stat.Health),
                             new StatBar("PartyMember1Energy", PartyMember1EnergyBackground, PartyMember1EnergyBar, currentWorld.PlayerParty[i], PartyMember1Table, StatBar.Stat.Energy),
@@ -82,7 +109,7 @@ namespace BeyondBastion
                         PartyMember2EnergyTooltip.SetToolTip(PartyMember2EnergyLabel, $"{currentWorld.PlayerParty[i].Energy:0.0}/{currentWorld.PlayerParty[i].GetMaxEnergy():0.0}");
                         PartyMember2SanityTooltip.SetToolTip(PartyMember2SanityLabel, $"{currentWorld.PlayerParty[i].Sanity:0.0}/{currentWorld.PlayerParty[i].GetMaxSanity():0.0}");
 
-                        StatBars.Add(new List<StatBar>
+                        PartyStatBars.Add(new List<StatBar>
                         {
                             new StatBar("PartyMember2Health", PartyMember2HealthBackground, PartyMember2HealthBar, currentWorld.PlayerParty[i], PartyMember2Table, StatBar.Stat.Health),
                             new StatBar("PartyMember2Energy", PartyMember2EnergyBackground, PartyMember2EnergyBar, currentWorld.PlayerParty[i], PartyMember2Table, StatBar.Stat.Energy),
@@ -95,7 +122,7 @@ namespace BeyondBastion
                         PartyMember3EnergyTooltip.SetToolTip(PartyMember3EnergyLabel, $"{currentWorld.PlayerParty[i].Energy:0.0}/{currentWorld.PlayerParty[i].GetMaxEnergy():0.0}");
                         PartyMember3SanityTooltip.SetToolTip(PartyMember3SanityLabel, $"{currentWorld.PlayerParty[i].Sanity:0.0}/{currentWorld.PlayerParty[i].GetMaxSanity():0.0}");
 
-                        StatBars.Add(new List<StatBar>
+                        PartyStatBars.Add(new List<StatBar>
                         {
                             new StatBar("PartyMember3Health", PartyMember3HealthBackground, PartyMember3HealthBar, currentWorld.PlayerParty[i], PartyMember3Table, StatBar.Stat.Health),
                             new StatBar("PartyMember3Energy", PartyMember3EnergyBackground, PartyMember3EnergyBar, currentWorld.PlayerParty[i], PartyMember3Table, StatBar.Stat.Energy),
@@ -108,7 +135,7 @@ namespace BeyondBastion
                         PartyMember4EnergyTooltip.SetToolTip(PartyMember4EnergyLabel, $"{currentWorld.PlayerParty[i].Energy:0.0}/{currentWorld.PlayerParty[i].GetMaxEnergy():0.0}");
                         PartyMember4SanityTooltip.SetToolTip(PartyMember4SanityLabel, $"{currentWorld.PlayerParty[i].Sanity:0.0}/{currentWorld.PlayerParty[i].GetMaxSanity():0.0}");
 
-                        StatBars.Add(new List<StatBar>
+                        PartyStatBars.Add(new List<StatBar>
                         {
                             new StatBar("PartyMember4Health", PartyMember4HealthBackground, PartyMember4HealthBar, currentWorld.PlayerParty[i], PartyMember4Table, StatBar.Stat.Health),
                             new StatBar("PartyMember4Energy", PartyMember4EnergyBackground, PartyMember4EnergyBar, currentWorld.PlayerParty[i], PartyMember4Table, StatBar.Stat.Energy),
@@ -117,19 +144,19 @@ namespace BeyondBastion
                     }
 
                     // Update health bar
-                    StatBars[i][0].Background.Visible = true;
-                    StatBars[i][0].Bar.Visible = true;
-                    StatBars[i][0].Update();
+                    PartyStatBars[i][0].Background.Visible = true;
+                    PartyStatBars[i][0].Bar.Visible = true;
+                    PartyStatBars[i][0].Update();
 
-                    //Update energy bar
-                    StatBars[i][1].Background.Visible = true;
-                    StatBars[i][1].Bar.Visible = true;
-                    StatBars[i][1].Update();
+                    // Update energy bar
+                    PartyStatBars[i][1].Background.Visible = true;
+                    PartyStatBars[i][1].Bar.Visible = true;
+                    PartyStatBars[i][1].Update();
 
-                    //Update sanity bar
-                    StatBars[i][2].Background.Visible = true;
-                    StatBars[i][2].Bar.Visible = true;
-                    StatBars[i][2].Update();
+                    // Update sanity bar
+                    PartyStatBars[i][2].Background.Visible = true;
+                    PartyStatBars[i][2].Bar.Visible = true;
+                    PartyStatBars[i][2].Update();
 
                     PartyBoxes[i].Text = currentWorld.PlayerParty[i].Name;
                 }
@@ -141,9 +168,38 @@ namespace BeyondBastion
             }
         }
 
-        private void UpdateLog(object sender, string newLine)
+        private void Log_Update(object sender, string newLine)
         {
             LogTextBox.AppendText(newLine + "\n");
+        }
+
+        private void NearbyEntitiesList_Update()
+        {
+            if (Target != null)
+            {
+                TargetBox.Text = Target.Name;
+                TargetTable.Visible = true;
+
+                TargetStatBars.Clear();
+                TargetStatBars.Add(new StatBar("TargetHealth", TargetHealthBackground, TargetHealthBar, Target, TargetTable, StatBar.Stat.Health));
+
+                foreach (StatBar statBar in TargetStatBars)
+                {
+                    statBar.Update();
+                }
+            }
+            else
+            {
+                TargetBox.Text = "No Target";
+                TargetTable.Visible = false;
+            }
+        }
+
+        private void CombatStart(object sender, CombatStartEvent e)
+        {
+            ActionButton1.Text = "COMBAT";
+
+            UpdateDisplay();
         }
 
         private string GetTimeString()
@@ -170,9 +226,9 @@ namespace BeyondBastion
             UpdateDisplay();
         }
 
-        private void OpenInspectWindow(Character character)
+        private void OpenInspectWindow(IEntity character, bool canModifyEquipment=true, bool canViewPrivateInfo = true)
         {
-            InspectWindow inspectWindow = new InspectWindow(character, currentWorld);
+            InspectWindow inspectWindow = new InspectWindow(character, currentWorld, canModifyEquipment, canViewPrivateInfo);
             inspectWindow.Show();
         }
 
@@ -198,14 +254,42 @@ namespace BeyondBastion
 
         private void InventoryButton_Click(object sender, EventArgs e)
         {
-            InventoryWindow inventoryWindow = new InventoryWindow(currentWorld);
+            InventoryWindow inventoryWindow = new InventoryWindow(currentWorld, this);
             inventoryWindow.ShowDialog();
         }
 
         private void PassTimeButton_Click(object sender, EventArgs e)
         {
-            currentWorld.PassTime(12);
+            currentWorld.PassTime(1);
             UpdateDisplay();
+        }
+
+        private void NearbyEntitiesList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (NearbyEntitiesList.SelectedIndex != -1) { Target = currentWorld.GetNPCs()[NearbyEntitiesList.SelectedIndex]; }
+            else
+            {
+                Target = null;
+            }
+            NearbyEntitiesList_Update();
+        }
+
+        private void TargetInspectButton_Click(object sender, EventArgs e)
+        {
+            OpenInspectWindow(Target, false, false);
+        }
+
+        private void ActionButton6_Click(object sender, EventArgs e)
+        {
+            currentWorld.PassTime(1);
+        }
+
+        private void ActionButton1_Click(object sender, EventArgs e)
+        {
+            if (currentWorld.InCombat)
+            {
+
+            }
         }
     }
 }

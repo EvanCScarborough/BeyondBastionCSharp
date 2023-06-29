@@ -80,18 +80,17 @@
             // 
             this.InventoryWindowTable.ColumnCount = 1;
             this.InventoryWindowTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.InventoryWindowTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.InventoryWindowTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.InventoryWindowTable.Controls.Add(this.CloseButton, 0, 1);
             this.InventoryWindowTable.Controls.Add(this.InventoryBox, 0, 0);
             this.InventoryWindowTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.InventoryWindowTable.Location = new System.Drawing.Point(0, 0);
-            this.InventoryWindowTable.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.InventoryWindowTable.Name = "InventoryWindowTable";
             this.InventoryWindowTable.RowCount = 2;
             this.InventoryWindowTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85F));
             this.InventoryWindowTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.InventoryWindowTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.InventoryWindowTable.Size = new System.Drawing.Size(1304, 1077);
+            this.InventoryWindowTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.InventoryWindowTable.Size = new System.Drawing.Size(869, 700);
             this.InventoryWindowTable.TabIndex = 0;
             // 
             // CloseButton
@@ -104,10 +103,10 @@
             this.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CloseButton.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CloseButton.ForeColor = System.Drawing.Color.Goldenrod;
-            this.CloseButton.Location = new System.Drawing.Point(480, 961);
-            this.CloseButton.Margin = new System.Windows.Forms.Padding(480, 46, 480, 46);
+            this.CloseButton.Location = new System.Drawing.Point(320, 625);
+            this.CloseButton.Margin = new System.Windows.Forms.Padding(320, 30, 320, 30);
             this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(344, 70);
+            this.CloseButton.Size = new System.Drawing.Size(229, 45);
             this.CloseButton.TabIndex = 8;
             this.CloseButton.Text = "Close";
             this.CloseButton.UseVisualStyleBackColor = false;
@@ -117,13 +116,11 @@
             // 
             this.InventoryBox.Controls.Add(this.InventoryDetailsTable);
             this.InventoryBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.InventoryBox.Font = new System.Drawing.Font("Bookman Old Style", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InventoryBox.Font = new System.Drawing.Font("Felix Titling", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.InventoryBox.ForeColor = System.Drawing.Color.White;
-            this.InventoryBox.Location = new System.Drawing.Point(4, 5);
-            this.InventoryBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.InventoryBox.Location = new System.Drawing.Point(3, 3);
             this.InventoryBox.Name = "InventoryBox";
-            this.InventoryBox.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.InventoryBox.Size = new System.Drawing.Size(1296, 905);
+            this.InventoryBox.Size = new System.Drawing.Size(863, 589);
             this.InventoryBox.TabIndex = 0;
             this.InventoryBox.TabStop = false;
             this.InventoryBox.Text = "Party Inventory";
@@ -137,13 +134,12 @@
             this.InventoryDetailsTable.Controls.Add(this.DetailsBox, 1, 0);
             this.InventoryDetailsTable.Controls.Add(this.ButtonsTable, 2, 1);
             this.InventoryDetailsTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.InventoryDetailsTable.Location = new System.Drawing.Point(4, 42);
-            this.InventoryDetailsTable.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.InventoryDetailsTable.Location = new System.Drawing.Point(3, 32);
             this.InventoryDetailsTable.Name = "InventoryDetailsTable";
             this.InventoryDetailsTable.RowCount = 2;
             this.InventoryDetailsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.InventoryDetailsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 108F));
-            this.InventoryDetailsTable.Size = new System.Drawing.Size(1288, 858);
+            this.InventoryDetailsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.InventoryDetailsTable.Size = new System.Drawing.Size(857, 554);
             this.InventoryDetailsTable.TabIndex = 0;
             // 
             // InventoryList
@@ -164,13 +160,12 @@
             this.InventoryList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.InventoryList.HideSelection = false;
             this.InventoryList.LabelWrap = false;
-            this.InventoryList.Location = new System.Drawing.Point(4, 5);
-            this.InventoryList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.InventoryList.Location = new System.Drawing.Point(3, 3);
             this.InventoryList.MultiSelect = false;
             this.InventoryList.Name = "InventoryList";
             this.InventoryDetailsTable.SetRowSpan(this.InventoryList, 2);
             this.InventoryList.ShowItemToolTips = true;
-            this.InventoryList.Size = new System.Drawing.Size(636, 848);
+            this.InventoryList.Size = new System.Drawing.Size(422, 548);
             this.InventoryList.TabIndex = 0;
             this.InventoryList.UseCompatibleStateImageBehavior = false;
             this.InventoryList.View = System.Windows.Forms.View.Details;
@@ -199,13 +194,11 @@
             // 
             this.DetailsBox.Controls.Add(this.ItemDetailsTable);
             this.DetailsBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DetailsBox.Font = new System.Drawing.Font("Bookman Old Style", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DetailsBox.Font = new System.Drawing.Font("Felix Titling", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DetailsBox.ForeColor = System.Drawing.Color.White;
-            this.DetailsBox.Location = new System.Drawing.Point(648, 5);
-            this.DetailsBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.DetailsBox.Location = new System.Drawing.Point(431, 3);
             this.DetailsBox.Name = "DetailsBox";
-            this.DetailsBox.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.DetailsBox.Size = new System.Drawing.Size(636, 740);
+            this.DetailsBox.Size = new System.Drawing.Size(423, 478);
             this.DetailsBox.TabIndex = 2;
             this.DetailsBox.TabStop = false;
             this.DetailsBox.Text = "Details";
@@ -218,15 +211,14 @@
             this.ItemDetailsTable.Controls.Add(this.ItemNameLabel, 0, 0);
             this.ItemDetailsTable.Controls.Add(this.DetailsStatsTable, 0, 2);
             this.ItemDetailsTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ItemDetailsTable.Location = new System.Drawing.Point(4, 34);
-            this.ItemDetailsTable.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ItemDetailsTable.Location = new System.Drawing.Point(3, 26);
             this.ItemDetailsTable.Name = "ItemDetailsTable";
             this.ItemDetailsTable.RowCount = 3;
             this.ItemDetailsTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.ItemDetailsTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.ItemDetailsTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.ItemDetailsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.ItemDetailsTable.Size = new System.Drawing.Size(628, 701);
+            this.ItemDetailsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 13F));
+            this.ItemDetailsTable.Size = new System.Drawing.Size(417, 449);
             this.ItemDetailsTable.TabIndex = 0;
             // 
             // ItemDescriptionLabel
@@ -234,11 +226,10 @@
             this.ItemDescriptionLabel.AutoSize = true;
             this.ItemDescriptionLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ItemDescriptionLabel.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ItemDescriptionLabel.Location = new System.Drawing.Point(4, 27);
-            this.ItemDescriptionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ItemDescriptionLabel.Location = new System.Drawing.Point(3, 20);
             this.ItemDescriptionLabel.Name = "ItemDescriptionLabel";
-            this.ItemDescriptionLabel.Padding = new System.Windows.Forms.Padding(8, 12, 8, 12);
-            this.ItemDescriptionLabel.Size = new System.Drawing.Size(620, 87);
+            this.ItemDescriptionLabel.Padding = new System.Windows.Forms.Padding(5, 8, 5, 8);
+            this.ItemDescriptionLabel.Size = new System.Drawing.Size(411, 61);
             this.ItemDescriptionLabel.TabIndex = 0;
             this.ItemDescriptionLabel.Text = "This is a lore-heavy description of the item, that is, the item which the player " +
     "selected through the menu on the right. This text isn\'t real text, though.";
@@ -248,10 +239,10 @@
             // 
             this.ItemNameLabel.AutoSize = true;
             this.ItemNameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ItemNameLabel.Location = new System.Drawing.Point(4, 0);
-            this.ItemNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ItemNameLabel.Font = new System.Drawing.Font("Bookman Old Style", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ItemNameLabel.Location = new System.Drawing.Point(3, 0);
             this.ItemNameLabel.Name = "ItemNameLabel";
-            this.ItemNameLabel.Size = new System.Drawing.Size(620, 27);
+            this.ItemNameLabel.Size = new System.Drawing.Size(411, 20);
             this.ItemNameLabel.TabIndex = 1;
             this.ItemNameLabel.Text = "Name of Item";
             this.ItemNameLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -283,8 +274,7 @@
             this.DetailsStatsTable.Controls.Add(this.Label1, 0, 0);
             this.DetailsStatsTable.Controls.Add(this.Value1, 1, 0);
             this.DetailsStatsTable.Dock = System.Windows.Forms.DockStyle.Top;
-            this.DetailsStatsTable.Location = new System.Drawing.Point(4, 119);
-            this.DetailsStatsTable.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.DetailsStatsTable.Location = new System.Drawing.Point(3, 84);
             this.DetailsStatsTable.Name = "DetailsStatsTable";
             this.DetailsStatsTable.RowCount = 11;
             this.DetailsStatsTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -296,9 +286,9 @@
             this.DetailsStatsTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.DetailsStatsTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.DetailsStatsTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.DetailsStatsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.DetailsStatsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.DetailsStatsTable.Size = new System.Drawing.Size(620, 569);
+            this.DetailsStatsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.DetailsStatsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.DetailsStatsTable.Size = new System.Drawing.Size(411, 370);
             this.DetailsStatsTable.TabIndex = 2;
             // 
             // BlessingDescriptionLabel
@@ -307,11 +297,10 @@
             this.DetailsStatsTable.SetColumnSpan(this.BlessingDescriptionLabel, 2);
             this.BlessingDescriptionLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BlessingDescriptionLabel.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BlessingDescriptionLabel.Location = new System.Drawing.Point(4, 238);
-            this.BlessingDescriptionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.BlessingDescriptionLabel.Location = new System.Drawing.Point(3, 182);
             this.BlessingDescriptionLabel.Name = "BlessingDescriptionLabel";
-            this.BlessingDescriptionLabel.Padding = new System.Windows.Forms.Padding(8, 12, 8, 12);
-            this.BlessingDescriptionLabel.Size = new System.Drawing.Size(612, 331);
+            this.BlessingDescriptionLabel.Padding = new System.Windows.Forms.Padding(5, 8, 5, 8);
+            this.BlessingDescriptionLabel.Size = new System.Drawing.Size(405, 188);
             this.BlessingDescriptionLabel.TabIndex = 20;
             this.BlessingDescriptionLabel.Text = "This describes in detail the effects of the Blessings upon this piece of equipmen" +
     "t";
@@ -322,10 +311,9 @@
             this.Label10.AutoSize = true;
             this.Label10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Label10.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label10.Location = new System.Drawing.Point(4, 207);
-            this.Label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Label10.Location = new System.Drawing.Point(3, 162);
             this.Label10.Name = "Label10";
-            this.Label10.Size = new System.Drawing.Size(302, 31);
+            this.Label10.Size = new System.Drawing.Size(199, 20);
             this.Label10.TabIndex = 19;
             this.Label10.Text = "Label10";
             this.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -335,10 +323,9 @@
             this.Value10.AutoSize = true;
             this.Value10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Value10.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Value10.Location = new System.Drawing.Point(314, 207);
-            this.Value10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Value10.Location = new System.Drawing.Point(208, 162);
             this.Value10.Name = "Value10";
-            this.Value10.Size = new System.Drawing.Size(302, 31);
+            this.Value10.Size = new System.Drawing.Size(200, 20);
             this.Value10.TabIndex = 18;
             this.Value10.Text = "Value10";
             this.Value10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -348,10 +335,9 @@
             this.Value9.AutoSize = true;
             this.Value9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Value9.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Value9.Location = new System.Drawing.Point(314, 184);
-            this.Value9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Value9.Location = new System.Drawing.Point(208, 144);
             this.Value9.Name = "Value9";
-            this.Value9.Size = new System.Drawing.Size(302, 23);
+            this.Value9.Size = new System.Drawing.Size(200, 18);
             this.Value9.TabIndex = 17;
             this.Value9.Text = "Value9";
             this.Value9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -361,10 +347,9 @@
             this.Label9.AutoSize = true;
             this.Label9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Label9.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label9.Location = new System.Drawing.Point(4, 184);
-            this.Label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Label9.Location = new System.Drawing.Point(3, 144);
             this.Label9.Name = "Label9";
-            this.Label9.Size = new System.Drawing.Size(302, 23);
+            this.Label9.Size = new System.Drawing.Size(199, 18);
             this.Label9.TabIndex = 16;
             this.Label9.Text = "Label9";
             this.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -374,10 +359,9 @@
             this.Value8.AutoSize = true;
             this.Value8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Value8.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Value8.Location = new System.Drawing.Point(314, 161);
-            this.Value8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Value8.Location = new System.Drawing.Point(208, 126);
             this.Value8.Name = "Value8";
-            this.Value8.Size = new System.Drawing.Size(302, 23);
+            this.Value8.Size = new System.Drawing.Size(200, 18);
             this.Value8.TabIndex = 15;
             this.Value8.Text = "Value8";
             this.Value8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -387,10 +371,9 @@
             this.Label8.AutoSize = true;
             this.Label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Label8.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label8.Location = new System.Drawing.Point(4, 161);
-            this.Label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Label8.Location = new System.Drawing.Point(3, 126);
             this.Label8.Name = "Label8";
-            this.Label8.Size = new System.Drawing.Size(302, 23);
+            this.Label8.Size = new System.Drawing.Size(199, 18);
             this.Label8.TabIndex = 14;
             this.Label8.Text = "Label8";
             this.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -400,10 +383,9 @@
             this.Value7.AutoSize = true;
             this.Value7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Value7.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Value7.Location = new System.Drawing.Point(314, 138);
-            this.Value7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Value7.Location = new System.Drawing.Point(208, 108);
             this.Value7.Name = "Value7";
-            this.Value7.Size = new System.Drawing.Size(302, 23);
+            this.Value7.Size = new System.Drawing.Size(200, 18);
             this.Value7.TabIndex = 13;
             this.Value7.Text = "Value7";
             this.Value7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -413,10 +395,9 @@
             this.Label7.AutoSize = true;
             this.Label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Label7.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label7.Location = new System.Drawing.Point(4, 138);
-            this.Label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Label7.Location = new System.Drawing.Point(3, 108);
             this.Label7.Name = "Label7";
-            this.Label7.Size = new System.Drawing.Size(302, 23);
+            this.Label7.Size = new System.Drawing.Size(199, 18);
             this.Label7.TabIndex = 12;
             this.Label7.Text = "Label7";
             this.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -426,10 +407,9 @@
             this.Value6.AutoSize = true;
             this.Value6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Value6.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Value6.Location = new System.Drawing.Point(314, 115);
-            this.Value6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Value6.Location = new System.Drawing.Point(208, 90);
             this.Value6.Name = "Value6";
-            this.Value6.Size = new System.Drawing.Size(302, 23);
+            this.Value6.Size = new System.Drawing.Size(200, 18);
             this.Value6.TabIndex = 11;
             this.Value6.Text = "Value6";
             this.Value6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -439,10 +419,9 @@
             this.Label6.AutoSize = true;
             this.Label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Label6.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label6.Location = new System.Drawing.Point(4, 115);
-            this.Label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Label6.Location = new System.Drawing.Point(3, 90);
             this.Label6.Name = "Label6";
-            this.Label6.Size = new System.Drawing.Size(302, 23);
+            this.Label6.Size = new System.Drawing.Size(199, 18);
             this.Label6.TabIndex = 10;
             this.Label6.Text = "Label6";
             this.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -452,10 +431,9 @@
             this.Value5.AutoSize = true;
             this.Value5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Value5.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Value5.Location = new System.Drawing.Point(314, 92);
-            this.Value5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Value5.Location = new System.Drawing.Point(208, 72);
             this.Value5.Name = "Value5";
-            this.Value5.Size = new System.Drawing.Size(302, 23);
+            this.Value5.Size = new System.Drawing.Size(200, 18);
             this.Value5.TabIndex = 9;
             this.Value5.Text = "Value5";
             this.Value5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -465,10 +443,9 @@
             this.Label5.AutoSize = true;
             this.Label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Label5.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label5.Location = new System.Drawing.Point(4, 92);
-            this.Label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Label5.Location = new System.Drawing.Point(3, 72);
             this.Label5.Name = "Label5";
-            this.Label5.Size = new System.Drawing.Size(302, 23);
+            this.Label5.Size = new System.Drawing.Size(199, 18);
             this.Label5.TabIndex = 8;
             this.Label5.Text = "Label5";
             this.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -478,10 +455,9 @@
             this.Value4.AutoSize = true;
             this.Value4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Value4.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Value4.Location = new System.Drawing.Point(314, 69);
-            this.Value4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Value4.Location = new System.Drawing.Point(208, 54);
             this.Value4.Name = "Value4";
-            this.Value4.Size = new System.Drawing.Size(302, 23);
+            this.Value4.Size = new System.Drawing.Size(200, 18);
             this.Value4.TabIndex = 7;
             this.Value4.Text = "Value4";
             this.Value4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -491,10 +467,9 @@
             this.Label4.AutoSize = true;
             this.Label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Label4.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label4.Location = new System.Drawing.Point(4, 69);
-            this.Label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Label4.Location = new System.Drawing.Point(3, 54);
             this.Label4.Name = "Label4";
-            this.Label4.Size = new System.Drawing.Size(302, 23);
+            this.Label4.Size = new System.Drawing.Size(199, 18);
             this.Label4.TabIndex = 6;
             this.Label4.Text = "Label4";
             this.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -504,10 +479,9 @@
             this.Value3.AutoSize = true;
             this.Value3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Value3.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Value3.Location = new System.Drawing.Point(314, 46);
-            this.Value3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Value3.Location = new System.Drawing.Point(208, 36);
             this.Value3.Name = "Value3";
-            this.Value3.Size = new System.Drawing.Size(302, 23);
+            this.Value3.Size = new System.Drawing.Size(200, 18);
             this.Value3.TabIndex = 5;
             this.Value3.Text = "Value3";
             this.Value3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -517,10 +491,9 @@
             this.Label3.AutoSize = true;
             this.Label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Label3.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label3.Location = new System.Drawing.Point(4, 46);
-            this.Label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Label3.Location = new System.Drawing.Point(3, 36);
             this.Label3.Name = "Label3";
-            this.Label3.Size = new System.Drawing.Size(302, 23);
+            this.Label3.Size = new System.Drawing.Size(199, 18);
             this.Label3.TabIndex = 4;
             this.Label3.Text = "Label3";
             this.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -530,10 +503,9 @@
             this.Value2.AutoSize = true;
             this.Value2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Value2.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Value2.Location = new System.Drawing.Point(314, 23);
-            this.Value2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Value2.Location = new System.Drawing.Point(208, 18);
             this.Value2.Name = "Value2";
-            this.Value2.Size = new System.Drawing.Size(302, 23);
+            this.Value2.Size = new System.Drawing.Size(200, 18);
             this.Value2.TabIndex = 3;
             this.Value2.Text = "Value2";
             this.Value2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -543,10 +515,9 @@
             this.Label2.AutoSize = true;
             this.Label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Label2.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label2.Location = new System.Drawing.Point(4, 23);
-            this.Label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Label2.Location = new System.Drawing.Point(3, 18);
             this.Label2.Name = "Label2";
-            this.Label2.Size = new System.Drawing.Size(302, 23);
+            this.Label2.Size = new System.Drawing.Size(199, 18);
             this.Label2.TabIndex = 2;
             this.Label2.Text = "Label2";
             this.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -556,10 +527,9 @@
             this.Label1.AutoSize = true;
             this.Label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Label1.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label1.Location = new System.Drawing.Point(4, 0);
-            this.Label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Label1.Location = new System.Drawing.Point(3, 0);
             this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(302, 23);
+            this.Label1.Size = new System.Drawing.Size(199, 18);
             this.Label1.TabIndex = 1;
             this.Label1.Text = "Label1";
             this.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -569,10 +539,9 @@
             this.Value1.AutoSize = true;
             this.Value1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Value1.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Value1.Location = new System.Drawing.Point(314, 0);
-            this.Value1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Value1.Location = new System.Drawing.Point(208, 0);
             this.Value1.Name = "Value1";
-            this.Value1.Size = new System.Drawing.Size(302, 23);
+            this.Value1.Size = new System.Drawing.Size(200, 18);
             this.Value1.TabIndex = 0;
             this.Value1.Text = "Value1";
             this.Value1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -587,14 +556,13 @@
             this.ButtonsTable.Controls.Add(this.ConsumeButton, 1, 0);
             this.ButtonsTable.Controls.Add(this.EquipButton, 0, 0);
             this.ButtonsTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ButtonsTable.Location = new System.Drawing.Point(648, 755);
-            this.ButtonsTable.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ButtonsTable.Location = new System.Drawing.Point(431, 487);
             this.ButtonsTable.Name = "ButtonsTable";
             this.ButtonsTable.RowCount = 1;
             this.ButtonsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ButtonsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 98F));
-            this.ButtonsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 98F));
-            this.ButtonsTable.Size = new System.Drawing.Size(636, 98);
+            this.ButtonsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 63F));
+            this.ButtonsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 63F));
+            this.ButtonsTable.Size = new System.Drawing.Size(423, 64);
             this.ButtonsTable.TabIndex = 1;
             // 
             // DestroyButton
@@ -606,10 +574,10 @@
             this.DestroyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DestroyButton.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DestroyButton.ForeColor = System.Drawing.Color.Goldenrod;
-            this.DestroyButton.Location = new System.Drawing.Point(438, 15);
-            this.DestroyButton.Margin = new System.Windows.Forms.Padding(15, 15, 15, 15);
+            this.DestroyButton.Location = new System.Drawing.Point(291, 10);
+            this.DestroyButton.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
             this.DestroyButton.Name = "DestroyButton";
-            this.DestroyButton.Size = new System.Drawing.Size(183, 68);
+            this.DestroyButton.Size = new System.Drawing.Size(122, 44);
             this.DestroyButton.TabIndex = 12;
             this.DestroyButton.Text = "Destroy";
             this.DestroyButton.UseVisualStyleBackColor = false;
@@ -623,13 +591,14 @@
             this.ConsumeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ConsumeButton.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ConsumeButton.ForeColor = System.Drawing.Color.Goldenrod;
-            this.ConsumeButton.Location = new System.Drawing.Point(226, 15);
-            this.ConsumeButton.Margin = new System.Windows.Forms.Padding(15, 15, 15, 15);
+            this.ConsumeButton.Location = new System.Drawing.Point(150, 10);
+            this.ConsumeButton.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
             this.ConsumeButton.Name = "ConsumeButton";
-            this.ConsumeButton.Size = new System.Drawing.Size(182, 68);
+            this.ConsumeButton.Size = new System.Drawing.Size(121, 44);
             this.ConsumeButton.TabIndex = 11;
             this.ConsumeButton.Text = "Consume";
             this.ConsumeButton.UseVisualStyleBackColor = false;
+            this.ConsumeButton.Click += new System.EventHandler(this.ConsumeButton_Click);
             // 
             // EquipButton
             // 
@@ -640,10 +609,10 @@
             this.EquipButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.EquipButton.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EquipButton.ForeColor = System.Drawing.Color.Goldenrod;
-            this.EquipButton.Location = new System.Drawing.Point(15, 15);
-            this.EquipButton.Margin = new System.Windows.Forms.Padding(15, 15, 15, 15);
+            this.EquipButton.Location = new System.Drawing.Point(10, 10);
+            this.EquipButton.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
             this.EquipButton.Name = "EquipButton";
-            this.EquipButton.Size = new System.Drawing.Size(181, 68);
+            this.EquipButton.Size = new System.Drawing.Size(120, 44);
             this.EquipButton.TabIndex = 10;
             this.EquipButton.Text = "Equip";
             this.EquipButton.UseVisualStyleBackColor = false;
@@ -651,14 +620,15 @@
             // 
             // InventoryWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.CancelButton = this.CloseButton;
-            this.ClientSize = new System.Drawing.Size(1304, 1077);
+            this.ClientSize = new System.Drawing.Size(869, 700);
             this.ControlBox = false;
             this.Controls.Add(this.InventoryWindowTable);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InventoryWindow";

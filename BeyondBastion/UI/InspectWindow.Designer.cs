@@ -46,7 +46,7 @@
             this.CharacterNameBox = new System.Windows.Forms.GroupBox();
             this.MainLayoutTable = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.EquipmentAndButtonsTable = new System.Windows.Forms.TableLayoutPanel();
             this.InspectButton = new System.Windows.Forms.Button();
             this.UnequipButton = new System.Windows.Forms.Button();
             this.EquipmentTree = new System.Windows.Forms.TreeView();
@@ -89,7 +89,7 @@
             this.CharacterNameBox.SuspendLayout();
             this.MainLayoutTable.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
+            this.EquipmentAndButtonsTable.SuspendLayout();
             this.StatusBox.SuspendLayout();
             this.StatusTable.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -182,7 +182,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.tableLayoutPanel3);
+            this.groupBox3.Controls.Add(this.EquipmentAndButtonsTable);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Font = new System.Drawing.Font("Bookman Old Style", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.White;
@@ -195,24 +195,24 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Equipment";
             // 
-            // tableLayoutPanel3
+            // EquipmentAndButtonsTable
             // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.InspectButton, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.UnequipButton, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.EquipmentTree, 0, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 21);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.65741F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.34259F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(223, 354);
-            this.tableLayoutPanel3.TabIndex = 0;
+            this.EquipmentAndButtonsTable.ColumnCount = 2;
+            this.EquipmentAndButtonsTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EquipmentAndButtonsTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EquipmentAndButtonsTable.Controls.Add(this.InspectButton, 0, 1);
+            this.EquipmentAndButtonsTable.Controls.Add(this.UnequipButton, 0, 1);
+            this.EquipmentAndButtonsTable.Controls.Add(this.EquipmentTree, 0, 0);
+            this.EquipmentAndButtonsTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.EquipmentAndButtonsTable.Location = new System.Drawing.Point(2, 21);
+            this.EquipmentAndButtonsTable.Margin = new System.Windows.Forms.Padding(2);
+            this.EquipmentAndButtonsTable.Name = "EquipmentAndButtonsTable";
+            this.EquipmentAndButtonsTable.RowCount = 2;
+            this.EquipmentAndButtonsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.65741F));
+            this.EquipmentAndButtonsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.34259F));
+            this.EquipmentAndButtonsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.EquipmentAndButtonsTable.Size = new System.Drawing.Size(223, 354);
+            this.EquipmentAndButtonsTable.TabIndex = 0;
             // 
             // InspectButton
             // 
@@ -253,7 +253,7 @@
             // 
             this.EquipmentTree.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.EquipmentTree.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tableLayoutPanel3.SetColumnSpan(this.EquipmentTree, 2);
+            this.EquipmentAndButtonsTable.SetColumnSpan(this.EquipmentTree, 2);
             this.EquipmentTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.EquipmentTree.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EquipmentTree.ForeColor = System.Drawing.Color.Goldenrod;
@@ -799,7 +799,7 @@
             this.CharacterNameBox.ResumeLayout(false);
             this.MainLayoutTable.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
+            this.EquipmentAndButtonsTable.ResumeLayout(false);
             this.StatusBox.ResumeLayout(false);
             this.StatusBox.PerformLayout();
             this.StatusTable.ResumeLayout(false);
@@ -843,7 +843,7 @@
         private System.Windows.Forms.Label AttackSpeedLabel;
         private System.Windows.Forms.Label AttackDamageLabel;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel EquipmentAndButtonsTable;
         private System.Windows.Forms.Button InspectButton;
         private System.Windows.Forms.Button UnequipButton;
         private System.Windows.Forms.TreeView EquipmentTree;

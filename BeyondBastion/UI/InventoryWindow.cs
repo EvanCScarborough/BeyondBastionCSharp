@@ -11,13 +11,14 @@ using BeyondBastion.Items;
 using BeyondBastion.UI;
 using BeyondBastion.Items.Equipment;
 using BeyondBastion.Entity;
+using BeyondBastion.Items.Consumables;
 using System.Collections;
 
 namespace BeyondBastion
 {
-    public partial class InventoryWindow : Form
+    public partial class InventoryWindow : Form, IBeyondBastionUi
     {
-        public InventoryWindow(World world)
+        public InventoryWindow(World world, IBeyondBastionUi parentWindow)
         {
             InitializeComponent();
             InventoryList.ShowItemToolTips = true;
@@ -37,6 +38,7 @@ namespace BeyondBastion
             };
 
             currentWorld = world;
+            ParentWindow = parentWindow;
 
             UpdateDisplay();
         }
@@ -44,8 +46,9 @@ namespace BeyondBastion
         public World currentWorld;
         public ItemStack SelectedStack;
         public Dictionary<Label, Label> LabelValuePairs;
+        public IBeyondBastionUi ParentWindow;
 
-        private void UpdateDisplay()
+        public void UpdateDisplay()
         {
             SelectedStack = null;
             InventoryList.BeginUpdate();
@@ -73,6 +76,7 @@ namespace BeyondBastion
             }
             InventoryList.EndUpdate();
             UpdateDetailsBox();
+            ParentWindow.UpdateDisplay();
         }
 
         private void UpdateDetailsBox()
@@ -197,6 +201,24 @@ namespace BeyondBastion
                     MessageDialog msg = new MessageDialog($"{selectedCharacter.Name} has equipped {SelectedEquipmentItem}.");
                     msg.ShowDialog();
                 }
+            }
+        }
+
+        private void ConsumeButton_Click(object sender, EventArgs e)
+        {
+            FoodItem SelectedFoodItem = (FoodItem)SelectedStack.Item;
+
+            SelectFromListWithAmountDialog selectDialog = new SelectFromListWithAmountDialog($"Who should eat {SelectedStack.Item.Name}?", currentWorld.PlayerParty.ToArray(), SelectedStack.Count, this);
+            DialogResult result = selectDialog.ShowDialog();
+
+            if (result == DialogResult.Cancel) { return; }
+            else
+            {
+                Character selectedCharacter = (Character)selectDialog.ReturnObject;
+                selectedCharacter.Consume(SelectedFoodItem, selectDialog.ReturnValue);
+                UpdateDisplay();
+                MessageDialog msg = new MessageDialog($"Gave {SelectedFoodItem.Name} to {selectedCharacter.Name}.");
+                msg.ShowDialog();
             }
         }
     }

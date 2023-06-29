@@ -47,16 +47,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CombatHandler.cs" />
     <Compile Include="Entity\BodyParts\BodyPart.cs" />
     <Compile Include="Entity\BodyParts\Injury.cs" />
     <Compile Include="Entity\Character.cs" />
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Entity\DamageSource.cs" />
     <Compile Include="Entity\IEntity.cs" />
+    <Compile Include="Events\CharacterConsumeEvent.cs" />
+    <Compile Include="Events\CombatEndEvent.cs" />
+    <Compile Include="Events\CombatStartEvent.cs" />
     <Compile Include="Events\EntityDeathEvent.cs" />
     <Compile Include="Items\Consumables\Bread.cs" />
     <Compile Include="Items\Consumables\FoodItem.cs" />
     <Compile Include="Items\Equipment\Weapons\ShieldItem.cs" />
+    <Compile Include="UI\IBeyondBastionUi.cs" />
     <Compile Include="UI\InspectWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +95,12 @@
     </Compile>
     <Compile Include="UI\MessageDialog.Designer.cs">
       <DependentUpon>MessageDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SelectFromListWithAmountDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SelectFromListWithAmountDialog.Designer.cs">
+      <DependentUpon>SelectFromListWithAmountDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\SelectFromListDialog.cs">
       <SubType>Form</SubType>
@@ -126,6 +137,9 @@
     </Compile>
     <EmbeddedResource Include="UI\MessageDialog.resx">
       <DependentUpon>MessageDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SelectFromListWithAmountDialog.resx">
+      <DependentUpon>SelectFromListWithAmountDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SelectFromListDialog.resx">
       <DependentUpon>SelectFromListDialog.cs</DependentUpon>

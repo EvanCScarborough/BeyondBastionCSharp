@@ -17,7 +17,7 @@ namespace BeyondBastion.UI
             Sanity
         }
 
-        public StatBar(string id, Panel backgroundPanel, Panel barPanel, Character linkedCharacter, TableLayoutPanel container, Stat linkedStat)
+        public StatBar(string id, Panel backgroundPanel, Panel barPanel, IEntity linkedCharacter, TableLayoutPanel container, Stat linkedStat)
         {
             Id = id;
             Background = backgroundPanel;
@@ -31,7 +31,7 @@ namespace BeyondBastion.UI
         public TableLayoutPanel Container { get; }
         public Panel Background;
         public Panel Bar { get; }
-        public Character LinkedCharacter { get; }
+        public IEntity LinkedCharacter { get; }
         public Stat LinkedStat { get; }
 
         public void Update()

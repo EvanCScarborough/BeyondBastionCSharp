@@ -18,7 +18,7 @@ namespace BeyondBastion
         public List<string> AddLine(string line)
         {
             line = line.Trim();
-            line = $"({CurrentWorld.Day}, {CurrentWorld.Hour}): {line}";
+            line = $"(Day {CurrentWorld.Day}, hour {CurrentWorld.Hour}) {line}";
             Lines.Add(line);
             LogUpdated?.Invoke(this, line);
             return Lines;
@@ -51,6 +51,14 @@ namespace BeyondBastion
                     newLine += $"starves to death.";
                     break;
             }
+            AddLine(newLine);
+        }
+
+        public void OnCharacterConsumeEvent(object sender, CharacterConsumeEvent e)
+        {
+            string newLine = $"{((Character)sender).Name} ";
+            if (e.StoppedDueToFullness) newLine += $"eats {e.NumEaten} {e.FoodEaten.Name} before becoming full.";
+            else newLine += $"eats {e.NumEaten} {e.FoodEaten.Name}.";
             AddLine(newLine);
         }
     }

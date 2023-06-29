@@ -18,12 +18,12 @@ namespace BeyondBastion.Items.Consumables
         {
             Type = type;
             BonusAmnt = bonusAmnt;
-            StomachAmnt = stomachAmnt;
+            FullnessAmnt = stomachAmnt;
         }
 
         public FoodType Type { get; }
         public double BonusStat { get; }
         public double BonusAmnt { get; }
-        public double StomachAmnt { get; }
+        public double FullnessAmnt { get; }
     }
 }
