@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BeyondBastion.Entity;
 using BeyondBastion.Events;
+using BeyondBastion.Events.Combat;
 
 namespace BeyondBastion
 {
@@ -15,10 +16,10 @@ namespace BeyondBastion
         public List<string> Lines { get; }
         public World CurrentWorld { get; }
         public EventHandler<string> LogUpdated;
-        public List<string> AddLine(string line)
+        public List<string> AddLine(string line, bool isCombatUpdate = false)
         {
             line = line.Trim();
-            line = $"(Day {CurrentWorld.Day}, hour {CurrentWorld.Hour}) {line}";
+            if (!isCombatUpdate) line = $"(Day {CurrentWorld.Day}, hour {CurrentWorld.Hour}) {line}";
             Lines.Add(line);
             LogUpdated?.Invoke(this, line);
             return Lines;
@@ -52,6 +53,19 @@ namespace BeyondBastion
                     break;
             }
             AddLine(newLine);
+        }
+
+        public void OnCombatAction(object sender, CombatActionEvent e)
+        {
+            string newLine = $"{e.Actor.Name} ";
+            if (e.Result == CombatActionResult.Block)
+            {
+                AddLine(newLine + $"tries to attack {e.Target.Name}, but {e.Target.Name} blocks.", true);
+            }
+            else if (e.Result == CombatActionResult.Hit)
+            {
+                AddLine(newLine + $"hits {e.Target.Name} in the {e.HitLocation.Name}.", true);
+            }
         }
 
         public void OnCharacterConsumeEvent(object sender, CharacterConsumeEvent e)

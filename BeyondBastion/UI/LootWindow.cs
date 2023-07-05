@@ -7,14 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BeyondBastion.Items;
 
 namespace BeyondBastion.UI
 {
-    public partial class CombatPlanWindow : Form
+    public partial class LootWindow : Form
     {
-        public CombatPlanWindow()
+        public LootWindow(List<ItemStack> items)
         {
             InitializeComponent();
+
+            LootItems = items;
         }
+        public List<ItemStack> LootItems { get; }
+        public List<ItemStack> TakeItems { get; }
+
+
     }
 }

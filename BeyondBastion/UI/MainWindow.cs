@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using BeyondBastion.Entity;
 using BeyondBastion.Events;
 using BeyondBastion.UI;
+using BeyondBastion.Events.Combat;
+using System.Runtime.CompilerServices;
 
 namespace BeyondBastion
 {
@@ -42,9 +44,29 @@ namespace BeyondBastion
         {
             currentWorld = world;
             currentWorld.log.LogUpdated += Log_Update;
-            currentWorld.CombatStart += CombatStart;
+            currentWorld.Combat.OnCombatStart += CombatStart;
+            currentWorld.Combat.OnCombatRoundStart += CombatRoundStart;
+            currentWorld.Combat.OnCombatAction += CombatRoundUpdate;
+            currentWorld.Combat.OnCombatRoundEnd += CombatRoundEnd;
+            currentWorld.Combat.OnCombatEnd += CombatEnd;
 
             InitializeComponent();
+
+            StyleRules.SetDefaultFont(Controls);
+            PartyBox.Font = StyleRules.Heading1;
+            NearbyBox.Font = StyleRules.Heading1;
+            LogBox.Font = StyleRules.Heading1;
+            ActionsBox.Font = StyleRules.Heading1;
+
+            PartyMember1Box.Font = StyleRules.Heading2;
+            PartyMember2Box.Font = StyleRules.Heading2;
+            PartyMember3Box.Font = StyleRules.Heading2;
+            PartyMember4Box.Font = StyleRules.Heading2;
+            TargetBox.Font = StyleRules.Heading2;
+
+            LogTextBox.Font = StyleRules.BigBody;
+            NearbyEntitiesList.Font = StyleRules.BigBody;
+            DateTimeLabel.Font = StyleRules.BigBody;
 
             UpdateDisplay();
         }
@@ -61,27 +83,6 @@ namespace BeyondBastion
 
             DateTimeLabel.Text = GetTimeString();
             GirnLabel.Text = $"Girn : {currentWorld.Girn}";
-
-            // Populate the Nearby Entities list
-            NearbyEntitiesList.Items.Clear();
-            if (currentWorld.InCombat)
-            {
-                NearbyBox.Text = "Enemies";
-                foreach (IEntity entity in currentWorld.Enemies)
-                {
-                    NearbyEntitiesList.Items.Add(entity.Name);
-                }
-            }
-            else
-            {
-                NearbyBox.Text = "Nearby";
-                foreach (IEntity entity in currentWorld.GetNPCs())
-                {
-                    NearbyEntitiesList.Items.Add(entity.Name);
-                }
-            }
-
-            NearbyEntitiesList_Update();
 
             // Initialize the Party boxes
             for (int i = 0; i < 4; i++)
@@ -166,6 +167,39 @@ namespace BeyondBastion
                 }
                 PartyBoxes[i].Update();
             }
+            // Populate the Nearby Entities list
+            NearbyEntitiesList.Items.Clear();
+            if (currentWorld.InCombat)
+            {
+                NearbyBox.Text = "Enemies";
+
+                foreach (IEntity entity in currentWorld.Enemies)
+                {
+                    NearbyEntitiesList.Items.Add($"{entity.Name} ({GetHealthDescriptor(entity)})");
+                }
+            }
+            else
+            {
+                NearbyBox.Text = "Nearby";
+                foreach (IEntity entity in currentWorld.GetNPCs())
+                {
+                    NearbyEntitiesList.Items.Add(entity.Name);
+                }
+            }
+
+            NearbyEntitiesList_Update();
+        }
+
+        private string GetHealthDescriptor(IEntity entity)
+        {
+            double fraction = entity.Health / entity.GetBaseHealth();
+            if (fraction == 1) return "Unharmed";
+            else if (fraction > 0.8) return "Slightly injured";
+            else if (fraction > 0.6) return "Injured";
+            else if (fraction > 0.4) return "Severely wounded";
+            else if (fraction > 0.2) return "Mutilated";
+            else if (fraction > 0) return "Near Death";
+            else return "Dead";
         }
 
         private void Log_Update(object sender, string newLine)
@@ -193,15 +227,70 @@ namespace BeyondBastion
                 TargetBox.Text = "No Target";
                 TargetTable.Visible = false;
             }
+            TargetBox.Update();
+            TargetTable.Update();
+            NearbyEntitiesList.Update();
         }
 
         private void CombatStart(object sender, CombatStartEvent e)
         {
-            ActionButton1.Text = "COMBAT";
-
+            ActionButton1.Text = "Continue Combat";
+            ActionButton2.Text = "Command Party Members";
             UpdateDisplay();
         }
 
+        private void CombatRoundStart(object sender, CombatRoundStartEvent e)
+        {
+            InventoryButton.Enabled = false;
+            ActionButton1.Enabled = false;
+            ActionButton2.Enabled = false;
+            ActionButton3.Enabled = false;
+            ActionButton4.Enabled = false;
+            ActionButton5.Enabled = false;
+            ActionButton6.Enabled = false;
+            PartyMember1InspectButton.Enabled = false;
+            PartyMember2InspectButton.Enabled = false;
+            PartyMember3InspectButton.Enabled = false;
+            PartyMember4InspectButton.Enabled = false;
+            TargetInspectButton.Enabled = false;
+            UpdateDisplay();
+        }
+
+        private void CombatRoundUpdate(object sender, CombatActionEvent e)
+        {
+            if (currentWorld.Enemies.Contains(e.Target))
+            {
+                NearbyEntitiesList.SelectedItem = e.Target;
+                Target = e.Target;
+                NearbyEntitiesList_Update();
+            }
+            UpdateDisplay();
+            LogTextBox.Update();
+        }
+
+        private void CombatRoundEnd(object sender, CombatRoundEndEvent e)
+        {
+            InventoryButton.Enabled = true;
+            ActionButton1.Enabled = true;
+            ActionButton2.Enabled = true;
+            ActionButton3.Enabled = true;
+            ActionButton4.Enabled = true;
+            ActionButton5.Enabled = true;
+            ActionButton6.Enabled = true;
+            PartyMember1InspectButton.Enabled = true;
+            PartyMember2InspectButton.Enabled = true;
+            PartyMember3InspectButton.Enabled = true;
+            PartyMember4InspectButton.Enabled = true;
+            TargetInspectButton.Enabled = true;
+            UpdateDisplay();
+        }
+
+        private void CombatEnd(object sender, CombatEndEvent e)
+        {
+            ActionButton1.Text = "Action 1";
+            ActionButton2.Text = "Action 2";
+            UpdateDisplay();
+        }
         private string GetTimeString()
         {
             string timeString = $"Day {currentWorld.Day}, {currentWorld.Hour}";
@@ -288,8 +377,22 @@ namespace BeyondBastion
         {
             if (currentWorld.InCombat)
             {
-
+                currentWorld.Combat.SimulateRound();
             }
+        }
+
+        private void ActionButton2_Click(object sender, EventArgs e)
+        {
+            if (currentWorld.InCombat)
+            {
+                CommandPartyWindow window = new CommandPartyWindow(currentWorld.Combat.NextMoveList, currentWorld);
+                window.ShowDialog();
+            }
+        }
+
+        private void TargetTable_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

@@ -9,12 +9,12 @@ namespace BeyondBastion.Entity
     public enum CombatActionType
     {
         Attack,
+        Defend,
         UseItem,
-        Defend
     }
     public class CombatAction
     {
-        public CombatAction(IEntity actor, CombatActionType type, IEntity target=null)
+        public CombatAction(IEntity actor, CombatActionType type, IEntity target = null)
         {
             Actor = actor;
             Type = type;

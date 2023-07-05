@@ -229,22 +229,22 @@ namespace BeyondBastion.Entity
             switch (bodyPart.Type)
             {
                 case BodyPartType.Head:
-                    return ((ArmorItem)Equipment[EquipmentSlot.Head]).Mitigation;
+                    return Equipment[EquipmentSlot.Head] == null? 0 : ((ArmorItem)Equipment[EquipmentSlot.Head]).Mitigation;
 
                 case BodyPartType.LeftArm:
-                    return ((ArmorItem)Equipment[EquipmentSlot.Arms]).Mitigation;
+                    return Equipment[EquipmentSlot.Arms] == null? 0 : ((ArmorItem)Equipment[EquipmentSlot.Arms]).Mitigation;
 
                 case BodyPartType.RightArm:
-                    return ((ArmorItem)Equipment[EquipmentSlot.Arms]).Mitigation;
+                    return Equipment[EquipmentSlot.Arms] == null ? 0 : ((ArmorItem)Equipment[EquipmentSlot.Arms]).Mitigation;
 
                 case BodyPartType.Torso:
-                    return ((ArmorItem)Equipment[EquipmentSlot.Torso]).Mitigation;
+                    return Equipment[EquipmentSlot.Torso] == null ? 0 : ((ArmorItem)Equipment[EquipmentSlot.Torso]).Mitigation;
 
                 case BodyPartType.LeftLeg:
-                    return ((ArmorItem)Equipment[EquipmentSlot.Legs]).Mitigation;
+                    return Equipment[EquipmentSlot.Legs] == null ? 0 : ((ArmorItem)Equipment[EquipmentSlot.Legs]).Mitigation;
 
                 case BodyPartType.RightLeg:
-                    return ((ArmorItem)Equipment[EquipmentSlot.Legs]).Mitigation;
+                    return Equipment[EquipmentSlot.Legs] == null ? 0 : ((ArmorItem)Equipment[EquipmentSlot.Legs]).Mitigation;
 
                 default:
                     throw new InvalidOperationException();
@@ -348,7 +348,6 @@ namespace BeyondBastion.Entity
             {
                 TakeSanityDamage(8, DamageSource.WitnessDeath);
             }
-
         }
     }
 }

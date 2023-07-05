@@ -25,6 +25,7 @@ namespace BeyondBastion.Entity
         int Charisma { get; }
 
         int CooldownTicks { get; set; }
+        bool IsDead { get; }
 
         int GetMaxHealth();
         int GetBaseHealth();
@@ -52,5 +53,8 @@ namespace BeyondBastion.Entity
 
         double GetKnockdownChance();
         double GetKnockdownChanceMod();
+
+        double TakeDamage(double amount, BodyPart target, DamageSource source, IEntity entitySource = null);
+
     }
 }

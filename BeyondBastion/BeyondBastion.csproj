@@ -32,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,16 +52,26 @@
     <Compile Include="Entity\BodyParts\BodyPart.cs" />
     <Compile Include="Entity\BodyParts\Injury.cs" />
     <Compile Include="Entity\Character.cs" />
+    <Compile Include="Entity\CombatAction.cs" />
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Entity\DamageSource.cs" />
     <Compile Include="Entity\IEntity.cs" />
     <Compile Include="Events\CharacterConsumeEvent.cs" />
-    <Compile Include="Events\CombatEndEvent.cs" />
-    <Compile Include="Events\CombatStartEvent.cs" />
+    <Compile Include="Events\Combat\CombatActionEvent.cs" />
+    <Compile Include="Events\Combat\CombatEndEvent.cs" />
+    <Compile Include="Events\Combat\CombatRoundEndEvent.cs" />
+    <Compile Include="Events\Combat\CombatRoundStartEvent.cs" />
+    <Compile Include="Events\Combat\CombatStartEvent.cs" />
     <Compile Include="Events\EntityDeathEvent.cs" />
     <Compile Include="Items\Consumables\Bread.cs" />
     <Compile Include="Items\Consumables\FoodItem.cs" />
     <Compile Include="Items\Equipment\Weapons\ShieldItem.cs" />
+    <Compile Include="UI\CommandPartyWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CommandPartyWindow.Designer.cs">
+      <DependentUpon>CommandPartyWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\IBeyondBastionUi.cs" />
     <Compile Include="UI\InspectWindow.cs">
       <SubType>Form</SubType>
@@ -110,6 +121,7 @@
     </Compile>
     <Compile Include="UI\StatBar.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="UI\StyleRules.cs" />
     <Compile Include="World.cs" />
     <Compile Include="UI\YesNoDialog.cs">
       <SubType>Form</SubType>
@@ -117,6 +129,9 @@
     <Compile Include="UI\YesNoDialog.Designer.cs">
       <DependentUpon>YesNoDialog.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\CommandPartyWindow.resx">
+      <DependentUpon>CommandPartyWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\InspectWindow.resx">
       <DependentUpon>InspectWindow.cs</DependentUpon>
     </EmbeddedResource>

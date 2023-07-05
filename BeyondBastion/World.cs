@@ -10,6 +10,8 @@ using BeyondBastion.Items.Equipment.Weapons;
 using BeyondBastion.UI;
 using BeyondBastion.Items.Consumables;
 using System;
+using System.Security.AccessControl;
+using BeyondBastion.Events.Combat;
 
 namespace BeyondBastion
 {
@@ -21,6 +23,8 @@ namespace BeyondBastion
             Inventory.Add(new ItemStack(new Bread(), 12));
 
             log = new Log(this);
+            Combat.OnCombatAction += log.OnCombatAction;
+            Combat.OnCombatEnd += EndCombat;
             NearbyEntities = new List<IEntity>();
             Enemies = new List<IEntity>();
 
@@ -52,16 +56,18 @@ namespace BeyondBastion
 
         public CombatHandler Combat { get; set; } = new CombatHandler();
         public bool InCombat { get; set; } = false;
-        public event EventHandler<CombatStartEvent> CombatStart;
-        public event EventHandler<CombatEndEvent> CombatEnd;
 
         public IEntity CreateEntity(string name)
         {
             Character character = new Character(name, this);
             NearbyEntities.Add(character);
+
             character.Death += log.OnDeathEvent;
-            character.Eat += log.OnCharacterConsumeEvent;
+            character.Death += Combat.OnEntityDeath;
             character.Death += OnEntityDeath;
+
+            character.Eat += log.OnCharacterConsumeEvent;
+
             return character;
         }
 
@@ -84,16 +90,15 @@ namespace BeyondBastion
                 if (!Enemies.Contains(entity)) Enemies.Add(entity);
             }
             Combat.Commence(this);
-            CombatStart?.Invoke(this, new CombatStartEvent());
         }
 
-        public void EndCombat()
+        public void EndCombat(object sender, CombatEndEvent e)
         {
-            foreach (IEntity enemy in Combat.EnemiesKilled)
+            foreach (IEntity enemy in e.EnemiesKilled)
             {
                 // TODO: allow looting of dead enemies
             }
-            Combat.EnemiesKilled.Clear();
+            InCombat = false;
         }
 
         public void PassTime(int hours)
@@ -125,7 +130,7 @@ namespace BeyondBastion
 
         private void OnEntityDeath(object sender, EntityDeathEvent e)
         {
-            foreach (var entity in NearbyEntities)
+            foreach (var entity in NearbyEntities.ToList())
             {
                 if (entity != e.EntityKilled && entity is Character character) character.WitnessEntityDeath(e);
             }

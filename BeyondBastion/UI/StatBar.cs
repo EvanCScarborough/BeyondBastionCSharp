@@ -52,6 +52,7 @@ namespace BeyondBastion.UI
                     break;
             }
             Bar.Width = (int)Math.Round(width * fraction);
+            if (Bar.Width > Background.Width) Bar.Width = Background.Width;
             Bar.Update();
             Background.Update();
         }

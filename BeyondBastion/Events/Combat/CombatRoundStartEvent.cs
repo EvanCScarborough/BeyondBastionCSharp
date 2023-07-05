@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeyondBastion.Events
+namespace BeyondBastion.Events.Combat
 {
-    public class CombatEndEvent
+    public class CombatRoundStartEvent
     {
-        public CombatEndEvent() { }
     }
 }
