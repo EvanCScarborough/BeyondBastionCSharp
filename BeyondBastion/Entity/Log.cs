@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Drawing;
 using System.Collections.Generic;
 using BeyondBastion.Entity;
 using BeyondBastion.Events;
 using BeyondBastion.Events.Combat;
+using System.Threading;
+using BeyondBastion.Entity.BodyParts;
 
 namespace BeyondBastion
 {
@@ -15,13 +18,12 @@ namespace BeyondBastion
         }
         public List<string> Lines { get; }
         public World CurrentWorld { get; }
-        public EventHandler<string> LogUpdated;
-        public List<string> AddLine(string line, bool isCombatUpdate = false)
+        public EventHandler<LogUpdate> LogUpdated;
+        public List<string> AddLine(string line, Color color)
         {
-            line = line.Trim();
-            if (!isCombatUpdate) line = $"(Day {CurrentWorld.Day}, hour {CurrentWorld.Hour}) {line}";
+            if (!CurrentWorld.InCombat) line = $"(Day {CurrentWorld.Day}, hour {CurrentWorld.Hour}) {line}";
             Lines.Add(line);
-            LogUpdated?.Invoke(this, line);
+            LogUpdated?.Invoke(this, new LogUpdate(line, color));
             return Lines;
         }
 
@@ -32,6 +34,10 @@ namespace BeyondBastion
             {
                 case DamageSource.Absolute:
                     newLine += "is struck down by the gods.";
+                    break;
+
+                case DamageSource.Beheading:
+                    newLine += $"is beheaded{(e.Killer == null ? "." : $" by {e.Killer.Name}.")}";
                     break;
 
                 case DamageSource.MeleeAttack:
@@ -52,7 +58,12 @@ namespace BeyondBastion
                     newLine += $"starves to death.";
                     break;
             }
-            AddLine(newLine);
+            AddLine(newLine, e.WasPartyMember ? Color.Brown : Color.Crimson);
+        }
+
+        public void OnCombatRoundStart(object sender, CombatRoundStartEvent e)
+        {
+            AddLine("A new round of combat begins.", Color.White);
         }
 
         public void OnCombatAction(object sender, CombatActionEvent e)
@@ -60,11 +71,32 @@ namespace BeyondBastion
             string newLine = $"{e.Actor.Name} ";
             if (e.Result == CombatActionResult.Block)
             {
-                AddLine(newLine + $"tries to attack {e.Target.Name}, but {e.Target.Name} blocks.", true);
+                AddLine(newLine + $"tries to attack {e.Target.Name}, but {e.Target.Name} blocks.", CurrentWorld.PlayerParty.Contains((Character)e.Target) ? Color.LimeGreen : Color.ForestGreen);
             }
             else if (e.Result == CombatActionResult.Hit)
             {
-                AddLine(newLine + $"hits {e.Target.Name} in the {e.HitLocation.Name}.", true);
+                AddLine(newLine + $"hits {e.Target.Name} in the {e.HitLocation.Name}.", CurrentWorld.PlayerParty.Contains((Character)e.Target) ? Color.Chocolate : Color.Orange);
+            }
+            if (e.Injury != null)
+            {
+                if (e.Injury.Type == Entity.BodyParts.InjuryType.Dismemberment && e.HitLocation.Type == BodyPartType.Head) { return; }
+                newLine = $"{e.Target.Name}";
+                switch (e.Injury.Type)
+                {
+                    case Entity.BodyParts.InjuryType.MinorWound:
+                        newLine += " receives a Minor Wound.";
+                        break;
+                    case Entity.BodyParts.InjuryType.MajorWound:
+                        newLine += " receives a Major Wound.";
+                        break;
+                    case Entity.BodyParts.InjuryType.Fracture:
+                        newLine = $"A bone in {e.Target.Name}'s {e.HitLocation.Name} is Fractured.";
+                        break;
+                    case Entity.BodyParts.InjuryType.Dismemberment:
+                        newLine += $"'s {e.HitLocation.Name} is dismembered.";
+                        break;
+                }
+                AddLine(newLine, CurrentWorld.PlayerParty.Contains((Character)e.Target) ? Color.IndianRed : Color.LightCoral);
             }
         }
 
@@ -73,7 +105,7 @@ namespace BeyondBastion
             string newLine = $"{((Character)sender).Name} ";
             if (e.StoppedDueToFullness) newLine += $"eats {e.NumEaten} {e.FoodEaten.Name} before becoming full.";
             else newLine += $"eats {e.NumEaten} {e.FoodEaten.Name}.";
-            AddLine(newLine);
+            AddLine(newLine, Color.PowderBlue);
         }
     }
 }

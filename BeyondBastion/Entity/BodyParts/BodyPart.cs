@@ -57,7 +57,7 @@ namespace BeyondBastion.Entity.BodyParts
         public string Name { get; }
         private List<Injury> Injuries { get; set; }
 
-        public List<Injury> AddInjury(InjuryType type)
+        public Injury AddInjury(InjuryType type)
         {
             Injury injury = new Injury(type);
             if (injury.Type == InjuryType.Dismemberment)
@@ -70,17 +70,24 @@ namespace BeyondBastion.Entity.BodyParts
             else
             {
                 Injuries.Add(injury);
-                double totalPenalty = 0;
-                foreach (Injury inj in Injuries)
-                {
-                    totalPenalty += inj.GetPenalty();
-                }
-                if (totalPenalty >= 0.4)
-                {
-                    AddInjury(InjuryType.Dismemberment);
-                }
             }
-            return Injuries;
+            return injury;
+        }
+
+        public Injury AddInjury(Injury inj)
+        {
+            if (inj.Type == InjuryType.Dismemberment)
+            {
+                Injuries = new List<Injury>
+                {
+                    inj
+                };
+            }
+            else
+            {
+                Injuries.Add(inj);
+            }
+            return inj;
         }
 
         public List<Injury> GetInjuries()

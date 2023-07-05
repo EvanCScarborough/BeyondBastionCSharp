@@ -45,7 +45,7 @@ namespace BeyondBastion.Entity.BodyParts
         public string Description { get; } = string.Empty;
         public double GetPenalty()
         {
-            return (Type == InjuryType.Fracture) ? 0.02 * (int)Type : 0.04 * (int)Type;
+            return (Type == InjuryType.Fracture) ? 0.025 * (int)Type : 0.04 * (int)Type;
         }
     }
 }

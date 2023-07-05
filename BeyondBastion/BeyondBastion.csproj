@@ -62,7 +62,9 @@
     <Compile Include="Events\Combat\CombatRoundEndEvent.cs" />
     <Compile Include="Events\Combat\CombatRoundStartEvent.cs" />
     <Compile Include="Events\Combat\CombatStartEvent.cs" />
+    <Compile Include="Events\Combat\CombatTurnEndEvent.cs" />
     <Compile Include="Events\EntityDeathEvent.cs" />
+    <Compile Include="Events\LogUpdate.cs" />
     <Compile Include="Items\Consumables\Bread.cs" />
     <Compile Include="Items\Consumables\FoodItem.cs" />
     <Compile Include="Items\Equipment\Weapons\ShieldItem.cs" />
@@ -120,7 +122,7 @@
       <DependentUpon>SelectFromListDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\StatBar.cs" />
-    <Compile Include="Log.cs" />
+    <Compile Include="Entity\Log.cs" />
     <Compile Include="UI\StyleRules.cs" />
     <Compile Include="World.cs" />
     <Compile Include="UI\YesNoDialog.cs">

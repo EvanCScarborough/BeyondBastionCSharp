@@ -97,7 +97,7 @@ namespace BeyondBastion
                 if (DisplayedEntity.Equipment[EquipmentSlot.MainHand] == null)
                 {
                     AttackDamageLabel.Text = CreateStatLabel(DisplayedEntity.GetAttackDamage(), 1, DisplayedEntity.GetAttackDamageMod());
-                    AttackSpeedLabel.Text = $"{DisplayedEntity.GetAttackSpeed():0.0} (2 {(DisplayedEntity.GetAttackSpeedMod(2) >= 0 ? "+" : "-")} {(DisplayedEntity.GetAttackSpeedMod(2) >= 0 ? DisplayedEntity.GetAttackSpeedMod(2) : DisplayedEntity.GetAttackSpeedMod(2) * -1):0.0})";
+                    AttackSpeedLabel.Text = $"{DisplayedEntity.GetAttackSpeed():0.0} (1.2 {(DisplayedEntity.GetAttackSpeedMod(1.2) >= 0 ? "+" : "-")} {(DisplayedEntity.GetAttackSpeedMod(1.2) >= 0 ? DisplayedEntity.GetAttackSpeedMod(1.2) : DisplayedEntity.GetAttackSpeedMod(1.2) * -1):0.0})";
                     WoundChanceLabel.Text = "0%";
                     FractureChanceLabel.Text = "0%";
                     DismemberChanceLabel.Text = "0%";

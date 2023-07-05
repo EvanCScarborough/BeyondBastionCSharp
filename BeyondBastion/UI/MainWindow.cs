@@ -12,6 +12,7 @@ using BeyondBastion.Events;
 using BeyondBastion.UI;
 using BeyondBastion.Events.Combat;
 using System.Runtime.CompilerServices;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BeyondBastion
 {
@@ -46,7 +47,7 @@ namespace BeyondBastion
             currentWorld.log.LogUpdated += Log_Update;
             currentWorld.Combat.OnCombatStart += CombatStart;
             currentWorld.Combat.OnCombatRoundStart += CombatRoundStart;
-            currentWorld.Combat.OnCombatAction += CombatRoundUpdate;
+            currentWorld.Combat.OnCombatTurnEnd += CombatRoundUpdate;
             currentWorld.Combat.OnCombatRoundEnd += CombatRoundEnd;
             currentWorld.Combat.OnCombatEnd += CombatEnd;
 
@@ -202,9 +203,14 @@ namespace BeyondBastion
             else return "Dead";
         }
 
-        private void Log_Update(object sender, string newLine)
+        private void Log_Update(object sender, LogUpdate update)
         {
-            LogTextBox.AppendText(newLine + "\n");
+            LogTextBox.SelectionStart = LogTextBox.TextLength;
+            LogTextBox.SelectionLength = 0;
+
+            LogTextBox.SelectionColor = update.LineColor;
+            LogTextBox.AppendText(update.NewLine + "\n");
+            LogTextBox.SelectionColor = LogTextBox.ForeColor;
         }
 
         private void NearbyEntitiesList_Update()
@@ -391,6 +397,11 @@ namespace BeyondBastion
         }
 
         private void TargetTable_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void LogTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -15,13 +15,14 @@ namespace BeyondBastion.Events.Combat
     }
     public class CombatActionEvent
     {
-        public CombatActionEvent(IEntity actor, IEntity target, CombatActionType type, CombatActionResult result, BodyPart hitLoc=null)
+        public CombatActionEvent(IEntity actor, IEntity target, CombatActionType type, CombatActionResult result, BodyPart hitLoc=null, Injury injury = null)
         {
             Actor = actor;
             Target = target;
             Type = type;
             Result = result;
             HitLocation = hitLoc;
+            Injury = injury;
         }
 
         public IEntity Actor;
@@ -29,5 +30,6 @@ namespace BeyondBastion.Events.Combat
         public CombatActionType Type;
         public CombatActionResult Result;
         public BodyPart HitLocation;
+        public Injury Injury;
     }
 }

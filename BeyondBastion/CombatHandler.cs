@@ -8,6 +8,7 @@ using BeyondBastion.Entity.BodyParts;
 using BeyondBastion.Events.Combat;
 using System.Threading;
 using BeyondBastion.Events;
+using BeyondBastion.Items.Equipment;
 
 namespace BeyondBastion
 {
@@ -22,7 +23,8 @@ namespace BeyondBastion
 
         public event EventHandler<CombatStartEvent> OnCombatStart;                // invoked before first round of combat
         public event EventHandler<CombatRoundStartEvent> OnCombatRoundStart;      // invoked before every round of combat is simulated
-        public event EventHandler<CombatActionEvent> OnCombatAction;              // invoked anytime an action is taken by an entity during combat
+        public event EventHandler<CombatActionEvent> OnCombatAction;              // invoked after action result is confirmed but before damage/healing/etc is applied
+        public event EventHandler<CombatActionEvent> OnCombatTurnEnd;             // invoked when a character's action for the round and all its consequences are finished
         public event EventHandler<CombatRoundEndEvent> OnCombatRoundEnd;          // invoked when a round of combat is finished simulating
         public event EventHandler<CombatEndEvent> OnCombatEnd;                    // invoked when combat is finished
 
@@ -66,7 +68,9 @@ namespace BeyondBastion
             OnCombatRoundStart?.Invoke(this, new CombatRoundStartEvent());
             foreach (CombatAction action in NextMoveList)
             {
-                if (action.Actor.IsDead || CurrentWorld.Enemies.Count == 0 || CurrentWorld.PlayerParty.Count == 0) { continue; }
+                if (CurrentWorld.Enemies.Count == 0 || CurrentWorld.PlayerParty.Count == 0) { break; }
+                if (action.Actor.IsDead) { continue; }
+
                 if (action.Type == CombatActionType.Attack)
                 {
                     while (action.Target == null || action.Target.IsDead)
@@ -76,16 +80,37 @@ namespace BeyondBastion
 
                     if (Random.NextDouble() < action.Target.GetBlockChance())
                     {
-                        OnCombatAction?.Invoke(this, new CombatActionEvent(
-                            action.Actor, 
-                            action.Target, 
+                        CombatActionEvent e = new CombatActionEvent(
+                            action.Actor,
+                            action.Target,
                             CombatActionType.Attack,
-                            CombatActionResult.Block, 
-                            null));
+                            CombatActionResult.Block,
+                            null);
+
+                        OnCombatAction?.Invoke(this, e);
+
+                        OnCombatTurnEnd?.Invoke(this, e);
                     }
                     else
                     {
                         BodyPart hitLocation = action.Target.BodyParts[Random.Next(action.Target.BodyParts.Count)];
+
+                        Injury inflictedInj = GetResultingInjuries(action.Actor, hitLocation, action.Target);
+
+                        CombatActionEvent e = new CombatActionEvent(
+                            action.Actor,
+                            action.Target,
+                            CombatActionType.Attack,
+                            CombatActionResult.Hit,
+                            hitLocation,
+                            inflictedInj);
+
+                        OnCombatAction?.Invoke(this, e);
+
+                        if (inflictedInj != null)
+                        {
+                            action.Target.Injure(hitLocation, inflictedInj, action.Actor);
+                        }
 
                         action.Target.TakeDamage(
                             action.Actor.GetAttackDamage(),
@@ -93,17 +118,51 @@ namespace BeyondBastion
                             DamageSource.MeleeAttack,
                             action.Actor);
 
-                        OnCombatAction.Invoke(this, new CombatActionEvent(
-                            action.Actor, 
-                            action.Target, 
-                            CombatActionType.Attack, 
-                            CombatActionResult.Hit, 
-                            hitLocation));
+
+                        OnCombatTurnEnd?.Invoke(this, e);
                     }
                 }
-                Thread.Sleep(1000);
+                Thread.Sleep(800 + Random.Next(1000));
             }
+            NextMoveList = GetRoundMoveList();
             OnCombatRoundEnd?.Invoke(this, new CombatRoundEndEvent());
+        }
+
+        public Injury GetResultingInjuries(IEntity attacker, BodyPart hitLocation, IEntity defender)
+        {
+            double seed = Random.NextDouble();
+            double dismemberThreshold = attacker.GetDismemberChance() * (1 - defender.GetBodyPartMitigation(hitLocation));
+            foreach (Injury inj in hitLocation.GetInjuries())
+            {
+                dismemberThreshold += attacker.GetDismemberChance() * 0.5 * (1 - defender.GetBodyPartMitigation(hitLocation));
+            }
+            if (seed < dismemberThreshold)
+            {
+                return new Injury(InjuryType.Dismemberment);
+            }
+
+            if (hitLocation.GetInjuries().Find(x => x.Type == InjuryType.Fracture) == null) // if the hitLocation body part does not already have a fracture injury
+            {
+                seed = Random.NextDouble();
+                double fractureThreshold = attacker.GetFractureChance() * (1 - defender.GetBodyPartMitigation(hitLocation));
+                if (seed < fractureThreshold)
+                {
+                    return new Injury(InjuryType.Fracture);
+                }
+            }
+            double woundThreshold = attacker.GetWoundChance() * (1 - defender.GetBodyPartMitigation(hitLocation));
+            if (seed < woundThreshold)
+            {
+                if (seed * 1.5 < woundThreshold)
+                {
+                    return new Injury(InjuryType.MajorWound);
+                }
+                else
+                {
+                    return new Injury(InjuryType.MinorWound);
+                }
+            }
+            return null;
         }
 
         public void OnEntityDeath(object sender, EntityDeathEvent e)

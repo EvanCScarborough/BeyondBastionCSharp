@@ -23,6 +23,7 @@ namespace BeyondBastion
             Inventory.Add(new ItemStack(new Bread(), 12));
 
             log = new Log(this);
+            Combat.OnCombatRoundStart += log.OnCombatRoundStart;
             Combat.OnCombatAction += log.OnCombatAction;
             Combat.OnCombatEnd += EndCombat;
             NearbyEntities = new List<IEntity>();
@@ -36,6 +37,8 @@ namespace BeyondBastion
             Enemies.Add(CreateEntity("Gertie"));
             Enemies.Add(CreateEntity("Sergio"));
             Enemies.Add(CreateEntity("Squaf"));
+
+            Enemies[0].Equipment[Items.Equipment.EquipmentSlot.MainHand] = new Shortsword();
 
             CreateEntity("Flarp");
 

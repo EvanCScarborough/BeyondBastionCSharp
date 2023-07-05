@@ -54,7 +54,11 @@ namespace BeyondBastion.Entity
         double GetKnockdownChance();
         double GetKnockdownChanceMod();
 
+        double GetBodyPartMitigation(BodyPart bodyPart);
+
         double TakeDamage(double amount, BodyPart target, DamageSource source, IEntity entitySource = null);
 
+        Injury Injure(BodyPart bodyPart, InjuryType type, object source);
+        Injury Injure(BodyPart bodyPart, Injury injury, object source);
     }
 }

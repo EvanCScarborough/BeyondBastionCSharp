@@ -170,7 +170,7 @@
             this.tableLayoutPanel2.Controls.Add(this.ActionButton2, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.ActionButton1, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 43);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 36);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 6;
@@ -180,7 +180,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(602, 492);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(602, 499);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // ActionButton6
@@ -192,10 +192,10 @@
             this.ActionButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ActionButton6.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ActionButton6.ForeColor = System.Drawing.Color.Goldenrod;
-            this.ActionButton6.Location = new System.Drawing.Point(30, 425);
+            this.ActionButton6.Location = new System.Drawing.Point(30, 430);
             this.ActionButton6.Margin = new System.Windows.Forms.Padding(30, 15, 30, 15);
             this.ActionButton6.Name = "ActionButton6";
-            this.ActionButton6.Size = new System.Drawing.Size(542, 52);
+            this.ActionButton6.Size = new System.Drawing.Size(542, 54);
             this.ActionButton6.TabIndex = 15;
             this.ActionButton6.Text = "Action 6";
             this.ActionButton6.UseVisualStyleBackColor = false;
@@ -210,10 +210,10 @@
             this.ActionButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ActionButton5.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ActionButton5.ForeColor = System.Drawing.Color.Goldenrod;
-            this.ActionButton5.Location = new System.Drawing.Point(30, 343);
+            this.ActionButton5.Location = new System.Drawing.Point(30, 347);
             this.ActionButton5.Margin = new System.Windows.Forms.Padding(30, 15, 30, 15);
             this.ActionButton5.Name = "ActionButton5";
-            this.ActionButton5.Size = new System.Drawing.Size(542, 52);
+            this.ActionButton5.Size = new System.Drawing.Size(542, 53);
             this.ActionButton5.TabIndex = 14;
             this.ActionButton5.Text = "Action 5";
             this.ActionButton5.UseVisualStyleBackColor = false;
@@ -227,10 +227,10 @@
             this.ActionButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ActionButton4.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ActionButton4.ForeColor = System.Drawing.Color.Goldenrod;
-            this.ActionButton4.Location = new System.Drawing.Point(30, 261);
+            this.ActionButton4.Location = new System.Drawing.Point(30, 264);
             this.ActionButton4.Margin = new System.Windows.Forms.Padding(30, 15, 30, 15);
             this.ActionButton4.Name = "ActionButton4";
-            this.ActionButton4.Size = new System.Drawing.Size(542, 52);
+            this.ActionButton4.Size = new System.Drawing.Size(542, 53);
             this.ActionButton4.TabIndex = 13;
             this.ActionButton4.Text = "Action 4";
             this.ActionButton4.UseVisualStyleBackColor = false;
@@ -244,10 +244,10 @@
             this.ActionButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ActionButton3.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ActionButton3.ForeColor = System.Drawing.Color.Goldenrod;
-            this.ActionButton3.Location = new System.Drawing.Point(30, 179);
+            this.ActionButton3.Location = new System.Drawing.Point(30, 181);
             this.ActionButton3.Margin = new System.Windows.Forms.Padding(30, 15, 30, 15);
             this.ActionButton3.Name = "ActionButton3";
-            this.ActionButton3.Size = new System.Drawing.Size(542, 52);
+            this.ActionButton3.Size = new System.Drawing.Size(542, 53);
             this.ActionButton3.TabIndex = 12;
             this.ActionButton3.Text = "Action 3";
             this.ActionButton3.UseVisualStyleBackColor = false;
@@ -261,10 +261,10 @@
             this.ActionButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ActionButton2.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ActionButton2.ForeColor = System.Drawing.Color.Goldenrod;
-            this.ActionButton2.Location = new System.Drawing.Point(30, 97);
+            this.ActionButton2.Location = new System.Drawing.Point(30, 98);
             this.ActionButton2.Margin = new System.Windows.Forms.Padding(30, 15, 30, 15);
             this.ActionButton2.Name = "ActionButton2";
-            this.ActionButton2.Size = new System.Drawing.Size(542, 52);
+            this.ActionButton2.Size = new System.Drawing.Size(542, 53);
             this.ActionButton2.TabIndex = 11;
             this.ActionButton2.Text = "Action 2";
             this.ActionButton2.UseVisualStyleBackColor = false;
@@ -282,7 +282,7 @@
             this.ActionButton1.Location = new System.Drawing.Point(30, 15);
             this.ActionButton1.Margin = new System.Windows.Forms.Padding(30, 15, 30, 15);
             this.ActionButton1.Name = "ActionButton1";
-            this.ActionButton1.Size = new System.Drawing.Size(542, 52);
+            this.ActionButton1.Size = new System.Drawing.Size(542, 53);
             this.ActionButton1.TabIndex = 10;
             this.ActionButton1.Text = "Action 1";
             this.ActionButton1.UseVisualStyleBackColor = false;
@@ -311,13 +311,13 @@
             this.TargetNearbyTable.Controls.Add(this.TargetBox, 0, 0);
             this.TargetNearbyTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TargetNearbyTable.Font = new System.Drawing.Font("Bookman Old Style", 12F);
-            this.TargetNearbyTable.Location = new System.Drawing.Point(4, 48);
+            this.TargetNearbyTable.Location = new System.Drawing.Point(4, 41);
             this.TargetNearbyTable.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TargetNearbyTable.Name = "TargetNearbyTable";
             this.TargetNearbyTable.RowCount = 2;
             this.TargetNearbyTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.TargetNearbyTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.TargetNearbyTable.Size = new System.Drawing.Size(600, 479);
+            this.TargetNearbyTable.Size = new System.Drawing.Size(600, 486);
             this.TargetNearbyTable.TabIndex = 0;
             // 
             // NearbyEntitiesList
@@ -329,7 +329,7 @@
             this.NearbyEntitiesList.ForeColor = System.Drawing.Color.Goldenrod;
             this.NearbyEntitiesList.FormattingEnabled = true;
             this.NearbyEntitiesList.IntegralHeight = false;
-            this.NearbyEntitiesList.ItemHeight = 27;
+            this.NearbyEntitiesList.ItemHeight = 23;
             this.NearbyEntitiesList.Location = new System.Drawing.Point(4, 141);
             this.NearbyEntitiesList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.NearbyEntitiesList.Name = "NearbyEntitiesList";
@@ -362,13 +362,13 @@
             this.TargetTable.Controls.Add(this.label1, 0, 0);
             this.TargetTable.Controls.Add(this.TargetHealthBackground, 1, 0);
             this.TargetTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TargetTable.Location = new System.Drawing.Point(4, 34);
+            this.TargetTable.Location = new System.Drawing.Point(4, 29);
             this.TargetTable.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TargetTable.Name = "TargetTable";
             this.TargetTable.RowCount = 2;
             this.TargetTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
             this.TargetTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TargetTable.Size = new System.Drawing.Size(584, 92);
+            this.TargetTable.Size = new System.Drawing.Size(584, 97);
             this.TargetTable.TabIndex = 1;
             this.TargetTable.Paint += new System.Windows.Forms.PaintEventHandler(this.TargetTable_Paint);
             // 
@@ -383,7 +383,7 @@
             this.TargetInspectButton.ForeColor = System.Drawing.Color.Goldenrod;
             this.TargetInspectButton.Location = new System.Drawing.Point(3, 49);
             this.TargetInspectButton.Name = "TargetInspectButton";
-            this.TargetInspectButton.Size = new System.Drawing.Size(96, 40);
+            this.TargetInspectButton.Size = new System.Drawing.Size(96, 45);
             this.TargetInspectButton.TabIndex = 7;
             this.TargetInspectButton.Text = "Inspect";
             this.TargetInspectButton.UseVisualStyleBackColor = false;
@@ -451,14 +451,14 @@
             this.PartyTable.Controls.Add(this.PartyMember4Box, 1, 1);
             this.PartyTable.Controls.Add(this.PartyControlsPanel, 0, 2);
             this.PartyTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartyTable.Location = new System.Drawing.Point(4, 43);
+            this.PartyTable.Location = new System.Drawing.Point(4, 36);
             this.PartyTable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 5);
             this.PartyTable.Name = "PartyTable";
             this.PartyTable.RowCount = 3;
             this.PartyTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.PartyTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.PartyTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.PartyTable.Size = new System.Drawing.Size(1206, 484);
+            this.PartyTable.Size = new System.Drawing.Size(1206, 491);
             this.PartyTable.TabIndex = 0;
             // 
             // PartyMember1Box
@@ -473,7 +473,7 @@
             this.PartyMember1Box.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember1Box.Name = "PartyMember1Box";
             this.PartyMember1Box.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.PartyMember1Box.Size = new System.Drawing.Size(595, 201);
+            this.PartyMember1Box.Size = new System.Drawing.Size(595, 204);
             this.PartyMember1Box.TabIndex = 0;
             this.PartyMember1Box.TabStop = false;
             this.PartyMember1Box.Text = "Party Member 1";
@@ -491,7 +491,7 @@
             this.PartyMember1Table.Controls.Add(this.PartyMember1HealthBackground, 1, 0);
             this.PartyMember1Table.Controls.Add(this.PartyMember1InspectButton, 0, 3);
             this.PartyMember1Table.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartyMember1Table.Location = new System.Drawing.Point(4, 34);
+            this.PartyMember1Table.Location = new System.Drawing.Point(4, 29);
             this.PartyMember1Table.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember1Table.Name = "PartyMember1Table";
             this.PartyMember1Table.RowCount = 4;
@@ -499,7 +499,7 @@
             this.PartyMember1Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.PartyMember1Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.PartyMember1Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
-            this.PartyMember1Table.Size = new System.Drawing.Size(587, 162);
+            this.PartyMember1Table.Size = new System.Drawing.Size(587, 170);
             this.PartyMember1Table.TabIndex = 0;
             // 
             // PartyMember1SanityBackground
@@ -508,11 +508,11 @@
             this.PartyMember1SanityBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PartyMember1SanityBackground.Controls.Add(this.PartyMember1SanityBar);
             this.PartyMember1SanityBackground.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartyMember1SanityBackground.Location = new System.Drawing.Point(106, 81);
+            this.PartyMember1SanityBackground.Location = new System.Drawing.Point(106, 87);
             this.PartyMember1SanityBackground.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember1SanityBackground.MinimumSize = new System.Drawing.Size(149, 14);
             this.PartyMember1SanityBackground.Name = "PartyMember1SanityBackground";
-            this.PartyMember1SanityBackground.Size = new System.Drawing.Size(477, 28);
+            this.PartyMember1SanityBackground.Size = new System.Drawing.Size(477, 31);
             this.PartyMember1SanityBackground.TabIndex = 5;
             // 
             // PartyMember1SanityBar
@@ -530,11 +530,11 @@
             this.PartyMember1EnergyBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PartyMember1EnergyBackground.Controls.Add(this.PartyMember1EnergyBar);
             this.PartyMember1EnergyBackground.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartyMember1EnergyBackground.Location = new System.Drawing.Point(106, 43);
+            this.PartyMember1EnergyBackground.Location = new System.Drawing.Point(106, 46);
             this.PartyMember1EnergyBackground.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember1EnergyBackground.MinimumSize = new System.Drawing.Size(149, 14);
             this.PartyMember1EnergyBackground.Name = "PartyMember1EnergyBackground";
-            this.PartyMember1EnergyBackground.Size = new System.Drawing.Size(477, 28);
+            this.PartyMember1EnergyBackground.Size = new System.Drawing.Size(477, 31);
             this.PartyMember1EnergyBackground.TabIndex = 4;
             // 
             // PartyMember1EnergyBar
@@ -554,7 +554,7 @@
             this.PartyMember1HealthLabel.Location = new System.Drawing.Point(4, 0);
             this.PartyMember1HealthLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PartyMember1HealthLabel.Name = "PartyMember1HealthLabel";
-            this.PartyMember1HealthLabel.Size = new System.Drawing.Size(94, 38);
+            this.PartyMember1HealthLabel.Size = new System.Drawing.Size(94, 41);
             this.PartyMember1HealthLabel.TabIndex = 0;
             this.PartyMember1HealthLabel.Text = "Health:";
             this.PartyMember1HealthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -564,10 +564,10 @@
             this.PartyMember1EnergyLabel.AutoSize = true;
             this.PartyMember1EnergyLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PartyMember1EnergyLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PartyMember1EnergyLabel.Location = new System.Drawing.Point(4, 38);
+            this.PartyMember1EnergyLabel.Location = new System.Drawing.Point(4, 41);
             this.PartyMember1EnergyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PartyMember1EnergyLabel.Name = "PartyMember1EnergyLabel";
-            this.PartyMember1EnergyLabel.Size = new System.Drawing.Size(94, 38);
+            this.PartyMember1EnergyLabel.Size = new System.Drawing.Size(94, 41);
             this.PartyMember1EnergyLabel.TabIndex = 1;
             this.PartyMember1EnergyLabel.Text = "Energy:";
             this.PartyMember1EnergyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -577,10 +577,10 @@
             this.PartyMember1SanityLabel.AutoSize = true;
             this.PartyMember1SanityLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PartyMember1SanityLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PartyMember1SanityLabel.Location = new System.Drawing.Point(4, 76);
+            this.PartyMember1SanityLabel.Location = new System.Drawing.Point(4, 82);
             this.PartyMember1SanityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PartyMember1SanityLabel.Name = "PartyMember1SanityLabel";
-            this.PartyMember1SanityLabel.Size = new System.Drawing.Size(94, 38);
+            this.PartyMember1SanityLabel.Size = new System.Drawing.Size(94, 41);
             this.PartyMember1SanityLabel.TabIndex = 2;
             this.PartyMember1SanityLabel.Text = "Sanity:";
             this.PartyMember1SanityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -595,7 +595,7 @@
             this.PartyMember1HealthBackground.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember1HealthBackground.MinimumSize = new System.Drawing.Size(149, 14);
             this.PartyMember1HealthBackground.Name = "PartyMember1HealthBackground";
-            this.PartyMember1HealthBackground.Size = new System.Drawing.Size(477, 28);
+            this.PartyMember1HealthBackground.Size = new System.Drawing.Size(477, 31);
             this.PartyMember1HealthBackground.TabIndex = 3;
             // 
             // PartyMember1HealthBar
@@ -616,9 +616,9 @@
             this.PartyMember1InspectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PartyMember1InspectButton.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PartyMember1InspectButton.ForeColor = System.Drawing.Color.Goldenrod;
-            this.PartyMember1InspectButton.Location = new System.Drawing.Point(3, 117);
+            this.PartyMember1InspectButton.Location = new System.Drawing.Point(3, 126);
             this.PartyMember1InspectButton.Name = "PartyMember1InspectButton";
-            this.PartyMember1InspectButton.Size = new System.Drawing.Size(96, 42);
+            this.PartyMember1InspectButton.Size = new System.Drawing.Size(96, 41);
             this.PartyMember1InspectButton.TabIndex = 6;
             this.PartyMember1InspectButton.Text = "Inspect";
             this.PartyMember1InspectButton.UseVisualStyleBackColor = false;
@@ -635,7 +635,7 @@
             this.PartyMember2Box.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember2Box.Name = "PartyMember2Box";
             this.PartyMember2Box.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.PartyMember2Box.Size = new System.Drawing.Size(595, 201);
+            this.PartyMember2Box.Size = new System.Drawing.Size(595, 204);
             this.PartyMember2Box.TabIndex = 1;
             this.PartyMember2Box.TabStop = false;
             this.PartyMember2Box.Text = "Party Member 2";
@@ -654,7 +654,7 @@
             this.PartyMember2Table.Controls.Add(this.PartyMember2SanityLabel, 0, 2);
             this.PartyMember2Table.Controls.Add(this.PartyMember2HealthBackground, 1, 0);
             this.PartyMember2Table.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartyMember2Table.Location = new System.Drawing.Point(4, 34);
+            this.PartyMember2Table.Location = new System.Drawing.Point(4, 29);
             this.PartyMember2Table.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember2Table.Name = "PartyMember2Table";
             this.PartyMember2Table.RowCount = 4;
@@ -662,7 +662,7 @@
             this.PartyMember2Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.PartyMember2Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.PartyMember2Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
-            this.PartyMember2Table.Size = new System.Drawing.Size(587, 162);
+            this.PartyMember2Table.Size = new System.Drawing.Size(587, 170);
             this.PartyMember2Table.TabIndex = 1;
             // 
             // PartyMember2InspectButton
@@ -674,9 +674,9 @@
             this.PartyMember2InspectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PartyMember2InspectButton.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PartyMember2InspectButton.ForeColor = System.Drawing.Color.Goldenrod;
-            this.PartyMember2InspectButton.Location = new System.Drawing.Point(3, 117);
+            this.PartyMember2InspectButton.Location = new System.Drawing.Point(3, 126);
             this.PartyMember2InspectButton.Name = "PartyMember2InspectButton";
-            this.PartyMember2InspectButton.Size = new System.Drawing.Size(96, 42);
+            this.PartyMember2InspectButton.Size = new System.Drawing.Size(96, 41);
             this.PartyMember2InspectButton.TabIndex = 7;
             this.PartyMember2InspectButton.Text = "Inspect";
             this.PartyMember2InspectButton.UseVisualStyleBackColor = false;
@@ -688,11 +688,11 @@
             this.PartyMember2SanityBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PartyMember2SanityBackground.Controls.Add(this.PartyMember2SanityBar);
             this.PartyMember2SanityBackground.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartyMember2SanityBackground.Location = new System.Drawing.Point(106, 81);
+            this.PartyMember2SanityBackground.Location = new System.Drawing.Point(106, 87);
             this.PartyMember2SanityBackground.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember2SanityBackground.MinimumSize = new System.Drawing.Size(149, 14);
             this.PartyMember2SanityBackground.Name = "PartyMember2SanityBackground";
-            this.PartyMember2SanityBackground.Size = new System.Drawing.Size(477, 28);
+            this.PartyMember2SanityBackground.Size = new System.Drawing.Size(477, 31);
             this.PartyMember2SanityBackground.TabIndex = 5;
             // 
             // PartyMember2SanityBar
@@ -710,11 +710,11 @@
             this.PartyMember2EnergyBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PartyMember2EnergyBackground.Controls.Add(this.PartyMember2EnergyBar);
             this.PartyMember2EnergyBackground.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartyMember2EnergyBackground.Location = new System.Drawing.Point(106, 43);
+            this.PartyMember2EnergyBackground.Location = new System.Drawing.Point(106, 46);
             this.PartyMember2EnergyBackground.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember2EnergyBackground.MinimumSize = new System.Drawing.Size(149, 14);
             this.PartyMember2EnergyBackground.Name = "PartyMember2EnergyBackground";
-            this.PartyMember2EnergyBackground.Size = new System.Drawing.Size(477, 28);
+            this.PartyMember2EnergyBackground.Size = new System.Drawing.Size(477, 31);
             this.PartyMember2EnergyBackground.TabIndex = 4;
             // 
             // PartyMember2EnergyBar
@@ -734,7 +734,7 @@
             this.PartyMember2HealthLabel.Location = new System.Drawing.Point(4, 0);
             this.PartyMember2HealthLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PartyMember2HealthLabel.Name = "PartyMember2HealthLabel";
-            this.PartyMember2HealthLabel.Size = new System.Drawing.Size(94, 38);
+            this.PartyMember2HealthLabel.Size = new System.Drawing.Size(94, 41);
             this.PartyMember2HealthLabel.TabIndex = 0;
             this.PartyMember2HealthLabel.Text = "Health:";
             this.PartyMember2HealthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -744,10 +744,10 @@
             this.PartyMember2EnergyLabel.AutoSize = true;
             this.PartyMember2EnergyLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PartyMember2EnergyLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PartyMember2EnergyLabel.Location = new System.Drawing.Point(4, 38);
+            this.PartyMember2EnergyLabel.Location = new System.Drawing.Point(4, 41);
             this.PartyMember2EnergyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PartyMember2EnergyLabel.Name = "PartyMember2EnergyLabel";
-            this.PartyMember2EnergyLabel.Size = new System.Drawing.Size(94, 38);
+            this.PartyMember2EnergyLabel.Size = new System.Drawing.Size(94, 41);
             this.PartyMember2EnergyLabel.TabIndex = 1;
             this.PartyMember2EnergyLabel.Text = "Energy:";
             this.PartyMember2EnergyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -757,10 +757,10 @@
             this.PartyMember2SanityLabel.AutoSize = true;
             this.PartyMember2SanityLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PartyMember2SanityLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PartyMember2SanityLabel.Location = new System.Drawing.Point(4, 76);
+            this.PartyMember2SanityLabel.Location = new System.Drawing.Point(4, 82);
             this.PartyMember2SanityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PartyMember2SanityLabel.Name = "PartyMember2SanityLabel";
-            this.PartyMember2SanityLabel.Size = new System.Drawing.Size(94, 38);
+            this.PartyMember2SanityLabel.Size = new System.Drawing.Size(94, 41);
             this.PartyMember2SanityLabel.TabIndex = 2;
             this.PartyMember2SanityLabel.Text = "Sanity:";
             this.PartyMember2SanityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -775,7 +775,7 @@
             this.PartyMember2HealthBackground.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember2HealthBackground.MinimumSize = new System.Drawing.Size(149, 14);
             this.PartyMember2HealthBackground.Name = "PartyMember2HealthBackground";
-            this.PartyMember2HealthBackground.Size = new System.Drawing.Size(477, 28);
+            this.PartyMember2HealthBackground.Size = new System.Drawing.Size(477, 31);
             this.PartyMember2HealthBackground.TabIndex = 3;
             // 
             // PartyMember2HealthBar
@@ -794,11 +794,11 @@
             this.PartyMember3Box.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PartyMember3Box.Font = new System.Drawing.Font("Bookman Old Style", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PartyMember3Box.ForeColor = System.Drawing.Color.White;
-            this.PartyMember3Box.Location = new System.Drawing.Point(4, 216);
+            this.PartyMember3Box.Location = new System.Drawing.Point(4, 219);
             this.PartyMember3Box.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember3Box.Name = "PartyMember3Box";
             this.PartyMember3Box.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.PartyMember3Box.Size = new System.Drawing.Size(595, 201);
+            this.PartyMember3Box.Size = new System.Drawing.Size(595, 204);
             this.PartyMember3Box.TabIndex = 2;
             this.PartyMember3Box.TabStop = false;
             this.PartyMember3Box.Text = "Party Member 3";
@@ -816,7 +816,7 @@
             this.PartyMember3Table.Controls.Add(this.PartyMember3SanityLabel, 0, 2);
             this.PartyMember3Table.Controls.Add(this.PartyMember3HealthBackground, 1, 0);
             this.PartyMember3Table.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartyMember3Table.Location = new System.Drawing.Point(4, 34);
+            this.PartyMember3Table.Location = new System.Drawing.Point(4, 29);
             this.PartyMember3Table.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember3Table.Name = "PartyMember3Table";
             this.PartyMember3Table.RowCount = 4;
@@ -824,7 +824,7 @@
             this.PartyMember3Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.PartyMember3Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.PartyMember3Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
-            this.PartyMember3Table.Size = new System.Drawing.Size(587, 162);
+            this.PartyMember3Table.Size = new System.Drawing.Size(587, 170);
             this.PartyMember3Table.TabIndex = 2;
             // 
             // PartyMember3InspectButton
@@ -836,9 +836,9 @@
             this.PartyMember3InspectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PartyMember3InspectButton.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PartyMember3InspectButton.ForeColor = System.Drawing.Color.Goldenrod;
-            this.PartyMember3InspectButton.Location = new System.Drawing.Point(3, 117);
+            this.PartyMember3InspectButton.Location = new System.Drawing.Point(3, 126);
             this.PartyMember3InspectButton.Name = "PartyMember3InspectButton";
-            this.PartyMember3InspectButton.Size = new System.Drawing.Size(96, 42);
+            this.PartyMember3InspectButton.Size = new System.Drawing.Size(96, 41);
             this.PartyMember3InspectButton.TabIndex = 7;
             this.PartyMember3InspectButton.Text = "Inspect";
             this.PartyMember3InspectButton.UseVisualStyleBackColor = false;
@@ -850,11 +850,11 @@
             this.PartyMember3SanityBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PartyMember3SanityBackground.Controls.Add(this.PartyMember3SanityBar);
             this.PartyMember3SanityBackground.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartyMember3SanityBackground.Location = new System.Drawing.Point(106, 81);
+            this.PartyMember3SanityBackground.Location = new System.Drawing.Point(106, 87);
             this.PartyMember3SanityBackground.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember3SanityBackground.MinimumSize = new System.Drawing.Size(149, 14);
             this.PartyMember3SanityBackground.Name = "PartyMember3SanityBackground";
-            this.PartyMember3SanityBackground.Size = new System.Drawing.Size(477, 28);
+            this.PartyMember3SanityBackground.Size = new System.Drawing.Size(477, 31);
             this.PartyMember3SanityBackground.TabIndex = 5;
             // 
             // PartyMember3SanityBar
@@ -872,11 +872,11 @@
             this.PartyMember3EnergyBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PartyMember3EnergyBackground.Controls.Add(this.PartyMember3EnergyBar);
             this.PartyMember3EnergyBackground.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartyMember3EnergyBackground.Location = new System.Drawing.Point(106, 43);
+            this.PartyMember3EnergyBackground.Location = new System.Drawing.Point(106, 46);
             this.PartyMember3EnergyBackground.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember3EnergyBackground.MinimumSize = new System.Drawing.Size(149, 14);
             this.PartyMember3EnergyBackground.Name = "PartyMember3EnergyBackground";
-            this.PartyMember3EnergyBackground.Size = new System.Drawing.Size(477, 28);
+            this.PartyMember3EnergyBackground.Size = new System.Drawing.Size(477, 31);
             this.PartyMember3EnergyBackground.TabIndex = 4;
             // 
             // PartyMember3EnergyBar
@@ -896,7 +896,7 @@
             this.PartyMember3HealthLabel.Location = new System.Drawing.Point(4, 0);
             this.PartyMember3HealthLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PartyMember3HealthLabel.Name = "PartyMember3HealthLabel";
-            this.PartyMember3HealthLabel.Size = new System.Drawing.Size(94, 38);
+            this.PartyMember3HealthLabel.Size = new System.Drawing.Size(94, 41);
             this.PartyMember3HealthLabel.TabIndex = 0;
             this.PartyMember3HealthLabel.Text = "Health:";
             this.PartyMember3HealthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -906,10 +906,10 @@
             this.PartyMember3EnergyLabel.AutoSize = true;
             this.PartyMember3EnergyLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PartyMember3EnergyLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PartyMember3EnergyLabel.Location = new System.Drawing.Point(4, 38);
+            this.PartyMember3EnergyLabel.Location = new System.Drawing.Point(4, 41);
             this.PartyMember3EnergyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PartyMember3EnergyLabel.Name = "PartyMember3EnergyLabel";
-            this.PartyMember3EnergyLabel.Size = new System.Drawing.Size(94, 38);
+            this.PartyMember3EnergyLabel.Size = new System.Drawing.Size(94, 41);
             this.PartyMember3EnergyLabel.TabIndex = 1;
             this.PartyMember3EnergyLabel.Text = "Energy:";
             this.PartyMember3EnergyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -919,10 +919,10 @@
             this.PartyMember3SanityLabel.AutoSize = true;
             this.PartyMember3SanityLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PartyMember3SanityLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PartyMember3SanityLabel.Location = new System.Drawing.Point(4, 76);
+            this.PartyMember3SanityLabel.Location = new System.Drawing.Point(4, 82);
             this.PartyMember3SanityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PartyMember3SanityLabel.Name = "PartyMember3SanityLabel";
-            this.PartyMember3SanityLabel.Size = new System.Drawing.Size(94, 38);
+            this.PartyMember3SanityLabel.Size = new System.Drawing.Size(94, 41);
             this.PartyMember3SanityLabel.TabIndex = 2;
             this.PartyMember3SanityLabel.Text = "Sanity:";
             this.PartyMember3SanityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -937,7 +937,7 @@
             this.PartyMember3HealthBackground.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember3HealthBackground.MinimumSize = new System.Drawing.Size(149, 14);
             this.PartyMember3HealthBackground.Name = "PartyMember3HealthBackground";
-            this.PartyMember3HealthBackground.Size = new System.Drawing.Size(477, 28);
+            this.PartyMember3HealthBackground.Size = new System.Drawing.Size(477, 31);
             this.PartyMember3HealthBackground.TabIndex = 3;
             // 
             // PartyMember3HealthBar
@@ -956,11 +956,11 @@
             this.PartyMember4Box.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PartyMember4Box.Font = new System.Drawing.Font("Bookman Old Style", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PartyMember4Box.ForeColor = System.Drawing.Color.White;
-            this.PartyMember4Box.Location = new System.Drawing.Point(607, 216);
+            this.PartyMember4Box.Location = new System.Drawing.Point(607, 219);
             this.PartyMember4Box.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember4Box.Name = "PartyMember4Box";
             this.PartyMember4Box.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.PartyMember4Box.Size = new System.Drawing.Size(595, 201);
+            this.PartyMember4Box.Size = new System.Drawing.Size(595, 204);
             this.PartyMember4Box.TabIndex = 3;
             this.PartyMember4Box.TabStop = false;
             this.PartyMember4Box.Text = "Party Member 4";
@@ -978,7 +978,7 @@
             this.PartyMember4Table.Controls.Add(this.PartyMember4SanityLabel, 0, 2);
             this.PartyMember4Table.Controls.Add(this.PartyMember4HealthBackground, 1, 0);
             this.PartyMember4Table.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartyMember4Table.Location = new System.Drawing.Point(4, 34);
+            this.PartyMember4Table.Location = new System.Drawing.Point(4, 29);
             this.PartyMember4Table.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember4Table.Name = "PartyMember4Table";
             this.PartyMember4Table.RowCount = 4;
@@ -986,7 +986,7 @@
             this.PartyMember4Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.PartyMember4Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.PartyMember4Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
-            this.PartyMember4Table.Size = new System.Drawing.Size(587, 162);
+            this.PartyMember4Table.Size = new System.Drawing.Size(587, 170);
             this.PartyMember4Table.TabIndex = 2;
             // 
             // PartyMember4InspectButton
@@ -998,9 +998,9 @@
             this.PartyMember4InspectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PartyMember4InspectButton.Font = new System.Drawing.Font("Bookman Old Style", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PartyMember4InspectButton.ForeColor = System.Drawing.Color.Goldenrod;
-            this.PartyMember4InspectButton.Location = new System.Drawing.Point(3, 117);
+            this.PartyMember4InspectButton.Location = new System.Drawing.Point(3, 126);
             this.PartyMember4InspectButton.Name = "PartyMember4InspectButton";
-            this.PartyMember4InspectButton.Size = new System.Drawing.Size(96, 42);
+            this.PartyMember4InspectButton.Size = new System.Drawing.Size(96, 41);
             this.PartyMember4InspectButton.TabIndex = 7;
             this.PartyMember4InspectButton.Text = "Inspect";
             this.PartyMember4InspectButton.UseVisualStyleBackColor = false;
@@ -1012,11 +1012,11 @@
             this.PartyMember4SanityBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PartyMember4SanityBackground.Controls.Add(this.PartyMember4SanityBar);
             this.PartyMember4SanityBackground.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartyMember4SanityBackground.Location = new System.Drawing.Point(106, 81);
+            this.PartyMember4SanityBackground.Location = new System.Drawing.Point(106, 87);
             this.PartyMember4SanityBackground.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember4SanityBackground.MinimumSize = new System.Drawing.Size(149, 14);
             this.PartyMember4SanityBackground.Name = "PartyMember4SanityBackground";
-            this.PartyMember4SanityBackground.Size = new System.Drawing.Size(477, 28);
+            this.PartyMember4SanityBackground.Size = new System.Drawing.Size(477, 31);
             this.PartyMember4SanityBackground.TabIndex = 5;
             // 
             // PartyMember4SanityBar
@@ -1034,11 +1034,11 @@
             this.PartyMember4EnergyBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PartyMember4EnergyBackground.Controls.Add(this.PartyMember4EnergyBar);
             this.PartyMember4EnergyBackground.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartyMember4EnergyBackground.Location = new System.Drawing.Point(106, 43);
+            this.PartyMember4EnergyBackground.Location = new System.Drawing.Point(106, 46);
             this.PartyMember4EnergyBackground.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember4EnergyBackground.MinimumSize = new System.Drawing.Size(149, 14);
             this.PartyMember4EnergyBackground.Name = "PartyMember4EnergyBackground";
-            this.PartyMember4EnergyBackground.Size = new System.Drawing.Size(477, 28);
+            this.PartyMember4EnergyBackground.Size = new System.Drawing.Size(477, 31);
             this.PartyMember4EnergyBackground.TabIndex = 4;
             // 
             // PartyMember4EnergyBar
@@ -1058,7 +1058,7 @@
             this.PartyMember4HealthLabel.Location = new System.Drawing.Point(4, 0);
             this.PartyMember4HealthLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PartyMember4HealthLabel.Name = "PartyMember4HealthLabel";
-            this.PartyMember4HealthLabel.Size = new System.Drawing.Size(94, 38);
+            this.PartyMember4HealthLabel.Size = new System.Drawing.Size(94, 41);
             this.PartyMember4HealthLabel.TabIndex = 0;
             this.PartyMember4HealthLabel.Text = "Health:";
             this.PartyMember4HealthLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1068,10 +1068,10 @@
             this.PartyMember4EnergyLabel.AutoSize = true;
             this.PartyMember4EnergyLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PartyMember4EnergyLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PartyMember4EnergyLabel.Location = new System.Drawing.Point(4, 38);
+            this.PartyMember4EnergyLabel.Location = new System.Drawing.Point(4, 41);
             this.PartyMember4EnergyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PartyMember4EnergyLabel.Name = "PartyMember4EnergyLabel";
-            this.PartyMember4EnergyLabel.Size = new System.Drawing.Size(94, 38);
+            this.PartyMember4EnergyLabel.Size = new System.Drawing.Size(94, 41);
             this.PartyMember4EnergyLabel.TabIndex = 1;
             this.PartyMember4EnergyLabel.Text = "Energy:";
             this.PartyMember4EnergyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1081,10 +1081,10 @@
             this.PartyMember4SanityLabel.AutoSize = true;
             this.PartyMember4SanityLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PartyMember4SanityLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PartyMember4SanityLabel.Location = new System.Drawing.Point(4, 76);
+            this.PartyMember4SanityLabel.Location = new System.Drawing.Point(4, 82);
             this.PartyMember4SanityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PartyMember4SanityLabel.Name = "PartyMember4SanityLabel";
-            this.PartyMember4SanityLabel.Size = new System.Drawing.Size(94, 38);
+            this.PartyMember4SanityLabel.Size = new System.Drawing.Size(94, 41);
             this.PartyMember4SanityLabel.TabIndex = 2;
             this.PartyMember4SanityLabel.Text = "Sanity:";
             this.PartyMember4SanityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1099,7 +1099,7 @@
             this.PartyMember4HealthBackground.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyMember4HealthBackground.MinimumSize = new System.Drawing.Size(149, 14);
             this.PartyMember4HealthBackground.Name = "PartyMember4HealthBackground";
-            this.PartyMember4HealthBackground.Size = new System.Drawing.Size(477, 28);
+            this.PartyMember4HealthBackground.Size = new System.Drawing.Size(477, 31);
             this.PartyMember4HealthBackground.TabIndex = 3;
             // 
             // PartyMember4HealthBar
@@ -1118,11 +1118,11 @@
             this.PartyTable.SetColumnSpan(this.PartyControlsPanel, 2);
             this.PartyControlsPanel.Controls.Add(this.PartyControlsTable);
             this.PartyControlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PartyControlsPanel.Location = new System.Drawing.Point(4, 427);
+            this.PartyControlsPanel.Location = new System.Drawing.Point(4, 433);
             this.PartyControlsPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PartyControlsPanel.Name = "PartyControlsPanel";
             this.PartyControlsPanel.Padding = new System.Windows.Forms.Padding(3);
-            this.PartyControlsPanel.Size = new System.Drawing.Size(1198, 52);
+            this.PartyControlsPanel.Size = new System.Drawing.Size(1198, 53);
             this.PartyControlsPanel.TabIndex = 4;
             // 
             // PartyControlsTable
@@ -1140,7 +1140,7 @@
             this.PartyControlsTable.Name = "PartyControlsTable";
             this.PartyControlsTable.RowCount = 1;
             this.PartyControlsTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.PartyControlsTable.Size = new System.Drawing.Size(1190, 44);
+            this.PartyControlsTable.Size = new System.Drawing.Size(1190, 45);
             this.PartyControlsTable.TabIndex = 0;
             // 
             // InventoryButton
@@ -1155,7 +1155,7 @@
             this.InventoryButton.Location = new System.Drawing.Point(0, 0);
             this.InventoryButton.Margin = new System.Windows.Forms.Padding(0);
             this.InventoryButton.Name = "InventoryButton";
-            this.InventoryButton.Size = new System.Drawing.Size(396, 44);
+            this.InventoryButton.Size = new System.Drawing.Size(396, 45);
             this.InventoryButton.TabIndex = 8;
             this.InventoryButton.Text = "View Inventory";
             this.InventoryButton.UseVisualStyleBackColor = false;
@@ -1173,7 +1173,7 @@
             this.button1.Location = new System.Drawing.Point(792, 0);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(398, 44);
+            this.button1.Size = new System.Drawing.Size(398, 45);
             this.button1.TabIndex = 9;
             this.button1.Text = "Manage Party";
             this.button1.UseVisualStyleBackColor = false;
@@ -1186,7 +1186,7 @@
             this.GirnLabel.Location = new System.Drawing.Point(400, 0);
             this.GirnLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.GirnLabel.Name = "GirnLabel";
-            this.GirnLabel.Size = new System.Drawing.Size(388, 44);
+            this.GirnLabel.Size = new System.Drawing.Size(388, 45);
             this.GirnLabel.TabIndex = 10;
             this.GirnLabel.Text = "Girn: 121402";
             this.GirnLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1213,12 +1213,12 @@
             this.LogTimeTable.Controls.Add(this.DateTimePanel, 0, 0);
             this.LogTimeTable.Controls.Add(this.LogTextBox, 0, 1);
             this.LogTimeTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LogTimeTable.Location = new System.Drawing.Point(4, 43);
+            this.LogTimeTable.Location = new System.Drawing.Point(4, 36);
             this.LogTimeTable.Name = "LogTimeTable";
             this.LogTimeTable.RowCount = 2;
             this.LogTimeTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.LogTimeTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.LogTimeTable.Size = new System.Drawing.Size(1206, 490);
+            this.LogTimeTable.Size = new System.Drawing.Size(1206, 497);
             this.LogTimeTable.TabIndex = 0;
             // 
             // DateTimePanel
@@ -1232,7 +1232,7 @@
             this.DateTimePanel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 5);
             this.DateTimePanel.Name = "DateTimePanel";
             this.DateTimePanel.Padding = new System.Windows.Forms.Padding(3);
-            this.DateTimePanel.Size = new System.Drawing.Size(1198, 31);
+            this.DateTimePanel.Size = new System.Drawing.Size(1198, 29);
             this.DateTimePanel.TabIndex = 5;
             // 
             // DateTimeLabel
@@ -1243,7 +1243,7 @@
             this.DateTimeLabel.Location = new System.Drawing.Point(3, 3);
             this.DateTimeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DateTimeLabel.Name = "DateTimeLabel";
-            this.DateTimeLabel.Size = new System.Drawing.Size(177, 23);
+            this.DateTimeLabel.Size = new System.Drawing.Size(153, 21);
             this.DateTimeLabel.TabIndex = 11;
             this.DateTimeLabel.Text = "Day 1, 12th hour";
             this.DateTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1256,14 +1256,15 @@
             this.LogTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LogTextBox.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LogTextBox.ForeColor = System.Drawing.Color.White;
-            this.LogTextBox.Location = new System.Drawing.Point(4, 41);
+            this.LogTextBox.Location = new System.Drawing.Point(4, 39);
             this.LogTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.LogTextBox.Name = "LogTextBox";
             this.LogTextBox.ReadOnly = true;
             this.LogTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.LogTextBox.Size = new System.Drawing.Size(1198, 444);
+            this.LogTextBox.Size = new System.Drawing.Size(1198, 453);
             this.LogTextBox.TabIndex = 0;
             this.LogTextBox.Text = "";
+            this.LogTextBox.TextChanged += new System.EventHandler(this.LogTextBox_TextChanged);
             // 
             // GirnPartyButtonsPanel
             // 
@@ -1297,7 +1298,7 @@
             this.MinimumSize = new System.Drawing.Size(1189, 999);
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "s";
+            this.Text = "Beyond Bastion";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ActionsBox.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);

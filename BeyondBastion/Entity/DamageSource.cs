@@ -14,6 +14,7 @@ namespace BeyondBastion.Entity
         MeleeAttack,
         RangedAttack,
         Bleed,
+        Beheading,
 
         // SANITY
         WitnessDeath,

@@ -82,7 +82,7 @@ namespace BeyondBastion.Entity
         {
             if (Equipment[EquipmentSlot.MainHand] == null)
             {
-                return Math.Round(2 + GetAttackSpeedMod(2), 1);
+                return Math.Round(1.2 + GetAttackSpeedMod(1.2), 1);
             }
             else
             {

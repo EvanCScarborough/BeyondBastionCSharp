@@ -175,10 +175,29 @@ namespace BeyondBastion.Entity
             return amount;
         }
 
-        public void Injure(BodyPart bodyPart, InjuryType type)
+        public Injury Injure(BodyPart bodyPart, InjuryType type, object source = null)
         {
-            bodyPart.AddInjury(type);
+            Injury injury = new Injury(type);
+            return Injure(bodyPart, injury, source);
+        }
+
+        public Injury Injure(BodyPart bodyPart, Injury injury, object source = null)
+        {
+            if (injury.Type == InjuryType.Dismemberment && bodyPart.Type == BodyPartType.Head)
+            {
+                if (source is Entity)
+                {
+                    Die(new EntityDeathEvent(this, DamageSource.Beheading, CurrentWorld.PlayerParty.Contains(this), (IEntity)source));
+                }
+                else
+                {
+                    Die(new EntityDeathEvent(this, DamageSource.Beheading, CurrentWorld.PlayerParty.Contains(this)));
+                }
+                return injury;
+            }
+            Injury inj = bodyPart.AddInjury(injury);
             GetMaxHealth();
+            return inj;
         }
 
         public void Die(EntityDeathEvent e)
