@@ -30,8 +30,6 @@ namespace BeyondBastion.Entity
                 new BodyPart(BodyPartType.RightLeg),
         })
         {
-            Handedness = (random.NextDouble() < 0.12) ? Handedness.Left : Handedness.Right;
-
             Equipment[EquipmentSlot.Head] = null;
             Equipment[EquipmentSlot.Torso] = null;
             Equipment[EquipmentSlot.Arms] = null;
@@ -40,7 +38,6 @@ namespace BeyondBastion.Entity
             Equipment[EquipmentSlot.OffHand] = null;
         }
 
-        public Handedness Handedness { get; }
         public double Fullness { get; set; } = 10;
 
         public event EventHandler<CharacterConsumeEvent> Eat;

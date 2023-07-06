@@ -39,6 +39,14 @@ namespace BeyondBastion
             Enemies.Add(CreateEntity("Squaf"));
 
             Enemies[0].Equipment[Items.Equipment.EquipmentSlot.MainHand] = new Shortsword();
+            Enemies[1].Equipment[Items.Equipment.EquipmentSlot.MainHand] = new Shortsword();
+            Enemies[2].Equipment[Items.Equipment.EquipmentSlot.MainHand] = new Shortsword();
+
+            PlayerParty[0].Equipment[Items.Equipment.EquipmentSlot.MainHand] = new Shortsword();
+            PlayerParty[1].Equipment[Items.Equipment.EquipmentSlot.MainHand] = new Shortsword();
+            PlayerParty[2].Equipment[Items.Equipment.EquipmentSlot.MainHand] = new Shortsword();
+            PlayerParty[3].Equipment[Items.Equipment.EquipmentSlot.MainHand] = new Shortsword();
+
 
             CreateEntity("Flarp");
 
@@ -65,9 +73,11 @@ namespace BeyondBastion
             Character character = new Character(name, this);
             NearbyEntities.Add(character);
 
-            character.Death += log.OnDeathEvent;
-            character.Death += Combat.OnEntityDeath;
-            character.Death += OnEntityDeath;
+            character.DeathEvent += log.OnDeathEvent;
+            character.DeathEvent += Combat.OnEntityDeath;
+            character.DeathEvent += OnEntityDeath;
+
+            character.DisarmEvent += log.OnDisarmEvent;
 
             character.Eat += log.OnCharacterConsumeEvent;
 

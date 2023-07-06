@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BeyondBastion.Entity.BodyParts;
 using BeyondBastion.Events;
+using BeyondBastion.Items;
 using BeyondBastion.Items.Consumables;
 using BeyondBastion.Items.Equipment;
 
@@ -31,6 +32,7 @@ namespace BeyondBastion.Entity
             Charisma = GetRandomStatValue();
 
             BodyParts = bodyParts;
+            Handedness = (random.NextDouble() < 0.12) ? Handedness.Left : Handedness.Right;
 
             Health = GetMaxHealth();
             Energy = GetMaxEnergy();
@@ -42,6 +44,7 @@ namespace BeyondBastion.Entity
         public World CurrentWorld { get; }
 
         public List<BodyPart> BodyParts { get; set; }
+        public Handedness Handedness { get; }
 
         public double Health { get; set; }
         public double Energy { get; set; }
@@ -57,7 +60,8 @@ namespace BeyondBastion.Entity
         public int CooldownTicks { get; set; }
         public bool IsDead { get; set; } = false;
 
-        public event EventHandler<EntityDeathEvent> Death;
+        public event EventHandler<EntityDeathEvent> DeathEvent;
+        public event EventHandler<EntityDisarmEvent> DisarmEvent;
 
         public int GetBaseHealth()
         {
@@ -175,35 +179,58 @@ namespace BeyondBastion.Entity
             return amount;
         }
 
-        public Injury Injure(BodyPart bodyPart, InjuryType type, object source = null)
-        {
-            Injury injury = new Injury(type);
-            return Injure(bodyPart, injury, source);
-        }
-
         public Injury Injure(BodyPart bodyPart, Injury injury, object source = null)
         {
-            if (injury.Type == InjuryType.Dismemberment && bodyPart.Type == BodyPartType.Head)
+            if ((injury.Type == InjuryType.Fracture || injury.Type == InjuryType.Dismemberment))
             {
-                if (source is Entity)
+                if ((bodyPart.Type == BodyPartType.RightArm && Handedness == Handedness.Right) || 
+                    (bodyPart.Type == BodyPartType.LeftArm && Handedness == Handedness.Left))
                 {
-                    Die(new EntityDeathEvent(this, DamageSource.Beheading, CurrentWorld.PlayerParty.Contains(this), (IEntity)source));
+                    if (Equipment[EquipmentSlot.MainHand] != null)
+                    {
+                        EquipmentItem heldEquipmentItem = Equipment[EquipmentSlot.MainHand];
+                        Equipment[EquipmentSlot.MainHand] = null;
+                        if (CurrentWorld.PlayerParty.Contains(this) && !CurrentWorld.InCombat)
+                        {
+                            CurrentWorld.Inventory.Add(heldEquipmentItem);
+                            DisarmEvent?.Invoke(this, new EntityDisarmEvent(this, heldEquipmentItem, true));
+                        }
+                        else if (CurrentWorld.InCombat)
+                        {
+                            CurrentWorld.Combat.LootList.Add(new ItemStack(heldEquipmentItem, 1));
+                            DisarmEvent?.Invoke(this, new EntityDisarmEvent(this, heldEquipmentItem, false));
+                        }
+                    }
                 }
-                else
+                else if (injury.Type == InjuryType.Dismemberment && bodyPart.Type == BodyPartType.Head)
                 {
-                    Die(new EntityDeathEvent(this, DamageSource.Beheading, CurrentWorld.PlayerParty.Contains(this)));
+                    if (source is Entity)
+                    {
+                        Die(new EntityDeathEvent(this, DamageSource.Beheading, CurrentWorld.PlayerParty.Contains(this), (IEntity)source));
+                    }
+                    else
+                    {
+                        Die(new EntityDeathEvent(this, DamageSource.Beheading, CurrentWorld.PlayerParty.Contains(this)));
+                    }
+                    return injury;
                 }
-                return injury;
             }
+
             Injury inj = bodyPart.AddInjury(injury);
             GetMaxHealth();
             return inj;
         }
 
+        public Injury Injure(BodyPart bodyPart, InjuryType type, object source = null) // Overload method
+        {
+            Injury injury = new Injury(type);
+            return Injure(bodyPart, injury, source);
+        } 
+
         public void Die(EntityDeathEvent e)
         {
             IsDead = true;
-            Death?.Invoke(this, e);
+            DeathEvent?.Invoke(this, e);
         }
     }
 }

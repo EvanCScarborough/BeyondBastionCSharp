@@ -6,6 +6,7 @@ using BeyondBastion.Events;
 using BeyondBastion.Events.Combat;
 using System.Threading;
 using BeyondBastion.Entity.BodyParts;
+using System.CodeDom.Compiler;
 
 namespace BeyondBastion
 {
@@ -19,9 +20,10 @@ namespace BeyondBastion
         public List<string> Lines { get; }
         public World CurrentWorld { get; }
         public EventHandler<LogUpdate> LogUpdated;
-        public List<string> AddLine(string line, Color color)
+        public List<string> AddLine(string line, Color color, bool indent = false)
         {
             if (!CurrentWorld.InCombat) line = $"(Day {CurrentWorld.Day}, hour {CurrentWorld.Hour}) {line}";
+            else if (indent) line = "    ⁃ " + line;
             Lines.Add(line);
             LogUpdated?.Invoke(this, new LogUpdate(line, color));
             return Lines;
@@ -58,7 +60,7 @@ namespace BeyondBastion
                     newLine += $"starves to death.";
                     break;
             }
-            AddLine(newLine, e.WasPartyMember ? Color.Brown : Color.Crimson);
+            AddLine(newLine, e.WasPartyMember ? Color.Brown : Color.Crimson, true);
         }
 
         public void OnCombatRoundStart(object sender, CombatRoundStartEvent e)
@@ -96,8 +98,15 @@ namespace BeyondBastion
                         newLine += $"'s {e.HitLocation.Name} is dismembered.";
                         break;
                 }
-                AddLine(newLine, CurrentWorld.PlayerParty.Contains((Character)e.Target) ? Color.IndianRed : Color.LightCoral);
+                AddLine(newLine, CurrentWorld.PlayerParty.Contains((Character)e.Target) ? Color.IndianRed : Color.LightCoral, true);
             }
+        }
+
+        public void OnDisarmEvent(object sender, EntityDisarmEvent e)
+        {
+            string newLine = $"{e.Actor.Name} drops their {e.DroppedItem.Name}.";
+            if (e.PlacedInInventory) { newLine += " It has been placed in the party inventory."; }
+            AddLine(newLine, CurrentWorld.PlayerParty.Contains((Character)e.Actor) ? Color.SteelBlue : Color.LightSkyBlue, true);
         }
 
         public void OnCharacterConsumeEvent(object sender, CharacterConsumeEvent e)

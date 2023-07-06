@@ -64,6 +64,7 @@
     <Compile Include="Events\Combat\CombatStartEvent.cs" />
     <Compile Include="Events\Combat\CombatTurnEndEvent.cs" />
     <Compile Include="Events\EntityDeathEvent.cs" />
+    <Compile Include="Events\EntityDisarmEvent.cs" />
     <Compile Include="Events\LogUpdate.cs" />
     <Compile Include="Items\Consumables\Bread.cs" />
     <Compile Include="Items\Consumables\FoodItem.cs" />

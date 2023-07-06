@@ -8,7 +8,7 @@ using BeyondBastion.Entity.BodyParts;
 using BeyondBastion.Events.Combat;
 using System.Threading;
 using BeyondBastion.Events;
-using BeyondBastion.Items.Equipment;
+using BeyondBastion.Items;
 
 namespace BeyondBastion
 {
@@ -18,6 +18,7 @@ namespace BeyondBastion
         private List<IEntity> Combatants { get; set; }
         private List<IEntity> EnemiesKilled { get; set; }
         private List<IEntity> PartyMembersKilled { get; set; }
+        public List<ItemStack> LootList { get; set; }
         public List<CombatAction> NextMoveList { get; set; }
         private World CurrentWorld { get; set; }
 
@@ -35,6 +36,7 @@ namespace BeyondBastion
             Combatants = CurrentWorld.PlayerParty.Concat(CurrentWorld.Enemies).ToList();
             EnemiesKilled = new List<IEntity>();
             PartyMembersKilled = new List<IEntity>();
+            LootList = new List<ItemStack>();
 
             foreach (var entity in Combatants)
             {
