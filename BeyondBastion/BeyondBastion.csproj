@@ -63,12 +63,16 @@
     <Compile Include="Events\Combat\CombatRoundStartEvent.cs" />
     <Compile Include="Events\Combat\CombatStartEvent.cs" />
     <Compile Include="Events\Combat\CombatTurnEndEvent.cs" />
+    <Compile Include="Events\Combat\CounterAttackEvent.cs" />
     <Compile Include="Events\EntityDeathEvent.cs" />
     <Compile Include="Events\EntityDisarmEvent.cs" />
     <Compile Include="Events\LogUpdate.cs" />
     <Compile Include="Items\Consumables\Bread.cs" />
     <Compile Include="Items\Consumables\FoodItem.cs" />
-    <Compile Include="Items\Equipment\Weapons\ShieldItem.cs" />
+    <Compile Include="Items\Equipment\QualityLevel.cs" />
+    <Compile Include="Items\Equipment\Shields\Buckler.cs" />
+    <Compile Include="Items\Equipment\Shields\ShieldItem.cs" />
+    <Compile Include="StaticRandom.cs" />
     <Compile Include="UI\CommandPartyWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +80,12 @@
       <DependentUpon>CommandPartyWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\IBeyondBastionUi.cs" />
+    <Compile Include="UI\InspectItemWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InspectItemWindow.Designer.cs">
+      <DependentUpon>InspectItemWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\InspectWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,8 +133,15 @@
       <DependentUpon>SelectFromListDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\StatBar.cs" />
-    <Compile Include="Entity\Log.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="UI\StyleRules.cs" />
+    <Compile Include="UI\TransactionWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\TransactionWindow.Designer.cs">
+      <DependentUpon>TransactionWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UIMethods.cs" />
     <Compile Include="World.cs" />
     <Compile Include="UI\YesNoDialog.cs">
       <SubType>Form</SubType>
@@ -134,6 +151,9 @@
     </Compile>
     <EmbeddedResource Include="UI\CommandPartyWindow.resx">
       <DependentUpon>CommandPartyWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\InspectItemWindow.resx">
+      <DependentUpon>InspectItemWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\InspectWindow.resx">
       <DependentUpon>InspectWindow.cs</DependentUpon>
@@ -161,6 +181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SelectFromListDialog.resx">
       <DependentUpon>SelectFromListDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TransactionWindow.resx">
+      <DependentUpon>TransactionWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\YesNoDialog.resx">
       <DependentUpon>YesNoDialog.cs</DependentUpon>

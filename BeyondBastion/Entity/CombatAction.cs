@@ -11,6 +11,7 @@ namespace BeyondBastion.Entity
         Attack,
         Defend,
         UseItem,
+        Counter,
     }
     public class CombatAction
     {

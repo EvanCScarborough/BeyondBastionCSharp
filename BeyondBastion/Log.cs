@@ -12,6 +12,8 @@ namespace BeyondBastion
 {
     public class Log
     {
+        private static string IndentString = "   ‣ ";
+
         public Log(World currentWorld)
         {
             CurrentWorld = currentWorld;
@@ -23,7 +25,7 @@ namespace BeyondBastion
         public List<string> AddLine(string line, Color color, bool indent = false)
         {
             if (!CurrentWorld.InCombat) line = $"(Day {CurrentWorld.Day}, hour {CurrentWorld.Hour}) {line}";
-            else if (indent) line = "    ⁃ " + line;
+            else if (indent) line = IndentString + line;
             Lines.Add(line);
             LogUpdated?.Invoke(this, new LogUpdate(line, color));
             return Lines;
@@ -70,31 +72,44 @@ namespace BeyondBastion
 
         public void OnCombatAction(object sender, CombatActionEvent e)
         {
-            string newLine = $"{e.Actor.Name} ";
-            if (e.Result == CombatActionResult.Block)
+            string newLine = string.Empty;
+            if (e.Type == CombatActionType.Counter) { newLine += IndentString; }
+            newLine += $"{e.Actor.Name} ";
+            switch (e.Result)
             {
-                AddLine(newLine + $"tries to attack {e.Target.Name}, but {e.Target.Name} blocks.", CurrentWorld.PlayerParty.Contains((Character)e.Target) ? Color.LimeGreen : Color.ForestGreen);
+                case CombatActionResult.Success:
+                    AddLine(newLine + $"hits {e.Target.Name} in the {e.HitLocation.Name}.", CurrentWorld.PlayerParty.Contains((Character)e.Target) ? Color.Chocolate : Color.Orange);
+                    InjurySubmessage(e);
+                    return;
+
+                case CombatActionResult.Parried:
+                    AddLine(newLine + $"tries to attack {e.Target.Name}, but {e.Target.Name} parries.", CurrentWorld.PlayerParty.Contains((Character)e.Target) ? Color.LimeGreen : Color.ForestGreen);
+                    return;
+
+                case CombatActionResult.Blocked:
+                    AddLine(newLine + $"tries to attack {e.Target.Name}, but {e.Target.Name} blocks.", CurrentWorld.PlayerParty.Contains((Character)e.Target) ? Color.LimeGreen : Color.ForestGreen);
+                    return;
             }
-            else if (e.Result == CombatActionResult.Hit)
-            {
-                AddLine(newLine + $"hits {e.Target.Name} in the {e.HitLocation.Name}.", CurrentWorld.PlayerParty.Contains((Character)e.Target) ? Color.Chocolate : Color.Orange);
-            }
+        }
+
+        public void InjurySubmessage(CombatActionEvent e)
+        {
             if (e.Injury != null)
             {
-                if (e.Injury.Type == Entity.BodyParts.InjuryType.Dismemberment && e.HitLocation.Type == BodyPartType.Head) { return; }
-                newLine = $"{e.Target.Name}";
+                if (e.Injury.Type == InjuryType.Dismemberment && e.HitLocation.Type == BodyPartType.Head) { return; }
+                string newLine = $"{e.Target.Name}";
                 switch (e.Injury.Type)
                 {
-                    case Entity.BodyParts.InjuryType.MinorWound:
+                    case InjuryType.MinorWound:
                         newLine += " receives a Minor Wound.";
                         break;
-                    case Entity.BodyParts.InjuryType.MajorWound:
+                    case InjuryType.MajorWound:
                         newLine += " receives a Major Wound.";
                         break;
-                    case Entity.BodyParts.InjuryType.Fracture:
+                    case InjuryType.Fracture:
                         newLine = $"A bone in {e.Target.Name}'s {e.HitLocation.Name} is Fractured.";
                         break;
-                    case Entity.BodyParts.InjuryType.Dismemberment:
+                    case InjuryType.Dismemberment:
                         newLine += $"'s {e.HitLocation.Name} is dismembered.";
                         break;
                 }
@@ -107,6 +122,17 @@ namespace BeyondBastion
             string newLine = $"{e.Actor.Name} drops their {e.DroppedItem.Name}.";
             if (e.PlacedInInventory) { newLine += " It has been placed in the party inventory."; }
             AddLine(newLine, CurrentWorld.PlayerParty.Contains((Character)e.Actor) ? Color.SteelBlue : Color.LightSkyBlue, true);
+        }
+
+        public void OnCounterAttack(object sender, CounterAttackEvent e)
+        {
+            string newLine = $"{IndentString}{e.Actor.Name} ";
+            AddLine(newLine + $"counterattacks {e.Target.Name}.", CurrentWorld.PlayerParty.Contains((Character)e.Actor) ? Color.Magenta : Color.DarkMagenta);
+        }
+
+        public void OnCombatEnd(object sender, CombatEndEvent e)
+        {
+            AddLine($"Combat ends in {e.Result.ToString().ToLower()} for the party.", Color.White);
         }
 
         public void OnCharacterConsumeEvent(object sender, CharacterConsumeEvent e)

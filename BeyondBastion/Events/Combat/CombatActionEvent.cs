@@ -10,8 +10,9 @@ namespace BeyondBastion.Events.Combat
 {
     public enum CombatActionResult
     {
-        Hit,
-        Block,
+        Success,
+        Parried,
+        Blocked,
     }
     public class CombatActionEvent
     {

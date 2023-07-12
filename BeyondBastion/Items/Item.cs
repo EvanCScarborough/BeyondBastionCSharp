@@ -11,7 +11,7 @@ namespace BeyondBastion.Items
         public Item(string name,
             string description,
             double weight,
-            double value,
+            int value,
             bool equippable = false,
             bool consumable = false,
             bool destructible = true)
@@ -28,7 +28,7 @@ namespace BeyondBastion.Items
         public string Name { get; set; }
         public string Description { get; set; }
         public double Weight { get; set; }
-        public double Value { get; set; }
+        public int Value { get; set; }
         public bool IsEquippable { get; set; } = false;
         public bool IsConsumable { get; set; } = false;
         public bool IsDestructible { get; set; } = true;

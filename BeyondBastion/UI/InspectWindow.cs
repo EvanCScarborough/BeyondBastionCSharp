@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using BeyondBastion.Entity;
 using BeyondBastion.Entity.BodyParts;
 using BeyondBastion.Items.Equipment;
+using BeyondBastion.Items.Equipment.Shields;
 using BeyondBastion.UI;
 
 namespace BeyondBastion
@@ -102,18 +103,31 @@ namespace BeyondBastion
                     FractureChanceLabel.Text = "0%";
                     DismemberChanceLabel.Text = "0%";
                     KnockdownChanceLabel.Text = CreateStatLabel(DisplayedEntity.GetKnockdownChance(), 0.02, DisplayedEntity.GetKnockdownChanceMod(), true);
+                    ParryChanceLabel.Text = "0%";
                 }
                 else
                 {
                     WeaponItem weapon = DisplayedEntity.Equipment[EquipmentSlot.MainHand] as WeaponItem;
-                    AttackDamageLabel.Text = CreateStatLabel(DisplayedEntity.GetAttackDamage(), weapon.BaseDamage, DisplayedEntity.GetAttackDamageMod());
-                    AttackSpeedLabel.Text = CreateStatLabel(DisplayedEntity.GetAttackSpeed(), weapon.AttackSpeed, DisplayedEntity.GetAttackSpeedMod(DisplayedEntity.GetAttackSpeed()));
-                    WoundChanceLabel.Text = CreateStatLabel(DisplayedEntity.GetWoundChance(), weapon.WoundChance, DisplayedEntity.GetWoundChanceMod(), true);
-                    FractureChanceLabel.Text = CreateStatLabel(DisplayedEntity.GetFractureChance(), weapon.FractureChance, DisplayedEntity.GetFractureChanceMod(), true);
-                    DismemberChanceLabel.Text = CreateStatLabel(DisplayedEntity.GetDismemberChance(), weapon.DismemberChance, DisplayedEntity.GetDismemberChanceMod(), true);
-                    KnockdownChanceLabel.Text = CreateStatLabel(DisplayedEntity.GetKnockdownChance(), 0.02 + weapon.KnockdownChance, DisplayedEntity.GetKnockdownChanceMod(), true);
+                    AttackDamageLabel.Text = CreateStatLabel(DisplayedEntity.GetAttackDamage(), weapon.GetDamage(), DisplayedEntity.GetAttackDamageMod());
+                    AttackSpeedLabel.Text = CreateStatLabel(DisplayedEntity.GetAttackSpeed(), weapon.GetAttackSpeed(), DisplayedEntity.GetAttackSpeedMod(DisplayedEntity.GetAttackSpeed()));
+                    WoundChanceLabel.Text = CreateStatLabel(DisplayedEntity.GetWoundChance(), weapon.GetWoundChance(), DisplayedEntity.GetWoundChanceMod(), true);
+                    FractureChanceLabel.Text = CreateStatLabel(DisplayedEntity.GetFractureChance(), weapon.GetFractureChance(), DisplayedEntity.GetFractureChanceMod(), true);
+                    DismemberChanceLabel.Text = CreateStatLabel(DisplayedEntity.GetDismemberChance(), weapon.GetDismemberChance(), DisplayedEntity.GetDismemberChanceMod(), true);
+                    KnockdownChanceLabel.Text = CreateStatLabel(DisplayedEntity.GetKnockdownChance(), 0.02 + weapon.GetKnockdownChance(), DisplayedEntity.GetKnockdownChanceMod(), true);
+                    ParryChanceLabel.Text = CreateStatLabel(DisplayedEntity.GetParryChance(), weapon.GetParryChance(), DisplayedEntity.GetParryChanceMod(), true);
                 }
-                BlockChanceLabel.Text = $"{DisplayedEntity.GetBlockChance() * 100}%";
+
+                if (DisplayedEntity.Equipment[EquipmentSlot.OffHand] == null)
+                {
+                    BlockChanceLabel.Text = "0%";
+                    CounterChanceLabel.Text = "0%";
+                }
+                else
+                {
+                    ShieldItem shield = DisplayedEntity.Equipment[EquipmentSlot.OffHand] as ShieldItem;
+                    BlockChanceLabel.Text = CreateStatLabel(DisplayedEntity.GetBlockChance(), shield.GetBlockChance(), DisplayedEntity.GetBlockChanceMod(), true);
+                    CounterChanceLabel.Text = CreateStatLabel(DisplayedEntity.GetCounterChance(), shield.GetCounterChance(), DisplayedEntity.GetCounterChanceMod(), true);
+                }
             }
             else
             {
@@ -123,7 +137,7 @@ namespace BeyondBastion
                 FractureChanceLabel.Text = "???";
                 DismemberChanceLabel.Text = "???";
                 KnockdownChanceLabel.Text = "???";
-                BlockChanceLabel.Text = "???";
+                ParryChanceLabel.Text = "???";
             }
 
 
@@ -268,6 +282,15 @@ namespace BeyondBastion
         private void InspectWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
             Dispose();
+        }
+
+        private void InspectButton_Click(object sender, EventArgs e)
+        {
+            if (EquipmentTree.SelectedNode != null)
+            {
+                InspectItemWindow inspectWindow = new InspectItemWindow((EquipmentItem)EquipmentTree.SelectedNode.Tag);
+                inspectWindow.ShowDialog();
+            }
         }
     }
 }

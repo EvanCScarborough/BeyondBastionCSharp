@@ -13,10 +13,9 @@ namespace BeyondBastion.Entity
 {
     public abstract class Entity : IEntity
     {
-        protected static Random random = new Random();
         protected static int GetRandomStatValue()
         {
-            return (int)Math.Round(((random.NextDouble() * 50) + (random.NextDouble() * 50)) / 2);
+            return (int)Math.Round(((StaticRandom.Double() * 50) + (StaticRandom.Double() * 50)) / 2);
         }
 
         protected Entity(string name, World currentWorld, List<BodyPart> bodyParts)
@@ -32,7 +31,7 @@ namespace BeyondBastion.Entity
             Charisma = GetRandomStatValue();
 
             BodyParts = bodyParts;
-            Handedness = (random.NextDouble() < 0.12) ? Handedness.Left : Handedness.Right;
+            Handedness = (StaticRandom.Double() < 0.12) ? Handedness.Left : Handedness.Right;
 
             Health = GetMaxHealth();
             Energy = GetMaxEnergy();
@@ -121,7 +120,8 @@ namespace BeyondBastion.Entity
         public abstract double GetAttackSpeed();
         public abstract double GetAttackSpeedMod(double baseSpeed);
 
-        public abstract double GetBlockChance();
+        public abstract double GetParryChance();
+        public abstract double GetParryChanceMod();
 
         public abstract double GetWoundChance();
         public abstract double GetWoundChanceMod();
@@ -134,6 +134,12 @@ namespace BeyondBastion.Entity
 
         public abstract double GetKnockdownChance();
         public abstract double GetKnockdownChanceMod();
+
+        public abstract double GetBlockChance();
+        public abstract double GetBlockChanceMod();
+
+        public abstract double GetCounterChance();
+        public abstract double GetCounterChanceMod();
 
         public abstract double GetBodyPartMitigation(BodyPart bodyPart);
 
@@ -220,7 +226,6 @@ namespace BeyondBastion.Entity
             GetMaxHealth();
             return inj;
         }
-
         public Injury Injure(BodyPart bodyPart, InjuryType type, object source = null) // Overload method
         {
             Injury injury = new Injury(type);

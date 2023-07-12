@@ -9,14 +9,13 @@ namespace BeyondBastion.Items.Equipment
     public abstract class WeaponItem : EquipmentItem
     {
         public WeaponItem(
-            string name, 
+            string name,
             string description,
             double weight,
-            double value,
             double baseDamage,
             WeaponType type,
             double attackSpeed,
-            double blockChance, 
+            double parryChance,
             double woundChance,
             double fractureChance,
             double dismemberChance,
@@ -28,29 +27,49 @@ namespace BeyondBastion.Items.Equipment
                 name,
                 description,
                 weight,
-                value,
+                0,
                 EquipmentSlot.MainHand
             )
         {
             BaseDamage = baseDamage;
             Type = type;
             AttackSpeed = attackSpeed;
-            BlockChance = blockChance;
+            ParryChance = parryChance;
             WoundChance = woundChance;
             FractureChance = fractureChance;
             DismemberChance = dismemberChance;
             KnockdownChance = knockdownChance;
-            DamageScaling = damageScaling;
+            Scaling = damageScaling;
+            SetValue();
         }
 
-        public double BaseDamage { get; }
+        private double BaseDamage { get; }
         public WeaponType Type { get; }
-        public double AttackSpeed { get; }
-        public double BlockChance { get; }
-        public double WoundChance { get; }
-        public double FractureChance { get; }
-        public double DismemberChance { get; }
-        public double KnockdownChance { get; }
-        public double DamageScaling { get; }
+        private double AttackSpeed { get; }
+        private double ParryChance { get; }
+        private double WoundChance { get; }
+        private double FractureChance { get; }
+        private double DismemberChance { get; }
+        private double KnockdownChance { get; }
+        public double Scaling { get; }
+
+        public override void SetValue()
+        {
+            Value = (int)Math.Ceiling(120 * Quality + ((int)Tier * 60));
+        }
+
+        public double GetDamage() { return Math.Round(BaseDamage * Quality, 1); }
+
+        public double GetAttackSpeed() { return AttackSpeed; }
+
+        public double GetParryChance() { return Math.Round(ParryChance * Quality, 2); }
+
+        public double GetWoundChance() { return Math.Round(WoundChance * Quality, 2);}
+
+        public double GetFractureChance() { return Math.Round(FractureChance * Quality, 2);}
+
+        public double GetDismemberChance() { return Math.Round(DismemberChance * Quality, 2); }
+
+        public double GetKnockdownChance() { return Math.Round(KnockdownChance * Quality, 2);}
     }
 }

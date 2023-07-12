@@ -8,16 +8,17 @@ namespace BeyondBastion.Items.Equipment
 {
     public abstract class EquipmentItem : Item
     {
-        public EquipmentItem(string name, string description, double weight, double value, EquipmentSlot slot) : base(name, description, weight, value, true)
+        public EquipmentItem(string name, string description, double weight, int value, EquipmentSlot slot) : base(name, description, weight, value, true)
         {
             Slot = slot;
+            Quality = QualityLevel.GetRandom();
 
-            double tierSeed = new Random().NextDouble();
-            if (tierSeed >= 0.89)
+            double tierSeed = StaticRandom.Double();
+            if (tierSeed >= 0.95)
             {
                 Tier = Tier.Hallowed;
             }
-            else if (tierSeed >= 0.66)
+            else if (tierSeed >= 0.70)
             {
                 Tier = Tier.Blessed;
             }
@@ -26,13 +27,14 @@ namespace BeyondBastion.Items.Equipment
                 Tier = Tier.Standard;
             }
         }
-        private static Random random = new Random();
         public EquipmentSlot Slot { get; }
         public Tier Tier { get; }
+        public double Quality;
 
         public static double GenerateStat(double min, double max, bool isPercent=true)
         {
-            return isPercent ? Math.Round(min + random.NextDouble() * (max - min), 2) : Math.Round(min + random.NextDouble() * (max - min), 1);
+            return isPercent ? Math.Round(min + StaticRandom.Double() * (max - min), 2) : Math.Round(min + StaticRandom.Double() * (max - min), 1);
         }
+        public abstract void SetValue();
     }
 }

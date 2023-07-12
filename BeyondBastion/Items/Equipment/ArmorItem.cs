@@ -11,7 +11,7 @@ namespace BeyondBastion.Items.Equipment
         public ArmorItem(string name, 
             string description, 
             double weight, 
-            double value, 
+            int value, 
             EquipmentSlot slot) : base(name, description, weight, value, slot) { }
         public double Mitigation { get; }
         //public double InjuryProtection { get; }

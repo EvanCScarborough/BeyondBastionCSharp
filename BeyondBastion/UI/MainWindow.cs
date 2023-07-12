@@ -44,7 +44,7 @@ namespace BeyondBastion
         public MainWindow(World world)
         {
             currentWorld = world;
-            currentWorld.log.LogUpdated += Log_Update;
+            currentWorld.Log.LogUpdated += Log_Update;
             currentWorld.Combat.OnCombatStart += CombatStart;
             currentWorld.Combat.OnCombatRoundStart += CombatRoundStart;
             currentWorld.Combat.OnCombatTurnEnd += CombatRoundUpdate;
@@ -324,7 +324,7 @@ namespace BeyondBastion
         private void OpenInspectWindow(IEntity character, bool canModifyEquipment=true, bool canViewPrivateInfo = true)
         {
             InspectWindow inspectWindow = new InspectWindow(character, currentWorld, canModifyEquipment, canViewPrivateInfo);
-            inspectWindow.Show();
+            inspectWindow.ShowDialog();
         }
 
         private void PartyMember1InspectButton_Click(object sender, EventArgs e)

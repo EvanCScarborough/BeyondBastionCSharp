@@ -9,6 +9,7 @@ using BeyondBastion.Events.Combat;
 using System.Threading;
 using BeyondBastion.Events;
 using BeyondBastion.Items;
+using BeyondBastion.Items.Equipment;
 
 namespace BeyondBastion
 {
@@ -25,14 +26,18 @@ namespace BeyondBastion
         public event EventHandler<CombatStartEvent> OnCombatStart;                // invoked before first round of combat
         public event EventHandler<CombatRoundStartEvent> OnCombatRoundStart;      // invoked before every round of combat is simulated
         public event EventHandler<CombatActionEvent> OnCombatAction;              // invoked after action result is confirmed but before damage/healing/etc is applied
+        public event EventHandler<CounterAttackEvent> OnCounterAttack;            // invoked when a character attempts a counterattack
         public event EventHandler<CombatActionEvent> OnCombatTurnEnd;             // invoked when a character's action for the round and all its consequences are finished
         public event EventHandler<CombatRoundEndEvent> OnCombatRoundEnd;          // invoked when a round of combat is finished simulating
         public event EventHandler<CombatEndEvent> OnCombatEnd;                    // invoked when combat is finished
 
-        public void Commence(World currentWorld)
+        public CombatHandler(World currentWorld)
         {
             CurrentWorld = currentWorld;
+        }
 
+        public void Commence()
+        {
             Combatants = CurrentWorld.PlayerParty.Concat(CurrentWorld.Enemies).ToList();
             EnemiesKilled = new List<IEntity>();
             PartyMembersKilled = new List<IEntity>();
@@ -73,56 +78,9 @@ namespace BeyondBastion
                 if (CurrentWorld.Enemies.Count == 0 || CurrentWorld.PlayerParty.Count == 0) { break; }
                 if (action.Actor.IsDead) { continue; }
 
-                if (action.Type == CombatActionType.Attack)
+                if (action.Type == CombatActionType.Attack || action.Type == CombatActionType.Counter)
                 {
-                    while (action.Target == null || action.Target.IsDead)
-                    {
-                        action.Target = GetTargetFor(action.Actor);
-                    }
-
-                    if (Random.NextDouble() < action.Target.GetBlockChance())
-                    {
-                        CombatActionEvent e = new CombatActionEvent(
-                            action.Actor,
-                            action.Target,
-                            CombatActionType.Attack,
-                            CombatActionResult.Block,
-                            null);
-
-                        OnCombatAction?.Invoke(this, e);
-
-                        OnCombatTurnEnd?.Invoke(this, e);
-                    }
-                    else
-                    {
-                        BodyPart hitLocation = action.Target.BodyParts[Random.Next(action.Target.BodyParts.Count)];
-
-                        Injury inflictedInj = GetResultingInjuries(action.Actor, hitLocation, action.Target);
-
-                        CombatActionEvent e = new CombatActionEvent(
-                            action.Actor,
-                            action.Target,
-                            CombatActionType.Attack,
-                            CombatActionResult.Hit,
-                            hitLocation,
-                            inflictedInj);
-
-                        OnCombatAction?.Invoke(this, e);
-
-                        if (inflictedInj != null)
-                        {
-                            action.Target.Injure(hitLocation, inflictedInj, action.Actor);
-                        }
-
-                        action.Target.TakeDamage(
-                            action.Actor.GetAttackDamage(),
-                            hitLocation,
-                            DamageSource.MeleeAttack,
-                            action.Actor);
-
-
-                        OnCombatTurnEnd?.Invoke(this, e);
-                    }
+                    SimulateAttackAction(action);
                 }
                 Thread.Sleep(800 + Random.Next(1000));
             }
@@ -130,9 +88,109 @@ namespace BeyondBastion
             OnCombatRoundEnd?.Invoke(this, new CombatRoundEndEvent());
         }
 
+        public void SimulateAttackAction(CombatAction action)
+        {
+            while (action.Target == null || action.Target.IsDead)
+            {
+                action.Target = GetTargetFor(action.Actor);
+            }
+
+            if (StaticRandom.Double() < action.Target.GetBlockChance())
+            {
+                CombatActionEvent e = new CombatActionEvent(
+                    action.Actor,
+                    action.Target,
+                    action.Type,
+                    CombatActionResult.Blocked);
+
+                OnCombatAction?.Invoke(this, e);
+
+                if (StaticRandom.Double() < action.Target.GetCounterChance())
+                {
+                    OnCounterAttack?.Invoke(this, new CounterAttackEvent(action.Target, action.Actor));
+                    SimulateAttackAction(new CombatAction(action.Target, CombatActionType.Counter, action.Actor));
+                }
+
+                OnCombatTurnEnd?.Invoke(this, e);
+            }
+            else if (StaticRandom.Double() < action.Target.GetParryChance())
+            {
+                CombatActionEvent e = new CombatActionEvent(
+                    action.Actor,
+                    action.Target,
+                    action.Type,
+                    CombatActionResult.Parried,
+                    null);
+
+                OnCombatAction?.Invoke(this, e);
+
+                OnCombatTurnEnd?.Invoke(this, e);
+            }
+            else
+            {
+                BodyPart hitLocation = action.Target.BodyParts[Random.Next(action.Target.BodyParts.Count)];
+
+                Injury inflictedInj = GetResultingInjuries(action.Actor, hitLocation, action.Target);
+
+                CombatActionEvent e = new CombatActionEvent(
+                    action.Actor,
+                    action.Target,
+                    action.Type,
+                    CombatActionResult.Success,
+                    hitLocation,
+                    inflictedInj);
+
+                OnCombatAction?.Invoke(this, e);
+
+                if (inflictedInj != null)
+                {
+                    action.Target.Injure(hitLocation, inflictedInj, action.Actor);
+                }
+
+                action.Target.TakeDamage(
+                    action.Actor.GetAttackDamage(),
+                    hitLocation,
+                    DamageSource.MeleeAttack,
+                    action.Actor);
+
+                OnCombatTurnEnd?.Invoke(this, e);
+            }
+        }
+
+        public void OnDisarmEvent(object sender, EntityDisarmEvent e)
+        {
+            if (CurrentWorld.InCombat)
+            {
+                LootList.Add(new ItemStack(e.DroppedItem, 1));
+            }
+        }
+        
+        public void CheckCombatEnd()
+        {
+            if (CurrentWorld.PlayerParty.Count == 0)
+            {
+                OnCombatEnd?.Invoke(this, new CombatEndEvent(CombatEndEvent.CombatEndResult.Defeat, EnemiesKilled, PartyMembersKilled));
+            }
+            if (CurrentWorld.Enemies.Count == 0)
+            {
+                List<ItemStack> lootList = new List<ItemStack>();
+                foreach (IEntity entity in EnemiesKilled)
+                {
+                    foreach (KeyValuePair<EquipmentSlot, EquipmentItem> slotItem in entity.Equipment)
+                    {
+                        if (slotItem.Value != null)
+                        {
+                            lootList.Add(new ItemStack(slotItem.Value, 1));
+                        }
+                    }
+                }
+                OnCombatEnd?.Invoke(this, new CombatEndEvent(CombatEndEvent.CombatEndResult.Victory, EnemiesKilled, PartyMembersKilled, lootList));
+            }
+        }
+
         public Injury GetResultingInjuries(IEntity attacker, BodyPart hitLocation, IEntity defender)
         {
-            double seed = Random.NextDouble();
+            double seed = StaticRandom.Double();
             double dismemberThreshold = attacker.GetDismemberChance() * (1 - defender.GetBodyPartMitigation(hitLocation));
             foreach (Injury inj in hitLocation.GetInjuries())
             {
@@ -145,7 +203,7 @@ namespace BeyondBastion
 
             if (hitLocation.GetInjuries().Find(x => x.Type == InjuryType.Fracture) == null) // if the hitLocation body part does not already have a fracture injury
             {
-                seed = Random.NextDouble();
+                seed = StaticRandom.Double();
                 double fractureThreshold = attacker.GetFractureChance() * (1 - defender.GetBodyPartMitigation(hitLocation));
                 if (seed < fractureThreshold)
                 {
@@ -178,19 +236,7 @@ namespace BeyondBastion
                 EnemiesKilled.Add(e.EntityKilled);
             }
             Combatants.Remove(e.EntityKilled);
-
-            if (CurrentWorld.Enemies.Count == 0)
-            {
-                OnCombatEnd?.Invoke(this, new CombatEndEvent(CombatEndEvent.CombatEndResult.Victory, EnemiesKilled, PartyMembersKilled));
-                EnemiesKilled.Clear();
-                PartyMembersKilled.Clear();
-            }
-            else if (CurrentWorld.PlayerParty.Count == 0)
-            {
-                OnCombatEnd?.Invoke(this, new CombatEndEvent(CombatEndEvent.CombatEndResult.Defeat, EnemiesKilled, PartyMembersKilled));
-                EnemiesKilled.Clear();
-                PartyMembersKilled.Clear();
-            }
+            CheckCombatEnd();
         }
 
         public static int GetMaxCooldown(IEntity entity)

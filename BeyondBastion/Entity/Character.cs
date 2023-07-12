@@ -7,7 +7,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Permissions;
 using System.Text;
-using System.Threading.Tasks;
+using BeyondBastion.Items.Equipment.Shields;
 using BeyondBastion.Events;
 using BeyondBastion.Items.Consumables;
 
@@ -51,7 +51,7 @@ namespace BeyondBastion.Entity
             else
             {
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
-                return weapon.BaseDamage + GetAttackDamageMod();
+                return weapon.GetDamage() + GetAttackDamageMod();
             }
         }
         public override double GetAttackDamageMod() // returns attack damage modifier from stats
@@ -65,11 +65,11 @@ namespace BeyondBastion.Entity
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
                 if (weapon.Type == WeaponType.Power)
                 {
-                    return Math.Round(Strength * weapon.DamageScaling, 1);
+                    return Math.Round(Strength * weapon.Scaling, 1);
                 }
                 else /*if (weapon.Type == WeaponType.Technique)*/
                 {
-                    return Math.Round((Focus + Knowledge) / 2 * weapon.DamageScaling, 1);
+                    return Math.Round((Focus + Knowledge) / 2 * weapon.Scaling, 1);
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace BeyondBastion.Entity
             else
             {
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
-                return Math.Round(weapon.AttackSpeed + GetAttackSpeedMod(weapon.AttackSpeed), 1);
+                return Math.Round(weapon.GetAttackSpeed() + GetAttackSpeedMod(weapon.GetAttackSpeed()), 1);
             }
         }
         public override double GetAttackSpeedMod(double baseSpeed) // returns attack speed modifier from current Energy
@@ -92,20 +92,32 @@ namespace BeyondBastion.Entity
             return Math.Round((baseSpeed * 0.5) + (baseSpeed * 0.5 * (Energy / 100)) - baseSpeed, 1);
         }
 
-        public override double GetBlockChance()
+        public override double GetParryChance()
         {
-            double blockChance = 0;
+            double parryChance = 0;
             if (Equipment[EquipmentSlot.MainHand] != null)
             {
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
-                blockChance = weapon.BlockChance;
+                parryChance = weapon.GetParryChance() + GetParryChanceMod();
             }
-            if (Equipment[EquipmentSlot.OffHand] != null)
+            return Math.Round(parryChance, 2);
+        }
+        public override double GetParryChanceMod()
+        {
+            double parryChanceMod = 0;
+            if (Equipment[EquipmentSlot.MainHand] != null)
             {
-                ShieldItem shield = (ShieldItem)Equipment[EquipmentSlot.OffHand];
-                blockChance += shield.BlockChance;
+                WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
+                if (weapon.Type == WeaponType.Power)
+                {
+                    parryChanceMod = Strength * 0.01 * weapon.Scaling;
+                }
+                else
+                {
+                    parryChanceMod = (Knowledge + Focus) / 2 * 0.01 * weapon.Scaling;
+                }
             }
-            return Math.Round(blockChance, 2);
+            return Math.Round(parryChanceMod, 2);
         }
 
         public override double GetWoundChance() // returns total wound chance from weapon and stats
@@ -114,7 +126,7 @@ namespace BeyondBastion.Entity
             if (Equipment[EquipmentSlot.MainHand] != null)
             {
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
-                woundChance = weapon.WoundChance + GetWoundChanceMod();
+                woundChance = weapon.GetWoundChance() + GetWoundChanceMod();
             }
             return Math.Round(woundChance, 2);
         }
@@ -126,11 +138,11 @@ namespace BeyondBastion.Entity
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
                 if (weapon.Type == WeaponType.Power)
                 {
-                    woundChanceMod = Strength * weapon.DamageScaling * 0.6 / 100;
+                    woundChanceMod = Strength * weapon.Scaling * 0.6 / 100;
                 }
                 else /*if (weapon.Type == WeaponType.Technique)*/
                 {
-                    woundChanceMod = (Focus + Knowledge) / 2 * weapon.DamageScaling * 0.6 / 100;
+                    woundChanceMod = (Focus + Knowledge) / 2 * weapon.Scaling * 0.6 / 100;
                 }
             }
             return Math.Round(woundChanceMod, 2);
@@ -142,7 +154,7 @@ namespace BeyondBastion.Entity
             if (Equipment[EquipmentSlot.MainHand] != null)
             {
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
-                fractureChance = weapon.FractureChance + GetFractureChanceMod();
+                fractureChance = weapon.GetFractureChance() + GetFractureChanceMod();
             }
             return Math.Round(fractureChance, 2);
         }
@@ -154,11 +166,11 @@ namespace BeyondBastion.Entity
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
                 if (weapon.Type == WeaponType.Power)
                 {
-                    fractureChanceMod = Strength * weapon.DamageScaling * 0.6 / 100;
+                    fractureChanceMod = Strength * weapon.Scaling * 0.6 / 100;
                 }
                 else /*if (weapon.Type == WeaponType.Technique)*/
                 {
-                    fractureChanceMod = (Focus + Knowledge) / 2 * weapon.DamageScaling * 0.6 / 100;
+                    fractureChanceMod = (Focus + Knowledge) / 2 * weapon.Scaling * 0.6 / 100;
                 }
             }
             return Math.Round(fractureChanceMod, 2);
@@ -170,7 +182,7 @@ namespace BeyondBastion.Entity
             if (Equipment[EquipmentSlot.MainHand] != null)
             {
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
-                dismemberChance = weapon.DismemberChance + GetDismemberChanceMod();
+                dismemberChance = weapon.GetDismemberChance() + GetDismemberChanceMod();
             }
             return Math.Round(dismemberChance, 2);
         }
@@ -182,11 +194,11 @@ namespace BeyondBastion.Entity
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
                 if (weapon.Type == WeaponType.Power)
                 {
-                    dismemberChanceMod = Strength * weapon.DamageScaling * 0.6 / 100;
+                    dismemberChanceMod = Strength * weapon.Scaling * 0.6 / 100;
                 }
                 else /*if (weapon.Type == WeaponType.Technique)*/
                 {
-                    dismemberChanceMod = (Focus + Knowledge) / 2 * weapon.DamageScaling * 0.6 / 100;
+                    dismemberChanceMod = (Focus + Knowledge) / 2 * weapon.Scaling * 0.6 / 100;
                 }
             }
             return Math.Round(dismemberChanceMod, 2);
@@ -198,7 +210,7 @@ namespace BeyondBastion.Entity
             if (Equipment[EquipmentSlot.MainHand] != null)
             {
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
-                knockdownChance += weapon.KnockdownChance;
+                knockdownChance += weapon.GetKnockdownChance();
             }
             return Math.Round(knockdownChance + GetKnockdownChanceMod(), 2);
         }
@@ -210,15 +222,71 @@ namespace BeyondBastion.Entity
                 WeaponItem weapon = (WeaponItem)Equipment[EquipmentSlot.MainHand];
                 if (weapon.Type == WeaponType.Power)
                 {
-                    knockdownChanceMod = Strength * weapon.DamageScaling * 0.6 / 100;
+                    knockdownChanceMod = Strength * weapon.Scaling * 0.6 / 100;
                 }
                 else /*if (weapon.Type == WeaponType.Technique)*/
                 {
-                    knockdownChanceMod = (Focus + Knowledge) / 2 * weapon.DamageScaling * 0.2 / 100;
+                    knockdownChanceMod = (Focus + Knowledge) / 2 * weapon.Scaling * 0.2 / 100;
                 }
             }
             else return Math.Round(Strength * 0.2 / 100, 2);
             return Math.Round(knockdownChanceMod, 2);
+        }
+
+        public override double GetBlockChance()
+        {
+            double blockChance = 0.0;
+            if (Equipment[EquipmentSlot.OffHand] != null)
+            {
+                ShieldItem shield = (ShieldItem)Equipment[EquipmentSlot.OffHand];
+                blockChance += shield.GetBlockChance();
+            }
+            return Math.Round(blockChance + GetBlockChanceMod(), 2); ;
+        }
+        public override double GetBlockChanceMod()
+        {
+            double blockChanceMod = 0;
+            if (Equipment[EquipmentSlot.OffHand] != null)
+            {
+                ShieldItem shield = (ShieldItem)Equipment[EquipmentSlot.OffHand];
+                if (shield.Type == WeaponType.Power)
+                {
+                    blockChanceMod = Strength * shield.Scaling / 100;
+                }
+                else /*if (weapon.Type == WeaponType.Technique)*/
+                {
+                    blockChanceMod = (Focus + Knowledge) / 2 * shield.Scaling / 100;
+                }
+            }
+            return Math.Round(blockChanceMod, 2);
+        }
+
+        public override double GetCounterChance()
+        {
+            double counterChance = 0.0;
+            if (Equipment[EquipmentSlot.OffHand] != null)
+            {
+                ShieldItem shield = (ShieldItem)Equipment[EquipmentSlot.OffHand];
+                counterChance += shield.GetCounterChance();
+            }
+            return Math.Round(counterChance + GetCounterChanceMod(), 2); ;
+        }
+        public override double GetCounterChanceMod()
+        {
+            double counterChanceMod = 0;
+            if (Equipment[EquipmentSlot.OffHand] != null)
+            {
+                ShieldItem shield = (ShieldItem)Equipment[EquipmentSlot.OffHand];
+                if (shield.Type == WeaponType.Power)
+                {
+                    counterChanceMod = Strength * shield.Scaling / 100;
+                }
+                else /*if (weapon.Type == WeaponType.Technique)*/
+                {
+                    counterChanceMod = (Focus + Knowledge) / 2 * shield.Scaling / 100;
+                }
+            }
+            return Math.Round(counterChanceMod, 2);
         }
 
         public override double GetBodyPartMitigation(BodyPart bodyPart) // returns the mitigation of the armor that protects the given body part
@@ -339,11 +407,11 @@ namespace BeyondBastion.Entity
 
             if (e.WasPartyMember && CurrentWorld.PlayerParty.Contains(this))
             {
-                TakeSanityDamage(18, DamageSource.WitnessDeath, e.EntityKilled);
+                TakeSanityDamage(16, DamageSource.WitnessDeath, e.EntityKilled);
             }
             else
             {
-                TakeSanityDamage(8, DamageSource.WitnessDeath);
+                TakeSanityDamage(6, DamageSource.WitnessDeath);
             }
         }
     }

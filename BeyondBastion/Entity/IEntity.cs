@@ -40,7 +40,8 @@ namespace BeyondBastion.Entity
         double GetAttackSpeed();
         double GetAttackSpeedMod(double baseSpeed);
 
-        double GetBlockChance();
+        double GetParryChance();
+        double GetParryChanceMod();
 
         double GetWoundChance();
         double GetWoundChanceMod();
@@ -53,6 +54,12 @@ namespace BeyondBastion.Entity
 
         double GetKnockdownChance();
         double GetKnockdownChanceMod();
+
+        double GetBlockChance();
+        double GetBlockChanceMod();
+
+        double GetCounterChance();
+        double GetCounterChanceMod();
 
         double GetBodyPartMitigation(BodyPart bodyPart);
 

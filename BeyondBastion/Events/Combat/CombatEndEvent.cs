@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BeyondBastion.Entity;
+using BeyondBastion.Items;
 
 namespace BeyondBastion.Events.Combat
 {
@@ -14,14 +15,16 @@ namespace BeyondBastion.Events.Combat
             Victory,
             Defeat,
         }
-        public CombatEndEvent(CombatEndResult result, List<IEntity> enemiesKilled, List<IEntity> partyMembersKilled)
+        public CombatEndEvent(CombatEndResult result, List<IEntity> enemiesKilled, List<IEntity> partyMembersKilled, List<ItemStack> lootList=null)
         {
             Result = result;
             EnemiesKilled = enemiesKilled;
             PartyMembersKilled = partyMembersKilled;
+            LootList = lootList;
         }
         public CombatEndResult Result { get; }
         public List<IEntity> EnemiesKilled { get; }
         public List<IEntity> PartyMembersKilled { get; }
+        public List<ItemStack> LootList { get; }
     }
 }

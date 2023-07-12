@@ -64,6 +64,10 @@
             this.BaseStatsTable = new System.Windows.Forms.TableLayoutPanel();
             this.CombatBox = new System.Windows.Forms.GroupBox();
             this.CombatTable = new System.Windows.Forms.TableLayoutPanel();
+            this.BlockChanceLabel = new System.Windows.Forms.Label();
+            this.CounterChanceLabel = new System.Windows.Forms.Label();
+            this.StaticCounterChanceLabel = new System.Windows.Forms.Label();
+            this.StaticBlockChanceLabel = new System.Windows.Forms.Label();
             this.KnockdownChanceLabel = new System.Windows.Forms.Label();
             this.DismemberChanceLabel = new System.Windows.Forms.Label();
             this.FractureChanceLabel = new System.Windows.Forms.Label();
@@ -72,10 +76,10 @@
             this.StaticKnockdownChanceLabel = new System.Windows.Forms.Label();
             this.StaticDismemberChanceLabel = new System.Windows.Forms.Label();
             this.StaticWoundChanceLabel = new System.Windows.Forms.Label();
-            this.StaticBlockChanceLabel = new System.Windows.Forms.Label();
+            this.StaticParryChanceLabel = new System.Windows.Forms.Label();
             this.StaticAttackSpeedLabel = new System.Windows.Forms.Label();
             this.StaticAttackDamageLabel = new System.Windows.Forms.Label();
-            this.BlockChanceLabel = new System.Windows.Forms.Label();
+            this.ParryChanceLabel = new System.Windows.Forms.Label();
             this.AttackSpeedLabel = new System.Windows.Forms.Label();
             this.AttackDamageLabel = new System.Windows.Forms.Label();
             this.CharismaLabel = new System.Windows.Forms.Label();
@@ -154,7 +158,7 @@
             // 
             this.CharacterNameBox.Controls.Add(this.MainLayoutTable);
             this.CharacterNameBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CharacterNameBox.Font = new System.Drawing.Font("Bookman Old Style", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CharacterNameBox.Font = new System.Drawing.Font("Felix Titling", 16F);
             this.CharacterNameBox.ForeColor = System.Drawing.Color.White;
             this.CharacterNameBox.Location = new System.Drawing.Point(3, 3);
             this.CharacterNameBox.Name = "CharacterNameBox";
@@ -230,6 +234,7 @@
             this.InspectButton.TabIndex = 9;
             this.InspectButton.Text = "Inspect";
             this.InspectButton.UseVisualStyleBackColor = false;
+            this.InspectButton.Click += new System.EventHandler(this.InspectButton_Click);
             // 
             // UnequipButton
             // 
@@ -508,24 +513,30 @@
             this.CombatTable.ColumnCount = 2;
             this.CombatTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.CombatTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.CombatTable.Controls.Add(this.KnockdownChanceLabel, 1, 6);
-            this.CombatTable.Controls.Add(this.DismemberChanceLabel, 1, 5);
-            this.CombatTable.Controls.Add(this.FractureChanceLabel, 1, 4);
-            this.CombatTable.Controls.Add(this.WoundChanceLabel, 1, 3);
-            this.CombatTable.Controls.Add(this.StaticFractureChanceLabel, 0, 4);
-            this.CombatTable.Controls.Add(this.StaticKnockdownChanceLabel, 0, 6);
-            this.CombatTable.Controls.Add(this.StaticDismemberChanceLabel, 0, 5);
-            this.CombatTable.Controls.Add(this.StaticWoundChanceLabel, 0, 3);
-            this.CombatTable.Controls.Add(this.StaticBlockChanceLabel, 0, 2);
+            this.CombatTable.Controls.Add(this.BlockChanceLabel, 1, 7);
+            this.CombatTable.Controls.Add(this.CounterChanceLabel, 1, 8);
+            this.CombatTable.Controls.Add(this.StaticCounterChanceLabel, 0, 8);
+            this.CombatTable.Controls.Add(this.StaticBlockChanceLabel, 0, 7);
+            this.CombatTable.Controls.Add(this.KnockdownChanceLabel, 1, 5);
+            this.CombatTable.Controls.Add(this.DismemberChanceLabel, 1, 4);
+            this.CombatTable.Controls.Add(this.FractureChanceLabel, 1, 3);
+            this.CombatTable.Controls.Add(this.WoundChanceLabel, 1, 2);
+            this.CombatTable.Controls.Add(this.StaticFractureChanceLabel, 0, 3);
+            this.CombatTable.Controls.Add(this.StaticKnockdownChanceLabel, 0, 5);
+            this.CombatTable.Controls.Add(this.StaticDismemberChanceLabel, 0, 4);
+            this.CombatTable.Controls.Add(this.StaticWoundChanceLabel, 0, 2);
+            this.CombatTable.Controls.Add(this.StaticParryChanceLabel, 0, 6);
             this.CombatTable.Controls.Add(this.StaticAttackSpeedLabel, 0, 1);
             this.CombatTable.Controls.Add(this.StaticAttackDamageLabel, 0, 0);
-            this.CombatTable.Controls.Add(this.BlockChanceLabel, 1, 2);
+            this.CombatTable.Controls.Add(this.ParryChanceLabel, 1, 6);
             this.CombatTable.Controls.Add(this.AttackSpeedLabel, 1, 1);
             this.CombatTable.Controls.Add(this.AttackDamageLabel, 1, 0);
             this.CombatTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CombatTable.Location = new System.Drawing.Point(2, 21);
             this.CombatTable.Name = "CombatTable";
-            this.CombatTable.RowCount = 8;
+            this.CombatTable.RowCount = 10;
+            this.CombatTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.CombatTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.CombatTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.CombatTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.CombatTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -537,12 +548,60 @@
             this.CombatTable.Size = new System.Drawing.Size(311, 252);
             this.CombatTable.TabIndex = 1;
             // 
+            // BlockChanceLabel
+            // 
+            this.BlockChanceLabel.AutoSize = true;
+            this.BlockChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BlockChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BlockChanceLabel.Location = new System.Drawing.Point(158, 175);
+            this.BlockChanceLabel.Name = "BlockChanceLabel";
+            this.BlockChanceLabel.Size = new System.Drawing.Size(150, 25);
+            this.BlockChanceLabel.TabIndex = 17;
+            this.BlockChanceLabel.Text = "10%";
+            this.BlockChanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // CounterChanceLabel
+            // 
+            this.CounterChanceLabel.AutoSize = true;
+            this.CounterChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CounterChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CounterChanceLabel.Location = new System.Drawing.Point(158, 200);
+            this.CounterChanceLabel.Name = "CounterChanceLabel";
+            this.CounterChanceLabel.Size = new System.Drawing.Size(150, 25);
+            this.CounterChanceLabel.TabIndex = 16;
+            this.CounterChanceLabel.Text = "10%";
+            this.CounterChanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // StaticCounterChanceLabel
+            // 
+            this.StaticCounterChanceLabel.AutoSize = true;
+            this.StaticCounterChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StaticCounterChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StaticCounterChanceLabel.Location = new System.Drawing.Point(3, 200);
+            this.StaticCounterChanceLabel.Name = "StaticCounterChanceLabel";
+            this.StaticCounterChanceLabel.Size = new System.Drawing.Size(149, 25);
+            this.StaticCounterChanceLabel.TabIndex = 15;
+            this.StaticCounterChanceLabel.Text = "Counter:";
+            this.StaticCounterChanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // StaticBlockChanceLabel
+            // 
+            this.StaticBlockChanceLabel.AutoSize = true;
+            this.StaticBlockChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StaticBlockChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StaticBlockChanceLabel.Location = new System.Drawing.Point(3, 175);
+            this.StaticBlockChanceLabel.Name = "StaticBlockChanceLabel";
+            this.StaticBlockChanceLabel.Size = new System.Drawing.Size(149, 25);
+            this.StaticBlockChanceLabel.TabIndex = 14;
+            this.StaticBlockChanceLabel.Text = "Block:";
+            this.StaticBlockChanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // KnockdownChanceLabel
             // 
             this.KnockdownChanceLabel.AutoSize = true;
             this.KnockdownChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.KnockdownChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KnockdownChanceLabel.Location = new System.Drawing.Point(158, 150);
+            this.KnockdownChanceLabel.Location = new System.Drawing.Point(158, 125);
             this.KnockdownChanceLabel.Name = "KnockdownChanceLabel";
             this.KnockdownChanceLabel.Size = new System.Drawing.Size(150, 25);
             this.KnockdownChanceLabel.TabIndex = 13;
@@ -554,7 +613,7 @@
             this.DismemberChanceLabel.AutoSize = true;
             this.DismemberChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DismemberChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DismemberChanceLabel.Location = new System.Drawing.Point(158, 125);
+            this.DismemberChanceLabel.Location = new System.Drawing.Point(158, 100);
             this.DismemberChanceLabel.Name = "DismemberChanceLabel";
             this.DismemberChanceLabel.Size = new System.Drawing.Size(150, 25);
             this.DismemberChanceLabel.TabIndex = 12;
@@ -566,7 +625,7 @@
             this.FractureChanceLabel.AutoSize = true;
             this.FractureChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FractureChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FractureChanceLabel.Location = new System.Drawing.Point(158, 100);
+            this.FractureChanceLabel.Location = new System.Drawing.Point(158, 75);
             this.FractureChanceLabel.Name = "FractureChanceLabel";
             this.FractureChanceLabel.Size = new System.Drawing.Size(150, 25);
             this.FractureChanceLabel.TabIndex = 11;
@@ -578,7 +637,7 @@
             this.WoundChanceLabel.AutoSize = true;
             this.WoundChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.WoundChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WoundChanceLabel.Location = new System.Drawing.Point(158, 75);
+            this.WoundChanceLabel.Location = new System.Drawing.Point(158, 50);
             this.WoundChanceLabel.Name = "WoundChanceLabel";
             this.WoundChanceLabel.Size = new System.Drawing.Size(150, 25);
             this.WoundChanceLabel.TabIndex = 10;
@@ -590,7 +649,7 @@
             this.StaticFractureChanceLabel.AutoSize = true;
             this.StaticFractureChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StaticFractureChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StaticFractureChanceLabel.Location = new System.Drawing.Point(3, 100);
+            this.StaticFractureChanceLabel.Location = new System.Drawing.Point(3, 75);
             this.StaticFractureChanceLabel.Name = "StaticFractureChanceLabel";
             this.StaticFractureChanceLabel.Size = new System.Drawing.Size(149, 25);
             this.StaticFractureChanceLabel.TabIndex = 9;
@@ -602,7 +661,7 @@
             this.StaticKnockdownChanceLabel.AutoSize = true;
             this.StaticKnockdownChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StaticKnockdownChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StaticKnockdownChanceLabel.Location = new System.Drawing.Point(3, 150);
+            this.StaticKnockdownChanceLabel.Location = new System.Drawing.Point(3, 125);
             this.StaticKnockdownChanceLabel.Name = "StaticKnockdownChanceLabel";
             this.StaticKnockdownChanceLabel.Size = new System.Drawing.Size(149, 25);
             this.StaticKnockdownChanceLabel.TabIndex = 8;
@@ -614,7 +673,7 @@
             this.StaticDismemberChanceLabel.AutoSize = true;
             this.StaticDismemberChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StaticDismemberChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StaticDismemberChanceLabel.Location = new System.Drawing.Point(3, 125);
+            this.StaticDismemberChanceLabel.Location = new System.Drawing.Point(3, 100);
             this.StaticDismemberChanceLabel.Name = "StaticDismemberChanceLabel";
             this.StaticDismemberChanceLabel.Size = new System.Drawing.Size(149, 25);
             this.StaticDismemberChanceLabel.TabIndex = 7;
@@ -626,24 +685,24 @@
             this.StaticWoundChanceLabel.AutoSize = true;
             this.StaticWoundChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.StaticWoundChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StaticWoundChanceLabel.Location = new System.Drawing.Point(3, 75);
+            this.StaticWoundChanceLabel.Location = new System.Drawing.Point(3, 50);
             this.StaticWoundChanceLabel.Name = "StaticWoundChanceLabel";
             this.StaticWoundChanceLabel.Size = new System.Drawing.Size(149, 25);
             this.StaticWoundChanceLabel.TabIndex = 6;
             this.StaticWoundChanceLabel.Text = "Wound:";
             this.StaticWoundChanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // StaticBlockChanceLabel
+            // StaticParryChanceLabel
             // 
-            this.StaticBlockChanceLabel.AutoSize = true;
-            this.StaticBlockChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StaticBlockChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StaticBlockChanceLabel.Location = new System.Drawing.Point(3, 50);
-            this.StaticBlockChanceLabel.Name = "StaticBlockChanceLabel";
-            this.StaticBlockChanceLabel.Size = new System.Drawing.Size(149, 25);
-            this.StaticBlockChanceLabel.TabIndex = 5;
-            this.StaticBlockChanceLabel.Text = "Block:";
-            this.StaticBlockChanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.StaticParryChanceLabel.AutoSize = true;
+            this.StaticParryChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StaticParryChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StaticParryChanceLabel.Location = new System.Drawing.Point(3, 150);
+            this.StaticParryChanceLabel.Name = "StaticParryChanceLabel";
+            this.StaticParryChanceLabel.Size = new System.Drawing.Size(149, 25);
+            this.StaticParryChanceLabel.TabIndex = 5;
+            this.StaticParryChanceLabel.Text = "Parry:";
+            this.StaticParryChanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // StaticAttackSpeedLabel
             // 
@@ -669,17 +728,17 @@
             this.StaticAttackDamageLabel.Text = "Attack Damage:";
             this.StaticAttackDamageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // BlockChanceLabel
+            // ParryChanceLabel
             // 
-            this.BlockChanceLabel.AutoSize = true;
-            this.BlockChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BlockChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BlockChanceLabel.Location = new System.Drawing.Point(158, 50);
-            this.BlockChanceLabel.Name = "BlockChanceLabel";
-            this.BlockChanceLabel.Size = new System.Drawing.Size(150, 25);
-            this.BlockChanceLabel.TabIndex = 2;
-            this.BlockChanceLabel.Text = "10%";
-            this.BlockChanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ParryChanceLabel.AutoSize = true;
+            this.ParryChanceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ParryChanceLabel.Font = new System.Drawing.Font("Bookman Old Style", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ParryChanceLabel.Location = new System.Drawing.Point(158, 150);
+            this.ParryChanceLabel.Name = "ParryChanceLabel";
+            this.ParryChanceLabel.Size = new System.Drawing.Size(150, 25);
+            this.ParryChanceLabel.TabIndex = 2;
+            this.ParryChanceLabel.Text = "10%";
+            this.ParryChanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // AttackSpeedLabel
             // 
@@ -839,7 +898,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox CombatBox;
         private System.Windows.Forms.TableLayoutPanel CombatTable;
-        private System.Windows.Forms.Label BlockChanceLabel;
+        private System.Windows.Forms.Label ParryChanceLabel;
         private System.Windows.Forms.Label AttackSpeedLabel;
         private System.Windows.Forms.Label AttackDamageLabel;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -852,7 +911,7 @@
         private System.Windows.Forms.Label StaticSanityLabel;
         private System.Windows.Forms.Label StaticAttackDamageLabel;
         private System.Windows.Forms.Label StaticAttackSpeedLabel;
-        private System.Windows.Forms.Label StaticBlockChanceLabel;
+        private System.Windows.Forms.Label StaticParryChanceLabel;
         private System.Windows.Forms.Label StaticWoundChanceLabel;
         private System.Windows.Forms.Label StaticDismemberChanceLabel;
         private System.Windows.Forms.Label StaticKnockdownChanceLabel;
@@ -861,5 +920,9 @@
         private System.Windows.Forms.Label FractureChanceLabel;
         private System.Windows.Forms.Label DismemberChanceLabel;
         private System.Windows.Forms.Label KnockdownChanceLabel;
+        private System.Windows.Forms.Label StaticBlockChanceLabel;
+        private System.Windows.Forms.Label StaticCounterChanceLabel;
+        private System.Windows.Forms.Label CounterChanceLabel;
+        private System.Windows.Forms.Label BlockChanceLabel;
     }
 }

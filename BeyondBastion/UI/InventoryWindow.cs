@@ -13,6 +13,7 @@ using BeyondBastion.Items.Equipment;
 using BeyondBastion.Entity;
 using BeyondBastion.Items.Consumables;
 using System.Collections;
+using BeyondBastion.Items.Equipment.Shields;
 
 namespace BeyondBastion
 {
@@ -58,22 +59,8 @@ namespace BeyondBastion
             ConsumeButton.Enabled = false;
             DestroyButton.Enabled = false;
 
-            string[] listArray = new string[4];
-            
-            foreach (ItemStack stack in currentWorld.Inventory.Contents)
-            {
-                listArray[0] = stack.Item.Name;
-                listArray[1] = stack.Count.ToString();
-                listArray[2] = (stack.Count * stack.Item.Weight).ToString("0.0");
-                listArray[3] = (stack.Count * stack.Item.Value).ToString();
+            UIMethods.WriteInventoryToListView(currentWorld.Inventory.Contents, InventoryList);
 
-                ListViewItem listItem = new ListViewItem(listArray)
-                {
-                    Tag = stack,
-                };
-
-                InventoryList.Items.Add(listItem);
-            }
             InventoryList.EndUpdate();
             UpdateDetailsBox();
             ParentWindow.UpdateDisplay();
@@ -81,18 +68,27 @@ namespace BeyondBastion
 
         private void UpdateDetailsBox()
         {
+            ItemNameLabel.Text = string.Empty;
+            ItemDescriptionLabel.Text = "No item selected.";
+            BlessingDescriptionLabel.Text = string.Empty;
+
+            foreach (KeyValuePair<Label, Label> pair in LabelValuePairs)
+            {
+                pair.Key.Text = string.Empty;
+                pair.Value.Text = string.Empty;
+            }
+
             if (SelectedStack != null)
             {
-                if (SelectedStack.Item is WeaponItem)
-                {
-                    WeaponItem weaponItem = (WeaponItem)SelectedStack.Item;
+                ItemNameLabel.Text = SelectedStack.Item.Name;
+                ItemQualityLabel.Text = string.Empty;
+                ItemNameLabel.ForeColor = Color.White;
+                ItemDescriptionLabel.Text = SelectedStack.Item.Description;
 
-                    ItemNameLabel.Text = weaponItem.Name;
-                    switch (weaponItem.Tier)
+                if (SelectedStack.Item is EquipmentItem equipmentItem)
+                {
+                    switch (equipmentItem.Tier)
                     {
-                        case Tier.Standard:
-                            ItemNameLabel.ForeColor = Color.White;
-                            break;
                         case Tier.Blessed:
                             ItemNameLabel.ForeColor = Color.Turquoise;
                             break;
@@ -100,36 +96,42 @@ namespace BeyondBastion
                             ItemNameLabel.ForeColor = Color.Magenta;
                             break;
                     }
-                    ItemDescriptionLabel.Text = weaponItem.Description;
 
-                    Label1.Text = "Damage:";
-                    Value1.Text = weaponItem.BaseDamage.ToString();
-                    Label2.Text = "Attack Speed:";
-                    Value2.Text = weaponItem.AttackSpeed.ToString();
-                    Label3.Text = "Weapon Type:";
-                    Value3.Text = weaponItem.Type.ToString() + $" ({weaponItem.DamageScaling * 100}%)";
-                    Label4.Text = "Block:";
-                    Value4.Text = (weaponItem.BlockChance * 100).ToString() + "%";
-                    Label5.Text = "Wound:";
-                    Value5.Text = (weaponItem.WoundChance * 100).ToString() + "%";
-                    Label6.Text = "Fracture:";
-                    Value6.Text = (weaponItem.FractureChance * 100).ToString() + "%";
-                    Label7.Text = "Dismemberment:";
-                    Value7.Text = (weaponItem.DismemberChance * 100).ToString() + "%";
-                    Label8.Text = "Knockdown:";
-                    Value8.Text = (weaponItem.KnockdownChance * 100).ToString() + "%";
+                    ItemQualityLabel.Text = QualityLevel.GetTier(equipmentItem.Quality);
+                    ItemQualityLabel.ForeColor = QualityLevel.GetColor(equipmentItem.Quality);
+
+                    if (SelectedStack.Item is WeaponItem weaponItem)
+                    {
+                        Label1.Text = "Damage:";
+                        Value1.Text = weaponItem.GetDamage().ToString();
+                        Label2.Text = "Attack Speed:";
+                        Value2.Text = weaponItem.GetAttackSpeed().ToString();
+                        Label3.Text = "Weapon Type:";
+                        Value3.Text = weaponItem.Type.ToString() + $" ({weaponItem.Scaling * 100}%)";
+                        Label4.Text = "Wound:";
+                        Value4.Text = (weaponItem.GetWoundChance() * 100).ToString() + "%";
+                        Label5.Text = "Fracture:";
+                        Value5.Text = (weaponItem.GetFractureChance() * 100).ToString() + "%";
+                        Label6.Text = "Dismemberment:";
+                        Value6.Text = (weaponItem.GetDismemberChance() * 100).ToString() + "%";
+                        Label7.Text = "Knockdown:";
+                        Value7.Text = (weaponItem.GetKnockdownChance() * 100).ToString() + "%";
+                        Label8.Text = "Parry:";
+                        Value8.Text = (weaponItem.GetParryChance() * 100).ToString() + "%";
+                    }
+                    else if (SelectedStack.Item is ShieldItem shieldItem)
+                    {
+                        Label1.Text = "Block:";
+                        Value1.Text = (shieldItem.GetBlockChance() * 100).ToString() + "%";
+                        Label2.Text = "Counter:";
+                        Value2.Text = (shieldItem.GetCounterChance() * 100).ToString() + "%";
+                        Label3.Text = "Shield Type:";
+                        Value3.Text = shieldItem.Type.ToString() + $" ({shieldItem.Scaling * 100}%)";
+                    }
                 }
-            }
-            else
-            {
-                ItemNameLabel.Text = string.Empty;
-                ItemDescriptionLabel.Text = "No item selected.";
-                BlessingDescriptionLabel.Text = string.Empty;
-
-                foreach (KeyValuePair<Label, Label> pair in LabelValuePairs)
+                else
                 {
-                    pair.Key.Text = string.Empty;
-                    pair.Value.Text = string.Empty;
+                    ItemDescriptionLabel.Text = SelectedStack.Item.Description;
                 }
             }
         }
@@ -177,7 +179,7 @@ namespace BeyondBastion
                 Character selectedCharacter = (Character)selectDialog.ReturnObject;
                 if (selectedCharacter.Equipment[SelectedEquipmentItem.Slot] != null)
                 {
-                    YesNoDialog yesNo = new YesNoDialog($"{selectedCharacter.Name} already has {selectedCharacter.Equipment[SelectedEquipmentItem.Slot].Name} equipped in their {SelectedEquipmentItem.Slot}. Swap it out for {SelectedEquipmentItem.Name}?");
+                    YesNoDialog yesNo = new YesNoDialog($"{selectedCharacter.Name} already has {selectedCharacter.Equipment[SelectedEquipmentItem.Slot].Name} equipped in their {SelectedEquipmentItem.Slot}. Replace it with {SelectedEquipmentItem.Name}?");
                     result = yesNo.ShowDialog();
                     if (result == DialogResult.No)
                     {

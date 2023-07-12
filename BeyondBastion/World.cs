@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BeyondBastion.Entity;
-using BeyondBastion.Entity.BodyParts;
 using BeyondBastion.Events;
 using BeyondBastion.Items;
 using BeyondBastion.Items.Equipment.Weapons;
+using BeyondBastion.Items.Equipment.Shields;
 using BeyondBastion.UI;
 using BeyondBastion.Items.Consumables;
 using System;
@@ -20,12 +18,25 @@ namespace BeyondBastion
         public World()
         {
             Inventory.Add(new Shortsword());
+            Inventory.Add(new Shortsword());
+            Inventory.Add(new Shortsword());
+            Inventory.Add(new Shortsword());
+            Inventory.Add(new Shortsword());
+            Inventory.Add(new Shortsword());
+            Inventory.Add(new Shortsword());
+            Inventory.Add(new Shortsword());
             Inventory.Add(new ItemStack(new Bread(), 12));
+            Inventory.Add(new Buckler());
 
-            log = new Log(this);
-            Combat.OnCombatRoundStart += log.OnCombatRoundStart;
-            Combat.OnCombatAction += log.OnCombatAction;
+            Combat = new CombatHandler(this);
+            Log = new Log(this);
+
+            Combat.OnCombatRoundStart += Log.OnCombatRoundStart;
+            Combat.OnCombatAction += Log.OnCombatAction;
+            Combat.OnCounterAttack += Log.OnCounterAttack;
+            Combat.OnCombatEnd += Log.OnCombatEnd;
             Combat.OnCombatEnd += EndCombat;
+
             NearbyEntities = new List<IEntity>();
             Enemies = new List<IEntity>();
 
@@ -42,11 +53,19 @@ namespace BeyondBastion
             Enemies[1].Equipment[Items.Equipment.EquipmentSlot.MainHand] = new Shortsword();
             Enemies[2].Equipment[Items.Equipment.EquipmentSlot.MainHand] = new Shortsword();
 
+            Enemies[0].Equipment[Items.Equipment.EquipmentSlot.OffHand] = new Buckler();
+            Enemies[1].Equipment[Items.Equipment.EquipmentSlot.OffHand] = new Buckler();
+            Enemies[2].Equipment[Items.Equipment.EquipmentSlot.OffHand] = new Buckler();
+
             PlayerParty[0].Equipment[Items.Equipment.EquipmentSlot.MainHand] = new Shortsword();
             PlayerParty[1].Equipment[Items.Equipment.EquipmentSlot.MainHand] = new Shortsword();
             PlayerParty[2].Equipment[Items.Equipment.EquipmentSlot.MainHand] = new Shortsword();
             PlayerParty[3].Equipment[Items.Equipment.EquipmentSlot.MainHand] = new Shortsword();
 
+            PlayerParty[0].Equipment[Items.Equipment.EquipmentSlot.OffHand] = new Buckler();
+            PlayerParty[1].Equipment[Items.Equipment.EquipmentSlot.OffHand] = new Buckler();
+            PlayerParty[2].Equipment[Items.Equipment.EquipmentSlot.OffHand] = new Buckler();
+            PlayerParty[3].Equipment[Items.Equipment.EquipmentSlot.OffHand] = new Buckler();
 
             CreateEntity("Flarp");
 
@@ -58,14 +77,14 @@ namespace BeyondBastion
         public List<IEntity> NearbyEntities { get; }
         public List<IEntity> Enemies { get; }
 
-        public Log log;
+        public Log Log;
 
         public Inventory Inventory { get; } = new Inventory();
         public int Girn { get; set; } = 0;
         public int Hour { get; set; }
         public int Day { get; set; }
 
-        public CombatHandler Combat { get; set; } = new CombatHandler();
+        public CombatHandler Combat { get; }
         public bool InCombat { get; set; } = false;
 
         public IEntity CreateEntity(string name)
@@ -73,13 +92,14 @@ namespace BeyondBastion
             Character character = new Character(name, this);
             NearbyEntities.Add(character);
 
-            character.DeathEvent += log.OnDeathEvent;
-            character.DeathEvent += Combat.OnEntityDeath;
+            character.DeathEvent += Log.OnDeathEvent;
             character.DeathEvent += OnEntityDeath;
+            character.DeathEvent += Combat.OnEntityDeath;
 
-            character.DisarmEvent += log.OnDisarmEvent;
+            character.DisarmEvent += Log.OnDisarmEvent;
+            character.DisarmEvent += Combat.OnDisarmEvent;
 
-            character.Eat += log.OnCharacterConsumeEvent;
+            character.Eat += Log.OnCharacterConsumeEvent;
 
             return character;
         }
@@ -102,14 +122,15 @@ namespace BeyondBastion
             {
                 if (!Enemies.Contains(entity)) Enemies.Add(entity);
             }
-            Combat.Commence(this);
+            Combat.Commence();
         }
 
         public void EndCombat(object sender, CombatEndEvent e)
         {
-            foreach (IEntity enemy in e.EnemiesKilled)
+            if (e.Result == CombatEndEvent.CombatEndResult.Victory && e.LootList != null)
             {
-                // TODO: allow looting of dead enemies
+                TransactionWindow transWindow = new TransactionWindow("Loot", e.LootList, "Corpses", Inventory.Contents, "Party Inventory");
+                transWindow.ShowDialog();
             }
             InCombat = false;
         }

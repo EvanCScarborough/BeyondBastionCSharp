@@ -14,7 +14,7 @@ namespace BeyondBastion.Items.Consumables
     }
     public abstract class FoodItem : Item
     {
-        public FoodItem(string name, string description, double weight, double value, FoodType type, double bonusAmnt, double stomachAmnt) : base(name, description, weight, value, consumable: true)
+        public FoodItem(string name, string description, double weight, int value, FoodType type, double bonusAmnt, double stomachAmnt) : base(name, description, weight, value, consumable: true)
         {
             Type = type;
             BonusAmnt = bonusAmnt;
