@@ -50,12 +50,12 @@ namespace BeyondBastion.UI
             Close();
         }
 
-        private void BuyerInventoryBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void SellerInventoryBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //BuyerInventoryBox.SelectedItems.Clear();
-            if (BuyerInventoryBox.SelectedItems.Count > 0)
+            if (SellerInventoryBox.SelectedItems.Count > 0)
             {
-                SelectedStack = BuyerInventoryBox.SelectedItems[0].Tag as ItemStack;
+                SelectedStack = SellerInventoryBox.SelectedItems[0].Tag as ItemStack;
 
                 InspectButton.Enabled = true;
                 SwapButton.Enabled = true;
@@ -69,12 +69,11 @@ namespace BeyondBastion.UI
             }
         }
 
-        private void SellerInventoryBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void BuyerInventoryBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //BuyerInventoryBox.SelectedItems.Clear();
-            if (SellerInventoryBox.SelectedItems.Count > 0)
+            if (BuyerInventoryBox.SelectedItems.Count > 0)
             {
-                SelectedStack = SellerInventoryBox.SelectedItems[0].Tag as ItemStack;
+                SelectedStack = BuyerInventoryBox.SelectedItems[0].Tag as ItemStack;
 
                 InspectButton.Enabled = true;
                 SwapButton.Enabled = true;
@@ -106,6 +105,9 @@ namespace BeyondBastion.UI
 
                     UpdateInventoryBoxes();
                 }
+                InspectButton.Enabled = false;
+                SwapButton.Enabled = false;
+                SelectedStack = null;
             }
         }
 

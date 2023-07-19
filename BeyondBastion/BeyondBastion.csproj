@@ -134,14 +134,14 @@
     </Compile>
     <Compile Include="UI\StatBar.cs" />
     <Compile Include="Log.cs" />
-    <Compile Include="UI\StyleRules.cs" />
+    <Compile Include="UI\Resources\StyleRules.cs" />
     <Compile Include="UI\TransactionWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\TransactionWindow.Designer.cs">
       <DependentUpon>TransactionWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UIMethods.cs" />
+    <Compile Include="UI\Resources\UIMethods.cs" />
     <Compile Include="World.cs" />
     <Compile Include="UI\YesNoDialog.cs">
       <SubType>Form</SubType>
